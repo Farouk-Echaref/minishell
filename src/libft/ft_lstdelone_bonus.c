@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/16 23:14:29 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/16 23:15:15 by mzarhou          ###   ########.fr       */
+/*   Created: 2021/11/05 10:29:43 by mzarhou           #+#    #+#             */
+/*   Updated: 2021/11/08 18:03:33 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
+#include <stdlib.h>
 
-int main()
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-    printf("here we go\n");
+	if (lst)
+	{
+		(*del)(lst->content);
+		free(lst);
+	}
 }
