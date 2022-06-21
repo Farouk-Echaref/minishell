@@ -1,6 +1,6 @@
 #include "token.h"
 
-t_token *ft_new_token(const char *value, t_type *type, int length)
+t_token *ft_new_token(const char *value, t_type type, int length)
 {
     t_token *t;
 
