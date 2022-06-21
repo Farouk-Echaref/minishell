@@ -3,6 +3,7 @@
         ".php_cs": "php",
         ".php_cs.dist": "php",
         "lexer.h": "c",
-        "token.h": "c"
+        "token.h": "c",
+        "libft.h": "c"
     }
 }

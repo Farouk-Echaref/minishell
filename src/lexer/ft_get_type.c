@@ -1,13 +1,14 @@
 #include "lexer.h"
 
-void    ft_move_content(t_lexer *lxr, int length)
+void	ft_move_content(t_lexer *lxr, int length)
 {
-    lxr->content += length;
+	lxr->content += length;
 }
 
-int ft_is_command(char *s)
+void	ft_move_2space(t_lexer *lxr)
 {
-
+	while (lxr->content && *lxr->content && *lxr->content != ' ')
+		lxr->content++;
 }
 
 t_type  ft_get_type(t_lexer *lxr)
@@ -36,4 +37,5 @@ t_type  ft_get_type(t_lexer *lxr)
         return (ft_move_content(lxr, 1), DOUB_QUOT);
     if (*lxr->content == '|')
         return (ft_move_content(lxr, 1), PIPE);
+	return (ft_move_2space(lxr), EXPRESSION);
 }

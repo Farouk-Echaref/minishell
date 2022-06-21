@@ -1,5 +1,6 @@
 ODIR = build
-SRCS = ${filter-out ${wildcard src/libft/*.c}, ${wildcard src/**/*.c, wildcard src/*.c}}
+_SRCS = ${wildcard src/**/*.c} ${wildcard src/*.c}
+SRCS = ${filter-out ${wildcard src/libft/*.c}, ${_SRCS}}
 OBJS = ${patsubst %.c, ${ODIR}/%.o, ${SRCS}}
 CC = cc
 INC = src
@@ -15,7 +16,7 @@ ${ODIR}/%.o: %.c ${INCLUDES}
 
 all: ${NAME}
 
-${NAME}: ${OBJS}
+$(NAME): ${OBJS}
 	${MAKE} bonus -C src/libft
 	${CC} ${OBJS} -L./src/libft -lft -o ${NAME}
 
