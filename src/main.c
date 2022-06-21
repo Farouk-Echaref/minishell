@@ -3,32 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/18 03:34:17 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/21 21:41:45 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "token.h"
 #include "libft/libft.h"
-
-typedef enum e_type t_type;
-typedef struct s_token t_token;
-
-enum    e_type
-{
-    e_operator = 1,
-    e_command
-};
-
-struct s_token
-{
-    t_type  type;
-    char    *value;
-    int     length;
-};
-
 
 t_list  *ft_tokonize(char *s)
 {
