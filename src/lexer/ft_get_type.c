@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_type.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
+/*   Updated: 2022/06/22 04:18:47 by fech-cha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 
 void	ft_move_content(t_lexer *lxr, int length)
@@ -36,8 +48,29 @@ void	ft_move2_next_token(t_lexer *lxr)
 		lxr->content++;
 }
 
+int	check_whitespace(t_lexer *lxr)
+{
+	int	move;
+	char *org;
+
+	move = 0;
+	org = (char *)lxr->content;
+	if (*lxr->content == ' ')
+	{
+		while (*lxr->content == ' ')
+		{
+			lxr->content++;
+			move++;
+		}
+	}
+	lxr->content = org;
+	return (move);
+}
+
 t_type  ft_get_type(t_lexer *lxr)
 {
+	if (*lxr->content == ' ')
+        return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
         return (ft_move_content(lxr, 2), SHIFT_LEFT);
     if (ft_strncmp(lxr->content, ">>", 2) == 0)

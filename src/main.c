@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 03:16:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 04:16:53 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_str(const char *s, int len)
 int main()
 {
 	char	*s = "ls -al|grep 2>";
-t_lexer	*lxr;
+	t_lexer	*lxr;
 	while (1)
 	{
 		s = readline("minishell> ");
@@ -48,7 +48,7 @@ t_lexer	*lxr;
 		while (lst)
 		{
 			token = lst->content;
-			printf("%d					%s						 		=> %d\n", token->type, ft_str(token->value, token->length), token->length);
+			printf("%d					%s						=> %d\n", token->type, ft_str(token->value, token->length), token->length);
 			lst = lst->next;
 		}
 		ft_destroy_lexer(lxr);

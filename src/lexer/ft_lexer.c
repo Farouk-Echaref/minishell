@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 00:40:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 04:18:34 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,6 @@ void	ft_lexer(t_lexer *lxr)
 
     while (lxr->content && *lxr->content)
     {
-		if (*lxr->content == ' ')
-		{
-			lxr->content++;
-			continue;
-		}
 		value = lxr->content;
 		type = ft_get_type(lxr);
 		len = lxr->content - value;
