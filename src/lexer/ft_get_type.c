@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 09:50:26 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 10:14:36 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	check_dollar(t_lexer *lxr)
 
 	move = 0;
 	org = (char *)lxr->content;
-	if (*lxr->content == '$' && *(lxr->content + 1) != '$')
+	if (*lxr->content == '$' && *(lxr->content + 1) != '$' && *(lxr->content + 1) != '?')
 	{
 		move = 1;
 		if (*lxr->content != '\0')
