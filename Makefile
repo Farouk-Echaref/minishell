@@ -18,7 +18,7 @@ all: ${NAME}
 
 $(NAME): ${OBJS}
 	${MAKE} bonus -C src/libft
-	${CC} ${OBJS} -L./src/libft -lft -o ${NAME}
+	${CC} ${OBJS} -L./src/libft -lft -lreadline -o ${NAME}
 
 clean:
 	${RM} ${ODIR}

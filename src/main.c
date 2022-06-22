@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 00:50:10 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 03:16:47 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "token/token.h"
 #include "lexer/lexer.h"
 #include "libft/libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
 char	*ft_str(const char *s, int len)
@@ -33,18 +35,22 @@ char	*ft_str(const char *s, int len)
 
 int main()
 {
-	char	*s = "ls -a > test.txt && cat << ts 1> test.txt";
-	t_lexer	*lxr = ft_init_lexer(s);
-	ft_lexer(lxr);
-	printf("%p\n", lxr->tokens);
-	t_list	*lst = lxr->tokens;
-	t_token *token = NULL;
-
-	while (lst)
+	char	*s = "ls -al|grep 2>";
+t_lexer	*lxr;
+	while (1)
 	{
-		token = lst->content;
-		printf("%d					%s						 		=> %d\n", token->type, ft_str(token->value, token->length), token->length);
-		lst = lst->next;
+		s = readline("minishell> ");
+		lxr = ft_init_lexer(s);
+		ft_lexer(lxr);
+		printf("%p\n", lxr->tokens);
+		t_list	*lst = lxr->tokens;
+		t_token *token = NULL;
+		while (lst)
+		{
+			token = lst->content;
+			printf("%d					%s						 		=> %d\n", token->type, ft_str(token->value, token->length), token->length);
+			lst = lst->next;
+		}
+		ft_destroy_lexer(lxr);
 	}
-	ft_destroy_lexer(lxr);
 }
