@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 04:18:43 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/22 07:06:56 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ enum    e_type
 	SING_QUOT = 14,
 	DOUB_QUOT = 15,
 	PIPE = 16,
-    FILE_NAME = 17,
-    EXPRESSION = 18,
-    OTHER = 19
+	VAR = 17,
+    FILE_NAME = 18,
+    EXPRESSION = 19,
+    OTHER = 20
 };
 
 struct s_token
