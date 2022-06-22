@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 04:18:47 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/22 07:30:19 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ t_type  ft_get_type_of_char(char c)
     if (c == '*')
         return (STAR);
     if (c == '(')
-        return (LEFT_PAR);
-    if (c == ')')
-        return (RIGHT_PAR);
+        return (SUB_CMD);
     if (c == '\'')
         return (SING_QUOT);
     if (c == '"')
@@ -67,6 +65,37 @@ int	check_whitespace(t_lexer *lxr)
 	return (move);
 }
 
+void	ft_handle_matching(t_lexer *lxr, char c)
+{
+	char	*matching;
+
+	matching = ft_strchr(lxr->content + 1, c);
+	if (matching != NULL)
+		ft_move_content(lxr, matching - lxr->content + 1);
+	else
+		ft_move_content(lxr, 1);
+}
+
+void	ft_handle_diff_matching(t_lexer *lxr, char opening_match, char closing_match)
+{
+	int			i;
+	const char	*s;
+
+	i = 1;
+	s = lxr->content + 1;
+	while (s && *s)
+	{
+		if (*s == opening_match)
+			i++;
+		else if (*s == closing_match)
+			i--;
+		if (i == 0)
+			return (ft_move_content(lxr, s - lxr->content + 1));
+		s++;
+	}
+	ft_move_content(lxr, 1);
+}
+
 t_type  ft_get_type(t_lexer *lxr)
 {
 	if (*lxr->content == ' ')
@@ -86,13 +115,11 @@ t_type  ft_get_type(t_lexer *lxr)
     if (*lxr->content == '*')
         return (ft_move_content(lxr, 1), STAR);
     if (*lxr->content == '(')
-        return (ft_move_content(lxr, 1), LEFT_PAR);
-    if (*lxr->content == ')')
-        return (ft_move_content(lxr, 1), RIGHT_PAR);
+		return (ft_handle_diff_matching(lxr, '(', ')'), SUB_CMD);
     if (*lxr->content == '\'')
-        return (ft_move_content(lxr, 1), SING_QUOT);
+		return (ft_handle_matching(lxr, '\''), SING_QUOT);
     if (*lxr->content == '"')
-        return (ft_move_content(lxr, 1), DOUB_QUOT);
+		return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
     if (*lxr->content == '|')
         return (ft_move_content(lxr, 1), PIPE);
 	return (ft_move2_next_token(lxr), EXPRESSION);

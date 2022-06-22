@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 04:18:34 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/22 06:41:07 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,13 @@ void	ft_lexer(t_lexer *lxr)
 		value = lxr->content;
 		type = ft_get_type(lxr);
 		len = lxr->content - value;
+		if (len > 1 && (type == SING_QUOT || type == DOUB_QUOT || type == SUB_CMD))
+		{
+			value++;
+			len -= 2;
+		}
 		ft_lstadd_back(&lxr->tokens, ft_lstnew(
 			ft_new_token(value, type, len)
 		));
-    }
+	}
 }

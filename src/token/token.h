@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 04:18:43 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/22 06:40:17 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ enum    e_type
 	AND_OPR = 9,
 	OR_OPR = 10,
 	STAR = 11,
-	LEFT_PAR = 12,
-	RIGHT_PAR = 13,
-	SING_QUOT = 14,
-	DOUB_QUOT = 15,
-	PIPE = 16,
-    FILE_NAME = 17,
-    EXPRESSION = 18,
-    OTHER = 19
+	SUB_CMD = 12,
+	SING_QUOT = 13,
+	DOUB_QUOT = 14,
+	PIPE = 15,
+    FILE_NAME = 16,
+    EXPRESSION = 17,
+    OTHER = 18
 };
 
 struct s_token
