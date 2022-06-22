@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 06:40:17 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 09:51:21 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ enum    e_type
 	SING_QUOT = 13,
 	DOUB_QUOT = 14,
 	PIPE = 15,
-    FILE_NAME = 16,
-    EXPRESSION = 17,
-    OTHER = 18
+	VAR = 16,
+    FILE_NAME = 17,
+    EXPRESSION = 18,
+    OTHER = 19
 };
 
 struct s_token

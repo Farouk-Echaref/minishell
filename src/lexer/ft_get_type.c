@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 07:30:19 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/22 09:50:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_type  ft_get_type_of_char(char c)
         return (DOUB_QUOT);
     if (c == '|')
         return (PIPE);
+	if (c == '$')
+		return (VAR);
 	return (OTHER);
 }
 
@@ -49,7 +51,7 @@ void	ft_move2_next_token(t_lexer *lxr)
 int	check_whitespace(t_lexer *lxr)
 {
 	int	move;
-	char *org;
+	char	*org;
 
 	move = 0;
 	org = (char *)lxr->content;
@@ -96,8 +98,49 @@ void	ft_handle_diff_matching(t_lexer *lxr, char opening_match, char closing_matc
 	ft_move_content(lxr, 1);
 }
 
+int check_type(t_lexer *lxr)
+{
+	if (ft_get_type_of_char(*(lxr->content+1)) == VAR)
+		return (VAR);
+	if ((*(lxr->content+1)) == '\0')
+	 	return (EXPRESSION);
+	if (ft_get_type_of_char(*(lxr->content+1)) == OTHER)
+	 	return (VAR);
+	return (EXPRESSION);
+}
+
+int	check_dollar(t_lexer *lxr)
+{
+	int	move;
+	char	*org;
+
+	move = 0;
+	org = (char *)lxr->content;
+	if (*lxr->content == '$' && *(lxr->content + 1) != '$')
+	{
+		move = 1;
+		if (*lxr->content != '\0')
+			lxr->content++;
+		while (ft_get_type_of_char(*lxr->content) == OTHER && lxr->content && *lxr->content != '\0')
+		{
+			lxr->content++;
+			move++;
+		}
+	} else
+		return (2);
+	lxr->content = org;
+	return (move);
+}
+
 t_type  ft_get_type(t_lexer *lxr)
 {
+	t_type type;
+
+	if (*lxr->content == '$')
+	{
+		type = check_type(lxr);
+		return (ft_move_content(lxr, check_dollar(lxr)),type);
+	}
 	if (*lxr->content == ' ')
         return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
