@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 07:16:34 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/22 07:43:22 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	check_whitespace(t_lexer *lxr)
 
 int check_type(t_lexer *lxr)
 {
-	printf("==>     %s \n",lxr->content);
 	if (ft_get_type_of_char(*(lxr->content+1)) == VAR)
 		return (VAR);
 	if ((*(lxr->content+1)) == '\0')
