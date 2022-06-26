@@ -6,12 +6,12 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 06:41:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/26 06:46:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "libft/libft.h"
+#include "list/list.h"
 #include "token/token.h"
 #include <stdlib.h>
 

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/22 04:16:53 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/26 06:44:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "token/token.h"
 #include "lexer/lexer.h"
-#include "libft/libft.h"
+#include "list/list.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 
