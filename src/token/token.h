@@ -6,11 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/26 06:45:49 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/26 07:03:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef TOKEN_H
+#ifndef TOKEN_H
 # define TOKEN_H
 
 # include <stdlib.h>

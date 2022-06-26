@@ -6,11 +6,12 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/26 06:46:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/26 07:21:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+#include "_lexer.h"
 #include "list/list.h"
 #include "token/token.h"
 #include <stdlib.h>
@@ -22,7 +23,6 @@ t_lexer  *ft_init_lexer(const char *s)
     lxr = (t_lexer *)malloc(sizeof(t_lexer));
     lxr->start = s;
     lxr->content = s;
-	lxr->tokens = NULL;
     return (lxr);
 }
 
@@ -30,16 +30,17 @@ void    ft_destroy_lexer(t_lexer *lxr)
 {
     if (! lxr)
         return ;
-	ft_lstclear(&lxr->tokens, free);
     free(lxr);
 }
 
-void	ft_lexer(t_lexer *lxr)
+t_list	*ft_lexer(t_lexer *lxr)
 {
     t_type  type;
     const char    *value;
     int     len;
+	t_list	*tokens;
 
+	tokens = NULL;
     while (lxr->content && *lxr->content)
     {
 		value = lxr->content;
@@ -50,8 +51,9 @@ void	ft_lexer(t_lexer *lxr)
 			value++;
 			len -= 2;
 		}
-		ft_lstadd_back(&lxr->tokens, ft_lstnew(
+		ft_lstadd_back(&tokens, ft_lstnew(
 			ft_new_token(value, type, len)
 		));
 	}
+	return (tokens);
 }

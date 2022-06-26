@@ -6,11 +6,12 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/26 06:44:52 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/26 07:35:11 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "data/data.h"
 #include "token/token.h"
 #include "lexer/lexer.h"
 #include "list/list.h"
@@ -33,24 +34,32 @@ char	*ft_str(const char *s, int len)
 	return (res);
 }
 
+void	print_token(void *_token)
+{
+	t_token	*token = (t_token *)_token;
+	printf(
+		"%d					%s						=> %d\n",
+		token->type,
+		ft_str(token->value, token->length),
+		token->length
+	);
+}
+
 int main()
 {
+	t_data	data;
 	char	*s = "ls -al|grep 2>";
 	t_lexer	*lxr;
+
+	ft_init_data(&data);
 	while (1)
 	{
 		s = readline("minishell> ");
 		lxr = ft_init_lexer(s);
-		ft_lexer(lxr);
-		printf("%p\n", lxr->tokens);
-		t_list	*lst = lxr->tokens;
-		t_token *token = NULL;
-		while (lst)
-		{
-			token = lst->content;
-			printf("%d					%s						=> %d\n", token->type, ft_str(token->value, token->length), token->length);
-			lst = lst->next;
-		}
+		data.tokens = ft_lexer(lxr);
+		// data.tree = ft_parser(data.tokens);
+		ft_lstiter(data.tokens, print_token);
 		ft_destroy_lexer(lxr);
+		ft_destroy_data(&data);
 	}
 }

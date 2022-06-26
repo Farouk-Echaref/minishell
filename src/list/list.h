@@ -1,5 +1,5 @@
-#ifndef TREE_H
-# define TREE_H
+#ifndef LIST_H
+# define LIST_H
 
 typedef struct s_list	t_list;
 

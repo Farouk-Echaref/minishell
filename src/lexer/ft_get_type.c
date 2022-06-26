@@ -6,11 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/22 10:14:36 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/26 07:09:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "_lexer.h"
 
 void	ft_move_content(t_lexer *lxr, int length)
 {
