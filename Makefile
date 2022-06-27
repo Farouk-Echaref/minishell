@@ -6,7 +6,7 @@
 #    By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 05:27:27 by fech-cha          #+#    #+#              #
-#    Updated: 2022/06/27 09:33:26 by mzarhou          ###   ########.fr        #
+#    Updated: 2022/06/27 15:21:55 by mzarhou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = ${filter-out ${wildcard src/libft/*.c}, ${_SRCS}}
 OBJS = ${patsubst %.c, ${ODIR}/%.o, ${SRCS}}
 CC = cc
 INC = src
-CC_FLAGS = -Wextra -Werror -Wall
+CC_FLAGS = -Wextra -Werror -Wall -g
 INCLUDES = ${wildcard src/*.h} ${wildcard src/**/*.h}
 RM = rm -rf
 
