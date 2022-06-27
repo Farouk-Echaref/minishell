@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+         #
+#    By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 05:27:27 by fech-cha          #+#    #+#              #
-#    Updated: 2022/06/22 05:27:28 by fech-cha         ###   ########.fr        #
+#    Updated: 2022/06/27 09:33:26 by mzarhou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,15 @@ ${ODIR}/%.o: %.c ${INCLUDES}
 all: ${NAME}
 
 $(NAME): ${OBJS}
-	${MAKE} bonus -C src/libft
+	${MAKE} -C src/libft
 	${CC} ${OBJS} -L./src/libft -lft -lreadline -o ${NAME}
 
 clean:
+	${MAKE} clean -C src/libft
 	${RM} ${ODIR}
 
 fclean: clean
+	${MAKE} fclean -C src/libft
 	${RM} ${NAME}
 
 re: fclean all
