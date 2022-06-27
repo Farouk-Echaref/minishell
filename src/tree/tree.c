@@ -1,6 +1,6 @@
 #include "tree.h"
 
-static t_tree	*ft_new_tree_node(void *content)
+t_tree	*ft_new_tree_node(void *content)
 {
 	t_tree	*node;
 
