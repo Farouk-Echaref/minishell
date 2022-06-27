@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/27 20:12:46 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
-# include <stdlib.h>
+#ifndef PARSER_H
+# define PARSER_H
 
-typedef struct s_tree t_tree;
+# include "tree/tree.h"
+# include "list/list.h"
 
-struct s_tree
-{
-	void	*content;
-	t_tree	*left;
-	t_tree	*right;
-};
-
-t_tree	*ft_new_tree_node(void *content);
-void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content));
-void	ft_each_tree(t_tree *tree, void (*f)(t_tree *));
+t_tree	*ft_parser(t_list *tokens);
+void	ft_commandify(t_list	*tokens);
 
 #endif

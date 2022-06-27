@@ -11,7 +11,7 @@ t_tree	*ft_new_tree_node(void *content)
 	return (node);
 }
 
-void	ft_free_node(t_tree *tree)
+static void	ft_free_node(t_tree *tree, void (*free_content)(void *content))
 {
 	t_tree	*left;
 	t_tree	*rigth;
@@ -20,18 +20,20 @@ void	ft_free_node(t_tree *tree)
 		return ;
 	left = tree->left;
 	rigth = tree->right;
-	ft_free_node(left);
-	ft_free_node(rigth);
+	ft_free_node(left, free_content);
+	ft_free_node(rigth, free_content);
+	if (free_content)
+		free_content(tree->content);
 	free(tree);
 }
 
-void	ft_tree_clear(t_tree **tree_ptr)
+void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content))
 {
 	t_tree *tree;
 
 	if (! tree_ptr)
 		return ;
 	tree = *tree_ptr;
-	ft_free_node(tree);
+	ft_free_node(tree, free_content);
 	*tree_ptr = NULL;
 }

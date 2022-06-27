@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   ft_duplicate_tokens_list.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 10:21:07 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/27 10:31:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
-# include <stdlib.h>
+#include "token.h"
 
-typedef struct s_tree t_tree;
-
-struct s_tree
+t_list	*ft_duplicate_tokens_list(const t_list	*tokens)
 {
-	void	*content;
-	t_tree	*left;
-	t_tree	*right;
-};
+	t_list	*new_list;
+	t_token	*content;
 
-t_tree	*ft_new_tree_node(void *content);
-void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content));
-void	ft_each_tree(t_tree *tree, void (*f)(t_tree *));
-
-#endif
+	if (! tokens)
+		return (NULL);
+	new_list = NULL;
+	while (tokens)
+	{
+		content = ft_duplicate_token((t_token *)tokens->content);
+		ft_lstadd_back(&new_list, ft_lstnew(content));
+		tokens = tokens->next;
+	}
+	return (new_list);
+}

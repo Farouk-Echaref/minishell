@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "a.out",
+            "program": "minishell",
             "terminal": "integrated",
             "args": [],
         }

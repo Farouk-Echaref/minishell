@@ -6,6 +6,7 @@
         "token.h": "c",
         "libft.h": "c",
         "data.h": "c",
-        "tree.h": "c"
+        "tree.h": "c",
+        "parser.h": "c"
     }
 }

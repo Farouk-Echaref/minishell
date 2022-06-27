@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   ft_str.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 10:43:07 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/27 10:43:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
-# include <stdlib.h>
+#include "utils.h"
 
-typedef struct s_tree t_tree;
-
-struct s_tree
+char	*ft_str(const char *s, int len)
 {
-	void	*content;
-	t_tree	*left;
-	t_tree	*right;
-};
-
-t_tree	*ft_new_tree_node(void *content);
-void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content));
-void	ft_each_tree(t_tree *tree, void (*f)(t_tree *));
-
-#endif
+	int	i = 0;
+	if (!s)
+		return NULL;
+	char *res = (char *)malloc(sizeof(char) * len + 1);
+	while (s[i] != '\0' && i < len)
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i] = 0;
+	return (res);
+}

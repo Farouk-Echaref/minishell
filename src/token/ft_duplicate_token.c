@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   ft_duplicate_token.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 10:22:14 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/27 15:31:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
-# include <stdlib.h>
+#include "token.h"
 
-typedef struct s_tree t_tree;
-
-struct s_tree
+t_token	*ft_duplicate_token(const t_token *t)
 {
-	void	*content;
-	t_tree	*left;
-	t_tree	*right;
-};
+	t_token	*token;
 
-t_tree	*ft_new_tree_node(void *content);
-void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content));
-void	ft_each_tree(t_tree *tree, void (*f)(t_tree *));
-
-#endif
+	if (! t)
+		return (NULL);
+	token = (t_token*)malloc(sizeof(t_token));
+	token->length = t->length;
+	token->type = t->type;
+	token->value = t->value;
+	return (token);
+}
