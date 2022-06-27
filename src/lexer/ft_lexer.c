@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/26 07:21:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/27 22:19:03 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ t_list	*ft_lexer(t_lexer *lxr)
 		value = lxr->content;
 		type = ft_get_type(lxr);
 		len = lxr->content - value;
-		if (len > 1 && (type == SING_QUOT || type == DOUB_QUOT || type == SUB_CMD))
-		{
-			value++;
-			len -= 2;
-		}
 		ft_lstadd_back(&tokens, ft_lstnew(
 			ft_new_token(value, type, len)
 		));
