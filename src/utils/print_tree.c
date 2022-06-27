@@ -5,6 +5,8 @@
 
 typedef struct Trunk Trunk;
 
+t_list	*trunks;
+
 char	*ft_get_type_name(t_type t)
 {
 	switch (t)
@@ -76,40 +78,39 @@ static void showTrunks(Trunk *p)
 
 static void printTreeRec(t_tree* root, Trunk *prev, int isLeft)
 {
-    if (root == NULL) {
+	char	*str;
+	Trunk	*trunk;
+	char	*prev_str;
+
+    if (root == NULL)
         return;
-    }
-    char *prev_str = "    ";
-    Trunk *trunk = ft_new_trunk(prev, prev_str);
-
+    prev_str = "    ";
+    trunk = ft_new_trunk(prev, prev_str);
+	ft_lstadd_back(&trunks, ft_lstnew(trunk));
     printTreeRec(root->right, trunk, 1);
-
-    if (!prev) {
+    if (!prev)
         trunk->str = "———";
-    }
-    else if (isLeft)
-    {
+    else if (isLeft) {
         trunk->str = ".———";
         prev_str = "   |";
-    }
-    else {
+    } else {
         trunk->str = "`———";
         prev->str = prev_str;
     }
-
     showTrunks(trunk);
 	t_token	*token = root->content;
-	printf(" %s(%s)\n", ft_str(token->value, token->length), ft_get_type_name(token->type));
-
+	str = ft_str(token->value, token->length);
+	printf(" %s(%s)\n", str, ft_get_type_name(token->type));
     if (prev) {
         prev->str = prev_str;
     }
     trunk->str = "   |";
-
-    printTreeRec(root->left, trunk, 0);
+	printTreeRec(root->left, trunk, 0);
+	free(str);
 }
 
 void	print_tree(t_tree *root)
 {
 	printTreeRec(root, NULL, 0);
+	ft_lstclear(&trunks, free);
 }
