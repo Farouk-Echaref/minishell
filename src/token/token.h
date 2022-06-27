@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/27 09:20:02 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/27 10:30:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TOKEN_H
 
 # include <stdlib.h>
+# include "list/list.h"
 
 typedef enum e_type t_type;
 typedef struct s_token t_token;
@@ -50,5 +51,6 @@ struct s_token
 
 t_token *ft_new_token(const char *value, t_type type, int length);
 t_token	*ft_duplicate_token(const t_token *t);
+t_list	*ft_duplicate_tokens_list(const t_list	*tokens);
 
 #endif
