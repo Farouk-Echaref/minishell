@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree.h                                             :+:      :+:    :+:   */
+/*   ft_each_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 09:30:52 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/27 09:39:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TREE_H
-# define TREE_H
-# include <stdlib.h>
+#include "tree.h"
 
-typedef struct s_tree t_tree;
-
-struct s_tree
+void	ft_each_tree(t_tree *tree, void (*f)(t_tree *))
 {
-	void	*content;
-	t_tree	*left;
-	t_tree	*right;
-};
-
-t_tree	*ft_new_tree_node(void *content);
-void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content));
-void	ft_each_tree(t_tree *tree, void (*f)(t_tree *));
-
-#endif
+	if (! tree || ! f)
+		return ;
+	f(tree);
+	if (tree->left)
+		f(tree->left);
+	if (tree->right)
+		f(tree->right);
+}
