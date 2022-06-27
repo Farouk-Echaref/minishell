@@ -1,42 +1,69 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_tree.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 10:38:49 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 10:48:55 by mzarhou          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "utils.h"
-#include "token/token.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "token/token.h"
 
-#define COUNT 10
-
-static void print2DUtil(t_tree *root, int space)
+typedef struct Trunk Trunk;
+struct Trunk
 {
-	t_token	*token;
+    Trunk	*prev;
+    char	*str;
+};
 
-    if (root == NULL)
-        return;
+static Trunk	*ft_new_trunk(Trunk *prev, char *str)
+{
+	Trunk	*trunk;
 
-    space += COUNT;
-
-    print2DUtil(root->right, space);
-
-    printf("\n");
-    for (int i = COUNT; i < space; i++)
-        printf(" ");
-	token = root->content;
-    printf("%s\n", ft_str(token->value, token->length));
-
-    print2DUtil(root->left, space);
+	trunk= (Trunk *)malloc(sizeof(Trunk));
+	trunk->prev = prev;
+	trunk->str = str;
+	return (trunk);
 }
 
-void print2D(t_tree *root)
+static void showTrunks(Trunk *p)
 {
-   print2DUtil(root, 0);
+    if (p == NULL)
+        return;
+    showTrunks(p->prev);
+	printf("%s", p->str);
+}
+
+static void printTreeRec(t_tree* root, Trunk *prev, int isLeft)
+{
+    if (root == NULL) {
+        return;
+    }
+    char *prev_str = "    ";
+    Trunk *trunk = ft_new_trunk(prev, prev_str);
+
+    printTreeRec(root->right, trunk, 1);
+
+    if (!prev) {
+        trunk->str = "———";
+    }
+    else if (isLeft)
+    {
+        trunk->str = ".———";
+        prev_str = "   |";
+    }
+    else {
+        trunk->str = "`———";
+        prev->str = prev_str;
+    }
+
+    showTrunks(trunk);
+	t_token	*token = root->content;
+	printf(" %s\n", ft_str(token->value, token->length));
+
+    if (prev) {
+        prev->str = prev_str;
+    }
+    trunk->str = "   |";
+
+    printTreeRec(root->left, trunk, 0);
+}
+
+void	print_tree(t_tree *root)
+{
+	printTreeRec(root, NULL, 0);
 }
