@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 11:56:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/27 16:19:54 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,54 @@
 #include "token/token.h"
 #include <stdio.h>
 
+
+int	ft_get_type_order(t_type type)
+{
+	if (type == AND_OPR || type == OR_OPR)
+		return (10);
+	if (type == PIPE)
+		return (9);
+	if (type == REDIR_LEFT || type == REDIR_RIGHT || type == SHIFT_LEFT || type == SHIFT_RIGHT)
+		return (8);
+	return (7);
+}
+
+t_tree	*ft_change_root(t_tree *old_root, t_tree *new_root)
+{
+	if (! new_root)
+		return (old_root);
+	new_root->left = old_root;
+	return (new_root);
+}
+
+void	ft_parser_rec(t_tree **root_ptr, t_token *token)
+{
+	t_token	*root_content;
+
+	if (! root_ptr)
+		return ;
+	root_content = NULL;
+	if (*root_ptr)
+		root_content = (*root_ptr)->content;
+	if (! root_content || ft_get_type_order(root_content->type) <= ft_get_type_order(token->type))
+		*root_ptr = ft_change_root(*root_ptr, ft_new_tree_node(ft_duplicate_token(token)));
+	else if (*root_ptr)
+		ft_parser_rec(&(*root_ptr)->right, token);
+}
+
 t_tree	*ft_parser(t_list *tokens)
 {
-	t_tree	*tree_root;
-	t_list	*token_node;
+	t_tree	*root;
 	t_token	*token;
-	t_list	*next_token_node;
 
-	if (! tokens)
-		return (NULL);
-	tokens = ft_duplicate_tokens_list(tokens);
-	tree_root = NULL;
-	next_token_node = NULL;
-	token_node = tokens;
-	int	found = 0;
-	while (token_node)
+	root = NULL;
+	token = NULL;
+	while (tokens)
 	{
-		token = token_node->content;
-		if (token->type == AND_OPR || token->type == OR_OPR)
-		{
-			tree_root =	ft_new_tree_node(ft_duplicate_token(token));
-			next_token_node = token_node->next;
-			token_node->prev->next = NULL;
-			found = 1;
-			break;
-		}
-		token_node = token_node->next;
+		token = tokens->content;
+		if (token->type != WHITE_SPACE)
+			ft_parser_rec(&root, token);
+		tokens = tokens->next;
 	}
-	if (! found)
-	{
-		token_node = tokens;
-		while (token_node)
-		{
-			token = token_node->content;
-			if (token->type == EXPRESSION)
-				return ft_new_tree_node(ft_duplicate_token(token));
-			token_node = token_node->next;
-		}
-	}
-	if (! tree_root)
-		return (NULL);
-	if (tokens != token_node)
-		tree_root->left = ft_parser(tokens);
-	if (next_token_node)
-		tree_root->right = ft_parser(next_token_node);
-	ft_lstclear(&tokens, &free);
-	return (tree_root);
+	return (root);
 }
