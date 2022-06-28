@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_get_token_type.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/28 05:37:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/28 05:01:17 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/28 05:03:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "token.h"
 
-# include "tree/tree.h"
-# include "list/list.h"
+t_type	ft_get_token_type(t_list	*lst)
+{
+	t_token	*token;
 
-t_tree	*ft_parser(t_list *tokens);
-void	ft_commandify(t_list	*tokens);
-void	ft_correct_tokens(t_list **tokens_list_ptr);
-
-#endif
+	token = lst->content;
+	return (token->type);
+}

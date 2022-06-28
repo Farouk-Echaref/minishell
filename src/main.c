@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 11:52:57 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/28 05:47:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ int main()
 		s = readline("minishell> ");
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
-		data.tree = ft_parser(data.tokens);
-		print_tree(data.tree);
-		// ft_lstiter(data.tokens, print_token);
+		ft_correct_tokens(&data.tokens);
+		// data.tree = ft_parser(data.tokens);
+		// print_tree(data.tree);
+		ft_print_list(data.tokens);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
 	}

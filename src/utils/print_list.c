@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/28 05:37:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/28 04:37:13 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/28 04:46:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "utils.h"
+#include <stdio.h>
 
-# include "tree/tree.h"
-# include "list/list.h"
+void	ft_print_list(t_list *list)
+{
+	t_token	*token;
+	char	*str;
 
-t_tree	*ft_parser(t_list *tokens);
-void	ft_commandify(t_list	*tokens);
-void	ft_correct_tokens(t_list **tokens_list_ptr);
-
-#endif
+	while (list)
+	{
+		token = list->content;
+		str = ft_str(token->value, token->length);
+		printf("%s ==> (%s)\n", str, ft_get_type_name(token->type));
+		free(str);
+		list = list->next;
+	}
+}
