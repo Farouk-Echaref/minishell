@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 20:06:43 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 22:21:48 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/28 00:25:53 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	ft_merge_expressions(t_list *list)
 	if (! list)
 		return ;
 	item = list->next;
-	if (! item)
-		return ;
-	token = item->content;
+	if (item != NULL)
+		token = item->content;
 	length = 0;
 	while (item)
 	{
