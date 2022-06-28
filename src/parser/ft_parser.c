@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 21:40:39 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/28 02:14:09 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	ft_get_type_order(t_type type)
 		return (9);
 	if (type == REDIR_LEFT || type == REDIR_RIGHT || type == SHIFT_LEFT || type == SHIFT_RIGHT)
 		return (8);
-	return (7);
+	if (type == FILE_NAME)
+		return (7);
+	return (6);
 }
 
 t_tree	*ft_change_root(t_tree *old_root, t_tree *new_root)
