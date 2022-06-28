@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 20:06:43 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/28 02:07:17 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/28 02:12:08 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_merge_redirect(t_list* next_item)
 			return;
 	}
 	token = next_item->content;
-	// if (token->type == EXPRESSION)
+	if (token->type == EXPRESSION)
 		token->type = FILE_NAME;
 }
 
