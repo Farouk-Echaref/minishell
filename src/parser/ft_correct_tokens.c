@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 04:47:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 04:07:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/29 05:40:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ void	ft_lstadd_back_token(t_list **lst_ptr, t_list *new)
 {
 	t_list	*last ;
 
-	if (!lst_ptr)
+	if (! lst_ptr || ! new)
 		return ;
-	if (!*lst_ptr) {
+	if (! *lst_ptr) {
 		*lst_ptr = new;
 	} else {
-		last = *lst_ptr;
-		while (last->next != 0)
-			last = last->next;
+		last = ft_lstlast(*lst_ptr);
 		last->next = new;
 	}
 }
@@ -133,6 +131,18 @@ void	ft_correct_tokens_rec(t_list **tokens_list_ptr, t_list	**redirections_ptr)
 		ft_correct_tokens_rec(tokens_list_ptr, redirections_ptr);
 }
 
+void	ft_correct_prev(t_list *list)
+{
+	if (! list)
+		return ;
+	list->prev = NULL;
+	while (list->next)
+	{
+		list->next->prev = list;
+		list = list->next;
+	}
+}
+
 void	ft_correct_tokens(t_list **tokens_list_ptr)
 {
 	if (! tokens_list_ptr || ! *tokens_list_ptr)
@@ -140,4 +150,5 @@ void	ft_correct_tokens(t_list **tokens_list_ptr)
 	t_list	*redirections = NULL;
 	ft_correct_tokens_rec(tokens_list_ptr, &redirections);
 	ft_lstadd_back(tokens_list_ptr, redirections);
+	ft_correct_prev(*tokens_list_ptr);
 }
