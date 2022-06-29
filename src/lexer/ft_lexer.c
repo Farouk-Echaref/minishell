@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 22:19:03 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/29 07:15:09 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ t_list	*ft_lexer(t_lexer *lxr)
 	tokens = NULL;
     while (lxr->content && *lxr->content)
     {
+		if (*lxr->content == ' ')
+		{
+			lxr->content++;
+			continue;
+		}
 		value = lxr->content;
 		type = ft_get_type(lxr);
 		len = lxr->content - value;
