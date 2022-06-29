@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   correction.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 06:45:31 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/29 07:49:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef CORRECTION_H
+# define CORRECTION_H
 
-# include "tree/tree.h"
-# include "list/list.h"
+#include "list/list.h"
 
-t_tree	*ft_parser(t_list *tokens);
+void	ft_rearrange_tokens(t_list	*tokens);
 
 #endif

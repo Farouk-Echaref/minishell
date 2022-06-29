@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 05:55:55 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/29 06:47:37 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ t_tree	*ft_parser(t_list *tokens)
 
 	root = NULL;
 	token = NULL;
-	ft_correct_tokens(&tokens);
-	ft_commandify(tokens);
 	while (tokens)
 	{
 		token = tokens->content;

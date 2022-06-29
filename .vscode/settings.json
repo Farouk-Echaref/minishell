@@ -7,6 +7,7 @@
         "libft.h": "c",
         "data.h": "c",
         "tree.h": "c",
-        "parser.h": "c"
+        "parser.h": "c",
+        "correction.h": "c"
     }
 }

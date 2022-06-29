@@ -6,11 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 04:47:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 05:40:41 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/29 06:47:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "correction.h"
 #include "token/token.h"
 #include "utils/utils.h"
 #include <stdio.h>
@@ -81,6 +81,12 @@ void	ft_detach_elements(t_list **tokens_list_ptr, t_list *r_start, int nb_items)
 		r_end = r_end->next;
 	end = r_end->next;
 
+	if (start && ft_get_token_type(start) == WHITE_SPACE)
+	{
+		r_start = start;
+		start = start->prev;
+	}
+
 	// detach elemnents
 	r_start->prev = NULL;
 	r_end->next = NULL;
@@ -123,7 +129,10 @@ void	ft_correct_tokens_rec(t_list **tokens_list_ptr, t_list	**redirections_ptr)
 		}
 		if (ft_check_space(el) == 0)
 			nb_items = 3;
-		ft_lstadd_back_token(redirections_ptr, el);
+		if (el->prev && ft_get_token_type(el->prev) == WHITE_SPACE)
+			ft_lstadd_back_token(redirections_ptr, el->prev);
+		else
+			ft_lstadd_back_token(redirections_ptr, el);
 		ft_detach_elements(tokens_list_ptr, el, nb_items);
 		break;
 	}
