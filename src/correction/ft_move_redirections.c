@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/30 03:54:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/30 05:48:00 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_list	*ft_move_redirections(t_list *current)
 		filename_token = current->next;
 		current = current->next->next;
 		ft_get_token(filename_token)->type = FILE_NAME;
-		ft_lstdetach(filename_token);
 		ft_lstpush_after(target, ft_lstdetach(redir_token));
 		ft_lstpush_after(redir_token, ft_lstdetach(filename_token));
 	}
