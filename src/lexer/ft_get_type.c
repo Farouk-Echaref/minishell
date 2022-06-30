@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/26 07:09:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/29 07:16:07 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,24 @@ void	ft_move2_next_token(t_lexer *lxr)
 		lxr->content++;
 }
 
-int	check_whitespace(t_lexer *lxr)
-{
-	int	move;
-	char	*org;
+// int	check_whitespace(t_lexer *lxr)
+// {
+// 	int	move;
+// 	char	*org;
 
-	move = 0;
-	org = (char *)lxr->content;
-	if (*lxr->content == ' ')
-	{
-		while (*lxr->content == ' ')
-		{
-			lxr->content++;
-			move++;
-		}
-	}
-	lxr->content = org;
-	return (move);
-}
+// 	move = 0;
+// 	org = (char *)lxr->content;
+// 	if (*lxr->content == ' ')
+// 	{
+// 		while (*lxr->content == ' ')
+// 		{
+// 			lxr->content++;
+// 			move++;
+// 		}
+// 	}
+// 	lxr->content = org;
+// 	return (move);
+// }
 
 void	ft_handle_matching(t_lexer *lxr, char c)
 {
@@ -141,8 +141,8 @@ t_type  ft_get_type(t_lexer *lxr)
 		type = check_type(lxr);
 		return (ft_move_content(lxr, check_dollar(lxr)),type);
 	}
-	if (*lxr->content == ' ')
-        return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
+	// if (*lxr->content == ' ')
+    //     return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
         return (ft_move_content(lxr, 2), SHIFT_LEFT);
     if (ft_strncmp(lxr->content, ">>", 2) == 0)

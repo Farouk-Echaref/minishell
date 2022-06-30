@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_lstdetach.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 06:45:31 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/30 02:47:19 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/30 03:06:09 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "list.h"
+#include <stdlib.h>
 
-# include "tree/tree.h"
-# include "list/list.h"
+t_list	*ft_lstdetach(t_list *el)
+{
+	t_list	*prev;
+	t_list	*next;
 
-t_tree	*ft_parser(t_list *tokens);
-
-#endif
+	if (! el)
+		return NULL;
+	prev = el->prev;
+	next = el->next;
+	el->prev = NULL;
+	el->next = NULL;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+	return (el);
+}

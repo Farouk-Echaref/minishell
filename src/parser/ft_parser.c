@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/28 02:14:09 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/06/29 06:47:37 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_tree	*ft_parser(t_list *tokens)
 
 	root = NULL;
 	token = NULL;
-	ft_commandify(tokens);
 	while (tokens)
 	{
 		token = tokens->content;

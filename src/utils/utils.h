@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:38:56 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 11:38:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/06/30 03:13:46 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 # define UTILS_H
 
 # include "tree/tree.h"
+# include "token/token.h"
+# include <stdio.h>
+# include <stdlib.h>
 
 void	print_tree(t_tree *root);
 char	*ft_str(const char *s, int len);
+
+char	*ft_get_type_name(t_type t);
+void	ft_print_list(t_list *list);
+void	ft_print_list_values(t_list *list);
+void	ft_print_list_values_reverse(t_list *list);
+char	*ft_get_type_name(t_type t);
 
 #endif
