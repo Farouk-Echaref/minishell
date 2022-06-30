@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   correction.h                                       :+:      :+:    :+:   */
+/*   ft_get_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/30 03:49:38 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/30 03:37:15 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/30 03:38:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORRECTION_H
-# define CORRECTION_H
+#include "token.h"
 
-# include "list/list.h"
-# include "token/token.h"
-# include "libft/libft.h"
-
-t_list	*ft_move_redirections(t_list *current);
-
-#endif
+t_token	*ft_get_token(t_list *lst)
+{
+	if (lst)
+		return ((t_token *)lst->content);
+	return (NULL);
+}
