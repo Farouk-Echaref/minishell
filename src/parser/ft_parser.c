@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/29 06:47:37 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/01 01:58:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 #include "token/token.h"
 #include <stdio.h>
 
-
 int	ft_get_type_order(t_type type)
 {
 	if (type == AND_OPR || type == OR_OPR)
 		return (10);
 	if (type == PIPE)
 		return (9);
-	if (type == REDIR_LEFT || type == REDIR_RIGHT || type == SHIFT_LEFT || type == SHIFT_RIGHT)
+	if (ft_is_redirection(type))
 		return (8);
 	if (type == FILE_NAME)
 		return (7);
@@ -45,8 +44,13 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 	root_content = NULL;
 	if (*root_ptr)
 		root_content = (*root_ptr)->content;
-	if (! root_content || ft_get_type_order(root_content->type) <= ft_get_type_order(token->type))
-		*root_ptr = ft_change_root(*root_ptr, ft_new_tree_node(ft_duplicate_token(token)));
+	if (
+		! root_content || (ft_get_type_order(root_content->type)
+			<= ft_get_type_order(token->type)
+		))
+		*root_ptr = ft_change_root(
+				*root_ptr,
+				ft_new_tree_node(ft_duplicate_token(token)));
 	else if (*root_ptr)
 		ft_parser_rec(&(*root_ptr)->right, token);
 }
