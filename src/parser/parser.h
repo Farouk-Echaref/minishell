@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2021/11/06 14:20:42 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/29 06:45:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#ifndef PARSER_H
+# define PARSER_H
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*list;
+# include "tree/tree.h"
+# include "list/list.h"
 
-	list = (t_list *)malloc(sizeof(t_list));
-	if (!list)
-		return (0);
-	list->content = content;
-	list->next = NULL;
-	return (list);
-}
+t_tree	*ft_parser(t_list *tokens);
+
+#endif

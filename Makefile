@@ -1,9 +1,22 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/06/22 05:27:27 by fech-cha          #+#    #+#              #
+#    Updated: 2022/06/30 04:35:11 by mzarhou          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 ODIR = build
-SRCS = ${filter-out ${wildcard src/libft/*.c}, ${wildcard src/**/*.c, wildcard src/*.c}}
+_SRCS = ${wildcard src/**/*.c} ${wildcard src/*.c}
+SRCS = ${filter-out ${wildcard src/libft/*.c}, ${_SRCS}}
 OBJS = ${patsubst %.c, ${ODIR}/%.o, ${SRCS}}
 CC = cc
 INC = src
-CC_FLAGS = -Wextra -Werror -Wall
+CC_FLAGS = -Wextra -Werror -Wall -g
 INCLUDES = ${wildcard src/*.h} ${wildcard src/**/*.h}
 RM = rm -rf
 
@@ -15,14 +28,16 @@ ${ODIR}/%.o: %.c ${INCLUDES}
 
 all: ${NAME}
 
-${NAME}: ${OBJS}
-	${MAKE} bonus -C src/libft
-	${CC} ${OBJS} -L./src/libft -lft -o ${NAME}
+$(NAME): ${OBJS}
+	${MAKE} -C src/libft
+	${CC} ${OBJS} -L./src/libft -lft -lreadline -o ${NAME}
 
 clean:
+	${MAKE} clean -C src/libft
 	${RM} ${ODIR}
 
 fclean: clean
+	${MAKE} fclean -C src/libft
 	${RM} ${NAME}
 
 re: fclean all

@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_lstdetach.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 09:51:12 by mzarhou           #+#    #+#             */
-/*   Updated: 2021/11/06 14:20:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/06/30 02:47:19 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/06/30 03:06:09 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "list.h"
+#include <stdlib.h>
 
-int	ft_lstsize(t_list *lst)
+t_list	*ft_lstdetach(t_list *el)
 {
-	int	count;
+	t_list	*prev;
+	t_list	*next;
 
-	count = 0;
-	while (lst)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
+	if (! el)
+		return NULL;
+	prev = el->prev;
+	next = el->next;
+	el->prev = NULL;
+	el->next = NULL;
+	if (prev)
+		prev->next = next;
+	if (next)
+		next->prev = prev;
+	return (el);
 }
