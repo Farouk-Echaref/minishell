@@ -3,48 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 01:53:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/01 04:37:42 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_lexer.h"
-
-t_type	ft_get_type_of_char(char c)
-{
-	if (c == ' ')
-		return (WHITE_SPACE);
-	if (c == '>')
-		return (REDIR_RIGHT);
-	if (c == '<')
-		return (REDIR_LEFT);
-	if (c == '|')
-		return (REDIR_LEFT);
-	if (c == '*')
-		return (STAR);
-	if (c == '(')
-		return (SUB_CMD);
-	if (c == '\'')
-		return (SING_QUOT);
-	if (c == '"')
-		return (DOUB_QUOT);
-	if (c == '|')
-		return (PIPE);
-	if (c == '$')
-		return (VAR);
-	return (OTHER);
-}
-
-void	ft_move2_next_token(t_lexer *lxr)
-{
-	while (lxr->content
-		&& *lxr->content
-		&& ft_get_type_of_char(*lxr->content) == OTHER
-	)
-		lxr->content++;
-}
 
 int	check_type(t_lexer *lxr)
 {
@@ -65,16 +31,13 @@ int	check_dollar(t_lexer *lxr)
 	move = 0;
 	org = (char *)lxr->content;
 	if (
-		*lxr->content == '$'
-		&& *(lxr->content + 1) != '$'
-		&& *(lxr->content + 1) != '?'
-	)
+		*lxr->content == '$' && *(lxr->content + 1) != '$'
+		&& *(lxr->content + 1) != '?')
 	{
 		move = 1;
 		if (*lxr->content != '\0')
 			lxr->content++;
-		while (
-			ft_get_type_of_char(*lxr->content) == OTHER
+		while (ft_get_type_of_char(*lxr->content) == OTHER
 			&& lxr->content && *lxr->content != '\0'
 		)
 		{
@@ -88,15 +51,22 @@ int	check_dollar(t_lexer *lxr)
 	return (move);
 }
 
+t_type	ft_matching(t_lexer *lxr)
+{
+	if (*lxr->content == '(')
+		return (ft_handle_diff_matching(lxr, '(', ')'), SUB_CMD);
+	if (*lxr->content == '\'')
+		return (ft_handle_matching(lxr, '\''), SING_QUOT);
+	return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
+}
+
 t_type	ft_get_type(t_lexer *lxr)
 {
 	t_type	type;
 
 	if (*lxr->content == '$')
-	{
-		type = check_type(lxr);
-		return (ft_move_content(lxr, check_dollar(lxr)), type);
-	}
+		return (type = check_type(lxr),
+			ft_move_content(lxr, check_dollar(lxr)), type);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
 		return (ft_move_content(lxr, 2), SHIFT_LEFT);
 	if (ft_strncmp(lxr->content, ">>", 2) == 0)
@@ -111,12 +81,8 @@ t_type	ft_get_type(t_lexer *lxr)
 		return (ft_move_content(lxr, 1), REDIR_LEFT);
 	if (*lxr->content == '*')
 		return (ft_move_content(lxr, 1), STAR);
-	if (*lxr->content == '(')
-		return (ft_handle_diff_matching(lxr, '(', ')'), SUB_CMD);
-	if (*lxr->content == '\'')
-		return (ft_handle_matching(lxr, '\''), SING_QUOT);
-	if (*lxr->content == '"')
-		return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
+	if (*lxr->content == '(' || *lxr->content == '\'' || *lxr->content == '\"')
+		return (ft_matching(lxr));
 	if (*lxr->content == '|')
 		return (ft_move_content(lxr, 1), PIPE);
 	return (ft_move2_next_token(lxr), EXPRESSION);
