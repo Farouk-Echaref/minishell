@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   ft_handle_matching.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 01:09:55 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/01 01:50:12 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/01 01:50:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
-# include "list/list.h"
-# include "libft/libft.h"
-# include "token/token.h"
-# include <stdlib.h>
+#include "_lexer.h"
 
-typedef struct s_lexer
+void	ft_handle_matching(t_lexer *lxr, char c)
 {
-	const char	*start;
-	const char	*content;
-}	t_lexer;
+	char	*matching;
 
-t_lexer	*ft_init_lexer(const char *s);
-void	ft_destroy_lexer(t_lexer *lxr);
-t_list	*ft_lexer(t_lexer *lxr);
-
-#endif
+	matching = ft_strchr(lxr->content + 1, c);
+	if (matching != NULL)
+		ft_move_content(lxr, matching - lxr->content + 1);
+	else
+		ft_move_content(lxr, 1);
+}

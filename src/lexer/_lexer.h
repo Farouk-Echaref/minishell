@@ -6,15 +6,15 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/06/26 07:09:52 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/01 01:44:47 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef _LEXER_H
+#ifndef _LEXER_H
 # define _LEXER_H
 
 # include "lexer.h"
 
-t_type  ft_get_type(t_lexer *lxr);
+t_type	ft_get_type(t_lexer *lxr);
 
 #endif
