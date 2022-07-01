@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/01 00:54:26 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/01 02:00:16 by mzarhou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tree.h"
 
 t_tree	*ft_new_tree_node(void *content)
@@ -29,7 +41,7 @@ static void	ft_free_node(t_tree *tree, void (*free_content)(void *content))
 
 void	ft_tree_clear(t_tree **tree_ptr, void (*free_content)(void *content))
 {
-	t_tree *tree;
+	t_tree	*tree;
 
 	if (! tree_ptr)
 		return ;
