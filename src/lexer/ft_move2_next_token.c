@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_data.c                                     :+:      :+:    :+:   */
+/*   ft_move2next_token.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 01:55:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 01:55:03 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/01 04:34:09 by fech-cha          #+#    #+#             */
+/*   Updated: 2022/07/01 04:34:32 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "_lexer.h"
 
-void	ft_init_data(t_data *data)
+void	ft_move2_next_token(t_lexer *lxr)
 {
-	if (! data)
-		return ;
-	data->tokens = NULL;
-	data->tree = NULL;
+	while (lxr->content
+		&& *lxr->content
+		&& ft_get_type_of_char(*lxr->content) == OTHER
+	)
+		lxr->content++;
 }
