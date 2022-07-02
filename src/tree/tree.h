@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 07:14:05 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/27 09:34:35 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/01 00:53:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TREE_H
 # include <stdlib.h>
 
-typedef struct s_tree t_tree;
+typedef struct s_tree	t_tree;
 
 struct s_tree
 {

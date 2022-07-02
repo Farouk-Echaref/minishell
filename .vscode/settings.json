@@ -10,6 +10,9 @@
         "parser.h": "c",
         "correction.h": "c",
         "list.h": "c",
-        "utils.h": "c"
+        "utils.h": "c",
+        "evaluator.h": "c",
+        "_lexer.h": "c",
+        "arr_utils.h": "c"
     }
 }

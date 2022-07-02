@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   ft_reverse_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 01:09:55 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/02 07:04:27 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/02 07:05:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
-# include "list/list.h"
-# include "libft/libft.h"
-# include "token/token.h"
-# include <stdlib.h>
+#include "arr_utils.h"
 
-typedef struct s_lexer
+void	ft_reverse_arr(char **arr)
 {
-	const char	*start;
-	const char	*content;
-}	t_lexer;
+	int		i;
+	int		j;
+	char	*str;
 
-t_lexer	*ft_init_lexer(const char *s);
-void	ft_destroy_lexer(t_lexer *lxr);
-t_list	*ft_lexer(t_lexer *lxr);
-
-#endif
+	if (! arr)
+		return ;
+	j = ft_arr_size(arr) - 1;
+	i = 0;
+	while (i < j)
+	{
+		str = arr[i];
+		arr[i] = arr[j];
+		arr[j] = str;
+		i++;
+		j--;
+	}
+}

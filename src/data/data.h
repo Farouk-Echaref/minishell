@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/01 01:54:36 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/01 01:54:41 by mzarhou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DATA_H
 # define DATA_H
 
@@ -6,7 +18,7 @@
 # include <stdlib.h>
 
 // single source of truth
-typedef struct s_data t_data;
+typedef struct s_data	t_data;
 
 struct s_data
 {

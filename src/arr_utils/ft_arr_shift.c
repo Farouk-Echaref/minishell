@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   ft_arr_shift.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 01:09:55 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/02 07:06:30 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/02 07:06:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
-# include "list/list.h"
-# include "libft/libft.h"
-# include "token/token.h"
-# include <stdlib.h>
+#include "arr_utils.h"
 
-typedef struct s_lexer
+char	**ft_arr_shift(char **command, char *str)
 {
-	const char	*start;
-	const char	*content;
-}	t_lexer;
+	char	**new_arr;
+	int		new_size;
+	int		i;
 
-t_lexer	*ft_init_lexer(const char *s);
-void	ft_destroy_lexer(t_lexer *lxr);
-t_list	*ft_lexer(t_lexer *lxr);
-
-#endif
+	new_size = ft_arr_size(command) + 2;
+	new_arr = (char **)malloc(sizeof(char *) * new_size);
+	i = 0;
+	new_arr[0] = str;
+	while (command[i])
+	{
+		new_arr[i + 1] = command[i];
+		i++;
+	}
+	command = ft_free(command);
+	new_arr[i + 2] = NULL;
+	return (new_arr);
+}
