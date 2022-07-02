@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator.h                                        :+:      :+:    :+:   */
+/*   ft_reverse_arr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:08:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/02 07:04:27 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/02 07:05:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVALUATOR_H
-# define EVALUATOR_H
+#include "arr_utils.h"
 
-# include "tree/tree.h"
-# include "token/token.h"
-# include "arr_utils/arr_utils.h"
+void	ft_reverse_arr(char **arr)
+{
+	int		i;
+	int		j;
+	char	*str;
 
-void	ft_evaluator(t_tree	*tree, char **argenv);
-
-#endif
+	if (! arr)
+		return ;
+	j = ft_arr_size(arr) - 1;
+	i = 0;
+	while (i < j)
+	{
+		str = arr[i];
+		arr[i] = arr[j];
+		arr[j] = str;
+		i++;
+		j--;
+	}
+}

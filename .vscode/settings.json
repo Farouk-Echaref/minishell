@@ -12,6 +12,7 @@
         "list.h": "c",
         "utils.h": "c",
         "evaluator.h": "c",
-        "_lexer.h": "c"
+        "_lexer.h": "c",
+        "arr_utils.h": "c"
     }
 }

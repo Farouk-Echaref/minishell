@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   evaluator.h                                        :+:      :+:    :+:   */
+/*   ft_arr_size.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:08:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/02 07:06:50 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/02 07:14:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EVALUATOR_H
-# define EVALUATOR_H
+#include "arr_utils.h"
 
-# include "tree/tree.h"
-# include "token/token.h"
-# include "arr_utils/arr_utils.h"
+int	ft_arr_size(char **arr)
+{
+	int	count;
 
-void	ft_evaluator(t_tree	*tree, char **argenv);
-
-#endif
+	count = 0;
+	while (arr[count++])
+		;
+	return (count - 1);
+}
