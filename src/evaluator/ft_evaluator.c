@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 06:49:45 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/02 07:08:18 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,62 +16,7 @@
 #include "libft/libft.h"
 #include <unistd.h>
 
-void	*ft_free(void *ptr)
-{
-	free(ptr);
-	return (NULL);
-}
-
-static int	ft_arr_size(char **arr)
-{
-	int	count;
-
-	count = 0;
-	while (arr[count++]);
-	return (count - 1);
-}
-
-void	ft_reverse_arr(char **arr)
-{
-	int		i;
-	int		j;
-	char	*str;
-
-	if (! arr)
-		return ;
-	j = ft_arr_size(arr) - 1;
-	i = 0;
-	while (i < j)
-	{
-		str = arr[i];
-		arr[i] = arr[j];
-		arr[j] = str;
-		i++;
-		j--;
-	}
-}
-
-char	**ft_arr_shift(char **command, char *str)
-{
-	char	**new_arr;
-	int		new_size;
-	int		i;
-
-	new_size = ft_arr_size(command) + 2;
-	new_arr = (char **)malloc(sizeof(char *) * new_size);
-	i = 0;
-	new_arr[0] = str;
-	while (command[i])
-	{
-		new_arr[i + 1] = command[i];
-		i++;
-	}
-	command = ft_free(command);
-	new_arr[i + 2] = NULL;
-	return (new_arr);
-}
-
-void	ft_execute(char **command, char **argenv)
+static void	ft_execute(char **command, char **argenv)
 {
 	int pid;
 
@@ -87,7 +32,7 @@ void	ft_execute(char **command, char **argenv)
 		waitpid(-1, NULL, 0);
 }
 
-void	ft_evaluator_rec(t_tree	*tree, char	***command)
+static void	ft_evaluator_rec(t_tree	*tree, char	***command)
 {
 	t_token	*token;
 
