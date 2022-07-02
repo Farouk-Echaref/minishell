@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:08:18 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/02 07:14:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,20 @@
 
 static void	ft_execute(char **command, char **argenv)
 {
-	int pid;
+	int		pid;
+	char	*path;
 
 	if (! command || ! *command)
 		return ;
-	if ((pid = fork()) == -1)
+	pid = fork();
+	if (pid == -1)
 		return ;
 	if (pid == 0)
 	{
-		char *path = ft_strjoin("/bin/", command[0]);
+		path = ft_strjoin("/bin/", command[0]);
 		execve(path, command, argenv);
-	} else
+	}
+	else
 		waitpid(-1, NULL, 0);
 }
 

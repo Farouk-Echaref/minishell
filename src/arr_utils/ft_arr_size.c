@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 07:06:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:07:12 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/02 07:14:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_arr_size(char **arr)
 	int	count;
 
 	count = 0;
-	while (arr[count++]);
+	while (arr[count++])
+		;
 	return (count - 1);
 }
