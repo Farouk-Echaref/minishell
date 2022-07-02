@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 08:44:19 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/02 06:49:45 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include <stdio.h>
 #include "utils/utils.h"
 #include "libft/libft.h"
-
-char	*command = NULL;
+#include <unistd.h>
 
 void	*ft_free(void *ptr)
 {
@@ -52,56 +51,68 @@ void	ft_reverse_arr(char **arr)
 	}
 }
 
-static void ft_join_expressions(char *expr)
+char	**ft_arr_shift(char **command, char *str)
 {
-	char	*temp;
+	char	**new_arr;
+	int		new_size;
+	int		i;
 
-	if (! command)
-		command = ft_strdup("");
-    temp = command;
-	if (expr)
+	new_size = ft_arr_size(command) + 2;
+	new_arr = (char **)malloc(sizeof(char *) * new_size);
+	i = 0;
+	new_arr[0] = str;
+	while (command[i])
 	{
-		command = ft_strjoin(command, " ");
-		temp = ft_free(temp);
-        temp = command;
-		command = ft_strjoin(command, expr);
+		new_arr[i + 1] = command[i];
+		i++;
 	}
-	temp = ft_free(temp);
+	command = ft_free(command);
+	new_arr[i + 2] = NULL;
+	return (new_arr);
 }
 
-void    ft_parse_command()
+void	ft_execute(char **command, char **argenv)
 {
-    char    **arr;
+	int pid;
 
-    if (! command)
-        return ;
-    arr = ft_split(command, ' ');
-    ft_reverse_arr(arr);
-	command = ft_free(command);
-	command = NULL;
-    int i = 0;
-    while (arr && arr[i])
-    {
-        ft_join_expressions(arr[i]);
-        i++;
-    }
-    printf("---> %s\n", command);
-	command = ft_free(command);
+	if (! command || ! *command)
+		return ;
+	if ((pid = fork()) == -1)
+		return ;
+	if (pid == 0)
+	{
+		char *path = ft_strjoin("/bin/", command[0]);
+		execve(path, command, argenv);
+	} else
+		waitpid(-1, NULL, 0);
+}
+
+void	ft_evaluator_rec(t_tree	*tree, char	***command)
+{
+	t_token	*token;
+
+	if (! tree)
+		return ;
+	token = tree->content;
+	*command = ft_arr_shift(*command, ft_str(token->value, token->length));
+	ft_evaluator_rec(tree->left, command);
 }
 
 void	ft_evaluator(t_tree	*tree, char **argenv)
 {
-	t_token	*token;
-	char	*str;
+	char	**command;
+	int		i;
 
-	if (! tree || ! argenv)
+	command = NULL;
+	command = (char **)malloc(sizeof(char *));
+	*command = NULL;
+	ft_evaluator_rec(tree, &command);
+	ft_execute(command, argenv);
+	i = 0;
+	while (command[i] != NULL)
 	{
-        ft_parse_command();
-		return ;
+		command[i] = ft_free(command[i]);
+		i++;
 	}
-	token = tree->content;
-	str = ft_str(token->value, token->length);
-	ft_join_expressions(str);
-	str = ft_free(str);
-	ft_evaluator(tree->left, argenv);
+	command = ft_free(command);
 }

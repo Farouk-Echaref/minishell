@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 07:15:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/02 06:51:04 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int main(int argc, char **argv, char **argenv)
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
 		data.tokens = ft_move_redirections(data.tokens);
-		printf("\n");
-		ft_print_list_values(data.tokens);
-		printf("\n");
+		// printf("\n");
+		// ft_print_list_values(data.tokens);
+		// printf("\n");
 		// ft_print_list_values_reverse(data.tokens);
 		data.tree = ft_parser(data.tokens);
-		print_tree(data.tree);
-		printf("\n\n--------------------\n\n");
+		// print_tree(data.tree);
+		// printf("\n\n--------------------\n\n");
 		ft_evaluator(data.tree, argenv);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
