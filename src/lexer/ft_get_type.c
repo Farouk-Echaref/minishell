@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 04:37:42 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/02 05:08:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ t_type	ft_matching(t_lexer *lxr)
 	if (*lxr->content == '(')
 		return (ft_handle_diff_matching(lxr, '(', ')'), SUB_CMD);
 	if (*lxr->content == '\'')
-		return (ft_handle_matching(lxr, '\''), SING_QUOT);
-	return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
+		return (ft_handle_matching(lxr, '\''), EXPRESSION);
+	return (ft_handle_matching(lxr, '"'), EXPRESSION);
 }
 
 t_type	ft_get_type(t_lexer *lxr)
