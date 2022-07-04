@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 04:37:13 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/30 04:20:52 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 15:49:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ void	ft_print_list(t_list *list)
 	while (list)
 	{
 		token = list->content;
-		str = ft_str(token->value, token->length);
-		printf("%s(%s)\n", str, ft_get_type_name(token->type));
-		free(str);
+		if (token->is_list) {
+			ft_print_tokens_list(token->value);
+		} else {
+			str = ft_str(token->value, token->length);
+			printf("%s(%s)\n", str, ft_get_type_name(token->type));
+			free(str);
+		}
 		list = list->next;
 	}
 }
@@ -38,6 +42,14 @@ void	ft_print_list_values(t_list *list)
 	while (list)
 	{
 		token = list->content;
+		if (token->is_list)
+		{
+			printf("------------------ list start\n");
+			ft_print_list(token->value);
+			printf("------------------ list end\n");
+			list = list->next;
+			continue;
+		}
 		str = ft_str(token->value, token->length);
 		printf("%s ", str);
 		free(str);
@@ -58,6 +70,14 @@ void	ft_print_list_values_reverse(t_list *list)
 	while (list)
 	{
 		token = list->content;
+		if (token->is_list)
+		{
+			printf("------------------ list start\n");
+			ft_print_list(token->value);
+			printf("------------------ list end\n");
+			list = list->next;
+			continue;
+		}
 		str = ft_str(token->value, token->length);
 		printf("%s ", str);
 		free(str);

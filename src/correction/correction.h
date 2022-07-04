@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/30 03:49:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 14:50:33 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include "libft/libft.h"
 
 t_list	*ft_move_redirections(t_list *current);
+void	ft_merge_expressions_wrapper(t_list **tokens_ptr);
 
 #endif

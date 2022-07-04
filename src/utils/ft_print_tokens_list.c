@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_token.c                                     :+:      :+:    :+:   */
+/*   ft_print_tokens_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 13:41:14 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/04 15:48:20 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/04 15:48:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "utils.h"
 
-t_token	*ft_new_token(void *value, t_type type, int length)
+void	ft_print_tokens_list(t_list *list)
 {
-	t_token	*t;
+	char	*str;
 
-	t = malloc(sizeof(t_token));
-	t->length = length;
-	t->type = type;
-	t->value = value;
-	t->is_list = 0;
-	return (t);
+	printf("list: ");
+	while (list)
+	{
+		str = ft_str(ft_get_token(list)->value, ft_get_token(list)->length);
+		printf(" |%s(%s)| ", str, ft_get_type_name(ft_get_token(list)->type));
+		free(str);
+		list = list->next;
+	}
+	printf("\n");
 }

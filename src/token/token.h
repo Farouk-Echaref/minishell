@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 13:38:30 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 13:41:00 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_token
 	t_type	type;
 	void	*value;
 	int		length;
+	int		is_list;
 };
 
 t_token	*ft_new_token(void *value, t_type type, int length);
