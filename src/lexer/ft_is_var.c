@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_token.c                                     :+:      :+:    :+:   */
+/*   ft_is_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 13:41:14 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/04 10:36:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/04 10:54:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "_lexer.h"
 
-t_token	*ft_new_token(void *value, t_type type, int length)
+int	ft_is_var(const char *content)
 {
-	t_token	*t;
+	char	c;
 
-	t = malloc(sizeof(t_token));
-	t->length = length;
-	t->type = type;
-	t->value = value;
-	t->is_list = 0;
-	return (t);
+	if (! content || *content != '$')
+		return (0);
+	c = *(content + 1);
+	if (c && ft_get_type_of_char(c) == OTHER)
+		return (1);
+	return (0);
 }

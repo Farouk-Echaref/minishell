@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 01:11:30 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 13:37:46 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,17 @@ void	ft_destroy_lexer(t_lexer *lxr)
 
 t_list	*ft_lexer(t_lexer *lxr)
 {
-	t_type		type;
-	const char	*value;
-	int			len;
-	t_list		*tokens;
+	t_type	type;
+	void	*value;
+	int		len;
+	t_list	*tokens;
 
 	tokens = NULL;
-	while (lxr->content && *lxr->content)
-	{
-		if (*lxr->content == ' ')
-		{
-			lxr->content++;
-			continue ;
-		}
-		value = lxr->content;
+    while (lxr->content && *lxr->content)
+    {
+		value = (void *)lxr->content;
 		type = ft_get_type(lxr);
-		len = lxr->content - value;
+		len = lxr->content - (char *)value;
 		ft_lstadd_back(&tokens, ft_lstnew(
 				ft_new_token(value, type, len)
 				));
