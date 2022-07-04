@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 07:06:30 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:06:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 19:12:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char	**ft_arr_shift(char **command, char *str)
 	new_size = ft_arr_size(command) + 2;
 	new_arr = (char **)malloc(sizeof(char *) * new_size);
 	i = 0;
-	new_arr[0] = str;
-	while (command[i])
+	new_arr[i++] = str;
+	while (command[i - 1])
 	{
-		new_arr[i + 1] = command[i];
+		new_arr[i] = command[i - 1];
 		i++;
 	}
 	command = ft_free(command);
-	new_arr[i + 2] = NULL;
+	new_arr[i] = NULL;
 	return (new_arr);
 }
