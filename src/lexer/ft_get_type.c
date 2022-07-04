@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_type.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 04:37:42 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/04 09:53:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,68 @@ int	check_type(t_lexer *lxr)
 {
 	if (ft_get_type_of_char(*(lxr->content + 1)) == VAR)
 		return (VAR);
-	if ((*(lxr->content + 1)) == '\0')
-		return (EXPRESSION);
-	if (ft_get_type_of_char(*(lxr->content + 1)) == OTHER)
+	return (OTHER);
+}
+
+void	ft_move2_next_token(t_lexer *lxr)
+{
+	while (lxr->content && *lxr->content && ft_get_type_of_char(*lxr->content) == OTHER)
+		lxr->content++;
+}
+
+int	check_whitespace(t_lexer *lxr)
+{
+	int	move;
+	char	*org;
+
+	move = 0;
+	org = (char *)lxr->content;
+	if (*lxr->content == ' ')
+	{
+		while (*lxr->content == ' ')
+		{
+			lxr->content++;
+			move++;
+		}
+	}
+	lxr->content = org;
+	return (move);
+}
+
+void	ft_handle_matching(t_lexer *lxr, char c)
+{
+	char	*matching;
+
+	matching = ft_strchr(lxr->content + 1, c);
+	if (matching != NULL)
+		ft_move_content(lxr, matching - lxr->content + 1);
+	else
+		ft_move_content(lxr, 1);
+}
+
+void	ft_handle_diff_matching(t_lexer *lxr, char opening_match, char closing_match)
+{
+	int			i;
+	const char	*s;
+
+	i = 1;
+	s = lxr->content + 1;
+	while (s && *s)
+	{
+		if (*s == opening_match)
+			i++;
+		else if (*s == closing_match)
+			i--;
+		if (i == 0)
+			return (ft_move_content(lxr, s - lxr->content + 1));
+		s++;
+	}
+	ft_move_content(lxr, 1);
+}
+
+int check_type(t_lexer *lxr)
+{
+	if (ft_get_type_of_char(*(lxr->content+1)) == VAR)
 		return (VAR);
 	return (EXPRESSION);
 }
@@ -65,8 +124,12 @@ t_type	ft_get_type(t_lexer *lxr)
 	t_type	type;
 
 	if (*lxr->content == '$')
-		return (type = check_type(lxr),
-			ft_move_content(lxr, check_dollar(lxr)), type);
+	{
+		type = check_type(lxr);
+		return (ft_move_content(lxr, check_dollar(lxr)),type);
+	}
+	if (*lxr->content == ' ')
+        return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
 		return (ft_move_content(lxr, 2), SHIFT_LEFT);
 	if (ft_strncmp(lxr->content, ">>", 2) == 0)
