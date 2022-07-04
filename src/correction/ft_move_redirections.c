@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 10:10:51 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 19:47:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ t_list	*ft_get_list_head(t_list *current)
 	while (current)
 	{
 		if (
-			ft_get_token(current)->type == EXPRESSION
-			&& (
+			(
+				ft_get_token(current)->type == EXPRESSION
+				|| ft_get_token(current)->type == SING_QUOT
+				|| ft_get_token(current)->type == DOUB_QUOT
+				|| ft_get_token(current)->type == VAR
+			) && (
 				current->prev == NULL
 				|| ! ft_is_redirection(ft_get_token(current->prev)->type)
 			)
