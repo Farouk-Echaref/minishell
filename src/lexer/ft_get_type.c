@@ -6,24 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 09:53:16 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 10:51:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_lexer.h"
-
-int	check_type(t_lexer *lxr)
-{
-	if (ft_get_type_of_char(*(lxr->content + 1)) == VAR)
-		return (VAR);
-	return (OTHER);
-}
-
-void	ft_move2_next_token(t_lexer *lxr)
-{
-	while (lxr->content && *lxr->content && ft_get_type_of_char(*lxr->content) == OTHER)
-		lxr->content++;
-}
 
 int	check_whitespace(t_lexer *lxr)
 {
@@ -44,69 +31,25 @@ int	check_whitespace(t_lexer *lxr)
 	return (move);
 }
 
-void	ft_handle_matching(t_lexer *lxr, char c)
-{
-	char	*matching;
-
-	matching = ft_strchr(lxr->content + 1, c);
-	if (matching != NULL)
-		ft_move_content(lxr, matching - lxr->content + 1);
-	else
-		ft_move_content(lxr, 1);
-}
-
-void	ft_handle_diff_matching(t_lexer *lxr, char opening_match, char closing_match)
-{
-	int			i;
-	const char	*s;
-
-	i = 1;
-	s = lxr->content + 1;
-	while (s && *s)
-	{
-		if (*s == opening_match)
-			i++;
-		else if (*s == closing_match)
-			i--;
-		if (i == 0)
-			return (ft_move_content(lxr, s - lxr->content + 1));
-		s++;
-	}
-	ft_move_content(lxr, 1);
-}
-
-int check_type(t_lexer *lxr)
-{
-	if (ft_get_type_of_char(*(lxr->content+1)) == VAR)
-		return (VAR);
-	return (EXPRESSION);
-}
-
 int	check_dollar(t_lexer *lxr)
 {
 	int		move;
-	char	*org;
+	char	*temp;
 
-	move = 0;
-	org = (char *)lxr->content;
-	if (
-		*lxr->content == '$' && *(lxr->content + 1) != '$'
-		&& *(lxr->content + 1) != '?')
+	move = 1;
+	if (! ft_is_var(lxr->content))
 	{
-		move = 1;
-		if (*lxr->content != '\0')
-			lxr->content++;
-		while (ft_get_type_of_char(*lxr->content) == OTHER
-			&& lxr->content && *lxr->content != '\0'
-		)
-		{
-			lxr->content++;
-			move++;
-		}
+		ft_move2_next_token(lxr);
+		return (1);
 	}
-	else
+	if (*(lxr->content + 1) == '$' || *(lxr->content + 1) == '?')
 		return (2);
-	lxr->content = org;
+	temp = (char *)(lxr->content + 1);
+	while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
+	{
+		temp++;
+		move++;
+	}
 	return (move);
 }
 
@@ -125,8 +68,10 @@ t_type	ft_get_type(t_lexer *lxr)
 
 	if (*lxr->content == '$')
 	{
-		type = check_type(lxr);
-		return (ft_move_content(lxr, check_dollar(lxr)),type);
+		type = EXPRESSION;
+		if (ft_is_var(lxr->content))
+			type = VAR;
+		return (ft_move_content(lxr, check_dollar(lxr)), type);
 	}
 	if (*lxr->content == ' ')
         return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);

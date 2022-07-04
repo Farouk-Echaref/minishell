@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_type_of_char.c                              :+:      :+:    :+:   */
+/*   ft_merge_expressions.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 04:37:24 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 10:31:12 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/04 10:12:52 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/04 10:19:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_lexer.h"
+#include "correction.h"
 
-t_type	ft_get_type_of_char(char c)
+void	ft_merge_expressions(t_list *tokens)
 {
-	if (c == ' ')
-		return (WHITE_SPACE);
-	if (c == '>')
-		return (REDIR_RIGHT);
-	if (c == '<')
-		return (REDIR_LEFT);
-	if (c == '|')
-		return (REDIR_LEFT);
-	if (c == '*')
-		return (STAR);
-	if (c == '(')
-		return (SUB_CMD);
-	if (c == '\'')
-		return (SING_QUOT);
-	if (c == '"')
-		return (DOUB_QUOT);
-	if (c == '|')
-		return (PIPE);
-	return (OTHER);
+	if (tokens)
+		return ;
 }

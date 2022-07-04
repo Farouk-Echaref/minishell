@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_type_of_char.c                              :+:      :+:    :+:   */
+/*   ft_is_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 04:37:24 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 10:31:12 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/04 10:36:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/04 10:54:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_lexer.h"
 
-t_type	ft_get_type_of_char(char c)
+int	ft_is_var(const char *content)
 {
-	if (c == ' ')
-		return (WHITE_SPACE);
-	if (c == '>')
-		return (REDIR_RIGHT);
-	if (c == '<')
-		return (REDIR_LEFT);
-	if (c == '|')
-		return (REDIR_LEFT);
-	if (c == '*')
-		return (STAR);
-	if (c == '(')
-		return (SUB_CMD);
-	if (c == '\'')
-		return (SING_QUOT);
-	if (c == '"')
-		return (DOUB_QUOT);
-	if (c == '|')
-		return (PIPE);
-	return (OTHER);
+	char	c;
+
+	if (! content || *content != '$')
+		return (0);
+	c = *(content + 1);
+	if (c && ft_get_type_of_char(c) == OTHER)
+		return (1);
+	return (0);
 }
