@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_expand_expression_list.C                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:41:15 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:53:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 11:33:54 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 11:34:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "evaluator.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_expand_expression_list(t_list *tokens, char **argenv)
 {
-	char	*res;
-	int		len;
-	int		i;
-
-	if (! s1)
-		return ft_strdup("");
-	len = ft_strlen(s1);
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (0);
-	i = 0;
-	while (i < len)
+	while (tokens)
 	{
-		res[i] = s1[i];
-		i++;
+		ft_expand_expression(ft_get_token(tokens), argenv);
+		tokens = tokens->next;
 	}
-	res[i] = 0;
-	return (res);
 }

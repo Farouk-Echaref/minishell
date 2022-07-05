@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:41:15 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:53:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 11:32:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "evaluator.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_execute(char **command, char **argenv)
 {
-	char	*res;
-	int		len;
-	int		i;
+	int		pid;
+	char	*path;
 
-	if (! s1)
-		return ft_strdup("");
-	len = ft_strlen(s1);
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (0);
-	i = 0;
-	while (i < len)
+	if (! command || ! *command)
+		return ;
+	pid = fork();
+	if (pid == -1)
+		return ;
+	if (pid == 0)
 	{
-		res[i] = s1[i];
-		i++;
+		path = ft_strjoin("/bin/", command[0]);
+		execve(path, command, argenv);
 	}
-	res[i] = 0;
-	return (res);
+	else
+		waitpid(-1, NULL, 0);
 }

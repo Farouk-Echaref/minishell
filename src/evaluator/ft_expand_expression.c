@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 10:56:08 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 11:54:11 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,73 +14,8 @@
 #include <stdio.h>
 #include "lexer/lexer.h"
 
-char	*ft_evaluate_var(char *var , char **env)
-{
-	int		i;
-	char	*res;
-	char	**store;
-
-	i = 0;
-	res = NULL;
-	store = NULL;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
-		{
-			store = ft_split(env[i], '=');
-			res = store[1];
-			store[0] = ft_free(store[0]);
-			return (res);
-		}
-		i++;
-	}
-	return (ft_strdup(""));
-}
-
-
-void	ft_expand_expression_list(t_list *tokens, char **argenv)
-{
-	while (tokens)
-	{
-		ft_expand_expression(ft_get_token(tokens), argenv);
-		tokens = tokens->next;
-	}
-}
-
-void	ft_merge_tokens(t_token *token)
-{
-	char	*result;
-	t_list	*tokens;
-	char	*temp;
-	char	*str;
-
-	result = ft_strdup("");
-	tokens = token->value;
-	while (tokens)
-	{
-		if (ft_get_token(tokens)->value)
-		{
-			temp = result;
-			str = ft_str(ft_get_token(tokens)->value, ft_get_token(tokens)->length);
-			result = ft_strjoin(result, str);
-			str = ft_free(str);
-			temp = ft_free(temp);
-		}
-		tokens = tokens->next;
-	}
-	token->type = EXPRESSION;
-	ft_lstclear((t_list **)&token->value, free);
-	token->value = result;
-	token->is_list = 0;
-}
-
 void	ft_expand_expression(t_token *token, char **argenv)
 {
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
 	if (token->is_list) {
 		ft_expand_expression_list(token->value, argenv);
 		ft_merge_tokens(token);
@@ -92,24 +27,7 @@ void	ft_expand_expression(t_token *token, char **argenv)
 		token->value++;
 		token->length -= 2;
 		token->value = ft_str(token->value, token->length);
-		char *store = ft_strchr(token->value, '$');
-		if (store != NULL && ft_is_var(store) > 1)
-		{
-			// tmp = ft_evaluate_var(store+1, argenv);
-			// token->length+=len;
-			// res = (char *)malloc(sizeof(char) * token->length + 100);
-			// while (token->value)
-			// {
-			// 	if (token->value[i] == '$')
-			// 	{
-			// 		res[i] = tmp[j];
-			// 		i++;
-			// 		j++;
-			// 	}
-			// 	res[i] = token->value[i];
-			// 	i++;
-			// }
-		}
+		ft_expand_double_qoutes(token, argenv);
 	} else if (token->type == VAR) {
 		token->value++;
 		token->length--;

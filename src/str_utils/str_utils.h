@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   str_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:41:15 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:53:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 11:24:46 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 11:36:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#ifndef STR_UTILS_H
+# define STR_UTILS_H
+# include <stdlib.h>
 
-char	*ft_strdup(const char *s1)
-{
-	char	*res;
-	int		len;
-	int		i;
+# include "libft/libft.h"
 
-	if (! s1)
-		return ft_strdup("");
-	len = ft_strlen(s1);
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (0);
-	i = 0;
-	while (i < len)
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	res[i] = 0;
-	return (res);
-}
+#endif

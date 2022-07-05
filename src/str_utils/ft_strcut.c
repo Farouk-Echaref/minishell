@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strcut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:41:15 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:53:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 11:21:37 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 11:48:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "str_utils.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_strcut(char *start, char *end)
 {
 	char	*res;
-	int		len;
 	int		i;
 
-	if (! s1)
+	if (! start || ! end || start >= end)
 		return ft_strdup("");
-	len = ft_strlen(s1);
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (0);
+	res = (char *)malloc(sizeof(char) * (end - start + 1));
 	i = 0;
-	while (i < len)
-	{
-		res[i] = s1[i];
-		i++;
-	}
+	while (*start && start < end)
+		res[i++] = *start++;
 	res[i] = 0;
 	return (res);
 }

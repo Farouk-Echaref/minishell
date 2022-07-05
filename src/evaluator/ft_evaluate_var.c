@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_evaluate_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:41:15 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:53:48 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 11:30:59 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 11:31:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "evaluator.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_evaluate_var(char *var , char **env)
 {
-	char	*res;
-	int		len;
 	int		i;
+	char	*res;
+	char	**store;
 
-	if (! s1)
-		return ft_strdup("");
-	len = ft_strlen(s1);
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (0);
 	i = 0;
-	while (i < len)
+	res = NULL;
+	store = NULL;
+	while (env[i])
 	{
-		res[i] = s1[i];
+		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
+		{
+			store = ft_split(env[i], '=');
+			res = store[1];
+			store[0] = ft_free(store[0]);
+			return (res);
+		}
 		i++;
 	}
-	res[i] = 0;
-	return (res);
+	return (ft_strdup(""));
 }
