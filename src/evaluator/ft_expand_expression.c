@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 08:11:14 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/05 09:27:01 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 char	*ft_evaluate_var(char *var , char **env)
 {
 	int		i;
-	int		j;
 	char	*res;
 	char	**store;
 
@@ -25,26 +24,15 @@ char	*ft_evaluate_var(char *var , char **env)
 	store = NULL;
 	while (env[i])
 	{
-		j = 0;
-		while (var[j])
-			j++;
-		if (ft_strncmp(env[i], var, j) == 0)
+		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
 		{
 			store = ft_split(env[i], '=');
 			res = store[1];
-			free (var);
+			store[0] = ft_free(store[0]);
 			return (res);
 		}
 		i++;
 	}
-	i = 0;
-	while (store && store[i] != NULL)
-	{
-		store[i] = ft_free(store[i]);
-		i++;
-	}
-	store = ft_free(store);
-	free (var);
 	return (NULL);
 }
 
@@ -87,24 +75,50 @@ void	ft_merge_tokens(t_token *token)
 
 void	ft_expand_expression(t_token *token, char **argenv)
 {
+	 int		i;
+	 int		j;
+	// char	*tmp;
+	// char	*store;
+	// char	*res;
+
+	i = 0;
+	j = 0;
 	if (token->is_list) {
 		ft_expand_expression_list(token->value, argenv);
 		ft_merge_tokens(token);
 	} else if (token->type == SING_QUOT) {
 		token->value++;
 		token->length -= 2;
-		token->value = ft_str(token->value, token->length);
 	} else if (token->type == DOUB_QUOT) {
 		// evaluate variables
 		token->value++;
 		token->length -= 2;
 		token->value = ft_str(token->value, token->length);
+		// store = ft_strchr(token->value, "$");
+		// if (store != NULL)
+		// {
+		// 	tmp = ft_evaluate_var(store+1, argenv);
+		// 	token->length+=len;
+		// 	res = (char *)malloc(sizeof(char) * token->length + 100);
+		// 	while (token->value)
+		// 	{
+		// 		if (token->value[i] == '$')
+		// 		{
+		// 			res[i] = tmp[j];
+		// 			i++;
+		// 			j++;
+		// 		}
+		// 		res[i] = token->value[i];
+		// 		i++;
+
+		// 	}
+		// }
 	} else if (token->type == VAR) {
-		// evaluate variables
 		token->value++;
 		token->length--;
 		char *str = ft_str(token->value, token->length);
 		token->value = ft_evaluate_var(str, argenv);
-		token->length = ft_strlen(str);
+		token->length = ft_strlen(token->value);
+		str = ft_free(str);
 	}
 }
