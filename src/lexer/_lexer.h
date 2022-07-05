@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 10:40:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 09:57:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ void	ft_handle_diff_matching(
 void	ft_handle_matching(t_lexer *lxr, char c);
 void	ft_move_content(t_lexer *lxr, int length);
 t_type	ft_get_type_of_char(char c);
-int		ft_is_var(const char *content);
 
 #endif

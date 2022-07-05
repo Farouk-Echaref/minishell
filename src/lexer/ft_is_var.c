@@ -6,20 +6,24 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 10:36:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 09:28:04 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 13:38:32 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lexer.h"
 #include "_lexer.h"
 
 int	ft_is_var(const char *content)
 {
-	char	c;
+	int		len;
 
 	if (! content || *content != '$')
-		return (0);
-	c = *(content + 1);
-	if (c && (ft_get_type_of_char(c) == OTHER || ft_get_type_of_char(c) == STAR))
 		return (1);
-	return (0);
+	content++;
+	if (*content == '*' || *content == '$' || *content == '?' || ft_isdigit(*content))
+		return (2);
+	len = 1;
+	while (ft_isalnum(*content++) && len++)
+		;
+	return (len);
 }

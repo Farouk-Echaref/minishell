@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_move2_next_token.c                              :+:      :+:    :+:   */
+/*   ft_free_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 04:34:09 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/05 10:48:38 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 14:45:41 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 14:46:34 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "_lexer.h"
+#include "token/token.h"
+#include "utils/utils.h"
 
-void	ft_move2_next_token(t_lexer *lxr)
+void	ft_free_token(void *tree_content)
 {
-	while (lxr->content
-		&& *lxr->content
-		&& ft_get_type_of_char(*lxr->content) == OTHER
-		&& ft_is_var(lxr->content) < 2
-	)
-		lxr->content++;
+	t_token	*token;
+
+	token = tree_content;
+	if (! token)
+		return ;
+	token->value = ft_free(token->value);
+	token = ft_free(token);
 }

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 11:02:38 by mzarhou           #+#    #+#             */
-/*   Updated: 2021/11/05 21:05:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 10:54:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (*s)
+	while (s && *s)
 	{
 		s++;
 		count++;
