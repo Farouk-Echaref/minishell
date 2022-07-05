@@ -6,51 +6,46 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 04:37:17 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/05 06:21:31 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 #include <stdio.h>
 
-char	*ft_evaluate_var(char *var_name, char **argenv)
+char	*ft_evaluate_var(char *var , char **env)
 {
 	int		i;
 	int		j;
+	int		index;
 	char	*res;
-	char	**store;
 
 	i = 0;
-	j = 0;
-	res = NULL;
-	store = NULL;
-	if (argenv && var_name)
+	index = 0;
+	res = malloc(sizeof(char) * 500);
+	if (res == NULL)
+		return (NULL);
+	while (env[i])
 	{
-		// todo: get variable value
-		while (argenv[i][j])
+		j = 0;
+		while (var[j])
+			j++;
+		if (ft_strncmp(env[i], var, j) == 0)
 		{
-			j = 0;
-			while(var_name[j])
-				j++;
-			res = (char *)malloc(sizeof(char) * j + 1);
-			if (ft_strncmp(var_name, &argenv[i][j], j))
+			// store = ft_split(env[i], '=');
+			// res = store[1];
+			while (env[i][j])
 			{
-				store=ft_split(&argenv[i][j], '=');
-				res = store[1];
-				return (res);
+				res[index] = env[i][++j];
+				index++;
 			}
-			i++;
-			j = 0;
+			free (var);
+			return (res);
 		}
-		i = 0;
-	}
-	while (store[i] != NULL)
-	{
-		store[i] = ft_free(store[i]);
 		i++;
 	}
-	store = ft_free(store);
-	return (res);
+	free (var);
+	return (NULL);
 }
 
 
