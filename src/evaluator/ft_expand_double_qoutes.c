@@ -6,11 +6,22 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:27:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 14:14:35 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 15:42:59 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
+
+static char	*ft_get_var_ptr(char *value)
+{
+	while (value && *value)
+	{
+		if (*value == '$' && ft_is_var(value) > 1)
+			return (value);
+		value++;
+	}
+	return (NULL);
+}
 
 void	ft_expand_double_qoutes(t_token *token, char **env)
 {
@@ -22,7 +33,7 @@ void	ft_expand_double_qoutes(t_token *token, char **env)
 
     if (! token)
         return ;
-    char	*dollar = ft_strchr(token->value, '$');
+    char	*dollar = ft_get_var_ptr(token->value);
     int		dollar_len = ft_is_var(dollar);
     if (dollar && dollar_len > 1)
     {
