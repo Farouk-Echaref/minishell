@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 07:24:29 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/05 08:11:14 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ char	*ft_evaluate_var(char *var , char **env)
 		i++;
 	}
 	i = 0;
-	while (store[i++] != NULL)
+	while (store && store[i] != NULL)
+	{
 		store[i] = ft_free(store[i]);
+		i++;
+	}
 	store = ft_free(store);
 	free (var);
 	return (NULL);

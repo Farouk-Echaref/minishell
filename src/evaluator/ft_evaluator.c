@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 07:01:04 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/05 08:07:23 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char	*ft_check_echo(char **command)
 {
-	if (command[1][2] == 'n')
+	if (command && command[1] && command[1][2] == 'n')
 	{
 		free(command[1]);
 		return (ft_strdup("-n"));
