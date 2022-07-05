@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_evaluator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 20:10:27 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 07:01:04 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 #include <stdio.h>
+
+char	*ft_check_echo(char **command)
+{
+	if (command[1][2] == 'n')
+	{
+		free(command[1]);
+		return (ft_strdup("-n"));
+	}
+	return (command[1]);
+}
 
 void	ft_execute(char **command, char **argenv)
 {
@@ -20,6 +30,8 @@ void	ft_execute(char **command, char **argenv)
 
 	if (! command || ! *command)
 		return ;
+	if (ft_strncmp(command[0], "echo", 4) == 0)
+		command[1] = ft_check_echo(command);
 	pid = fork();
 	if (pid == -1)
 		return ;
