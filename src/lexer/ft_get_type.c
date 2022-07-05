@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 10:51:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 09:32:24 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	check_dollar(t_lexer *lxr)
 {
 	int		move;
 	char	*temp;
+	char	next_char;
 
 	move = 1;
 	if (! ft_is_var(lxr->content))
@@ -42,7 +43,8 @@ int	check_dollar(t_lexer *lxr)
 		ft_move2_next_token(lxr);
 		return (1);
 	}
-	if (*(lxr->content + 1) == '$' || *(lxr->content + 1) == '?')
+	next_char = *(lxr->content + 1);
+	if (next_char == '$' || next_char == '?' || next_char == '*')
 		return (2);
 	temp = (char *)(lxr->content + 1);
 	while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
