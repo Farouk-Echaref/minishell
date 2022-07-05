@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 06:21:31 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/05 07:24:29 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,12 @@ char	*ft_evaluate_var(char *var , char **env)
 {
 	int		i;
 	int		j;
-	int		index;
 	char	*res;
+	char	**store;
 
 	i = 0;
-	index = 0;
-	res = malloc(sizeof(char) * 500);
-	if (res == NULL)
-		return (NULL);
+	res = NULL;
+	store = NULL;
 	while (env[i])
 	{
 		j = 0;
@@ -32,18 +30,17 @@ char	*ft_evaluate_var(char *var , char **env)
 			j++;
 		if (ft_strncmp(env[i], var, j) == 0)
 		{
-			// store = ft_split(env[i], '=');
-			// res = store[1];
-			while (env[i][j])
-			{
-				res[index] = env[i][++j];
-				index++;
-			}
+			store = ft_split(env[i], '=');
+			res = store[1];
 			free (var);
 			return (res);
 		}
 		i++;
 	}
+	i = 0;
+	while (store[i++] != NULL)
+		store[i] = ft_free(store[i]);
+	store = ft_free(store);
 	free (var);
 	return (NULL);
 }
