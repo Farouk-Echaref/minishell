@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:27:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 15:42:59 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 16:23:53 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,61 @@ static char	*ft_get_var_ptr(char *value)
 	return (NULL);
 }
 
+char	*ft_concat_parts(char **parts)
+{
+	char	*res;
+	char	*temp;
+	int		i;
+
+	res = ft_strdup("");
+	if (! parts)
+		return res;
+	i = 0;
+	while (parts[i])
+	{
+		temp = res;
+		res = ft_strjoin(res, parts[i]);
+		free(temp);
+		i++;
+	}
+	return (res);
+}
+
+static void	ft_free_parts(char **parts)
+{
+	int	i;
+
+	if (! parts)
+		return ;
+	i = 0;
+	while (parts[i])
+	{
+		parts[i] = ft_free(parts[i]);
+		i++;
+	}
+}
+
 void	ft_expand_double_qoutes(t_token *token, char **env)
 {
-    char    *part1;
-    char    *part2;
-    char    *part3;
-    char    *token_value;
-	char	*str;
+	char	*parts[4];
+	char	*dollar_ptr;
+	int		var_length;
+	char	*var_name;
 
     if (! token)
         return ;
-    char	*dollar = ft_get_var_ptr(token->value);
-    int		dollar_len = ft_is_var(dollar);
-    if (dollar && dollar_len > 1)
-    {
-        token_value = token->value;
-        part1 = ft_str(token->value, dollar - token_value);
-		str = ft_str(dollar, dollar_len);
-        part2 = ft_evaluate_var(str + 1, env);
-		str = ft_free(str);
-        part3 = ft_strdup(dollar + dollar_len);
-		token_value = ft_free(token_value);
-		token_value = ft_strjoin(part1, part2);
-        token->value = ft_strjoin(token_value, part3);
-		token->length = ft_strlen(token->value);
-		token_value = ft_free(token_value);
-		part1 = ft_free(part1);
-		part2 = ft_free(part2);
-		part3 = ft_free(part3);
-        ft_expand_double_qoutes(token, env);
-    }
+	parts[3] = NULL;
+    dollar_ptr = ft_get_var_ptr(token->value);
+	var_length = ft_is_var(dollar_ptr);
+    if (! dollar_ptr || var_length < 2)
+		return ;
+	var_name = ft_str(dollar_ptr + 1, var_length - 1);
+	parts[0] = ft_str(token->value, dollar_ptr - (char *)token->value);
+	parts[1] = ft_evaluate_var(var_name, env);
+	parts[2] = ft_strdup(dollar_ptr + var_length);
+	token->value = ft_free(token->value);
+	token->value = ft_concat_parts(parts);
+	ft_free_parts(parts);
+	token->length = ft_strlen(token->value);
+	ft_expand_double_qoutes(token, env);
 }
