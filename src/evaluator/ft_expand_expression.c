@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_expression.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 21:31:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 04:37:17 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,44 @@
 
 char	*ft_evaluate_var(char *var_name, char **argenv)
 {
+	int		i;
+	int		j;
+	char	*res;
+	char	**store;
+
+	i = 0;
+	j = 0;
+	res = NULL;
+	store = NULL;
 	if (argenv && var_name)
 	{
 		// todo: get variable value
+		while (argenv[i][j])
+		{
+			j = 0;
+			while(var_name[j])
+				j++;
+			res = (char *)malloc(sizeof(char) * j + 1);
+			if (ft_strncmp(var_name, &argenv[i][j], j))
+			{
+				store=ft_split(&argenv[i][j], '=');
+				res = store[1];
+				return (res);
+			}
+			i++;
+			j = 0;
+		}
+		i = 0;
 	}
-	return (ft_strdup("ls"));
+	while (store[i] != NULL)
+	{
+		store[i] = ft_free(store[i]);
+		i++;
+	}
+	store = ft_free(store);
+	return (res);
 }
+
 
 void	ft_expand_expression_list(t_list *tokens, char **argenv)
 {
