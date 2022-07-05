@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/05 09:32:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 10:49:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,26 @@ int	check_whitespace(t_lexer *lxr)
 
 int	check_dollar(t_lexer *lxr)
 {
-	int		move;
-	char	*temp;
-	char	next_char;
+	int		var_length;
 
-	move = 1;
-	if (! ft_is_var(lxr->content))
+	var_length = ft_is_var(lxr->content);
+	if (var_length < 2)
 	{
 		ft_move2_next_token(lxr);
 		return (1);
 	}
-	next_char = *(lxr->content + 1);
-	if (next_char == '$' || next_char == '?' || next_char == '*')
-		return (2);
-	temp = (char *)(lxr->content + 1);
-	while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
-	{
-		temp++;
-		move++;
-	}
-	return (move);
+	return (var_length);
+
+	// next_char = *(lxr->content + 1);
+	// if (next_char == '$' || next_char == '?' || next_char == '*')
+	// 	return (2);
+	// temp = (char *)(lxr->content + 1);
+	// while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
+	// {
+	// 	temp++;
+	// 	move++;
+	// }
+	// return (move);
 }
 
 t_type	ft_matching(t_lexer *lxr)
@@ -71,7 +71,7 @@ t_type	ft_get_type(t_lexer *lxr)
 	if (*lxr->content == '$')
 	{
 		type = EXPRESSION;
-		if (ft_is_var(lxr->content))
+		if (ft_is_var(lxr->content) > 1)
 			type = VAR;
 		return (ft_move_content(lxr, check_dollar(lxr)), type);
 	}
