@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 13:41:00 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:46:04 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ t_list	*ft_duplicate_tokens_list(const t_list	*tokens);
 t_type	ft_get_token_type(t_list	*lst);
 t_token	*ft_get_token(t_list *lst);
 int		ft_is_redirection(t_type token_type);
+void	ft_free_token(void *tree_content);
 
 #endif

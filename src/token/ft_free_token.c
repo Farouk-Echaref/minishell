@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroy_data.c                                  :+:      :+:    :+:   */
+/*   ft_free_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 01:54:51 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 14:45:30 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 14:45:41 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/05 14:46:34 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
 #include "token/token.h"
 #include "utils/utils.h"
 
-void	ft_destroy_data(t_data *data)
+void	ft_free_token(void *tree_content)
 {
-	if (! data)
+	t_token	*token;
+
+	token = tree_content;
+	if (! token)
 		return ;
-	ft_lstclear(&data->tokens, &free);
-	ft_tree_clear(&data->tree, &ft_free_token);
+	token->value = ft_free(token->value);
+	token = ft_free(token);
 }

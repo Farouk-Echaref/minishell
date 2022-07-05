@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:28:57 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:29:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:46:20 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	ft_merge_tokens(t_token *token)
 		tokens = tokens->next;
 	}
 	token->type = EXPRESSION;
-	ft_lstclear((t_list **)&token->value, free);
+	ft_lstclear((t_list **)&token->value, ft_free_token);
+	token->value = ft_free(token->value);
 	token->value = result;
 	token->is_list = 0;
 }

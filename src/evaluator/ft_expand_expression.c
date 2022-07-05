@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:54:11 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/05 15:14:49 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ void	ft_expand_expression(t_token *token, char **argenv)
 		token->value = ft_evaluate_var(str, argenv);
 		token->length = ft_strlen(token->value);
 		str = ft_free(str);
+	} else {
+		token->value = ft_str(token->value, token->length);
 	}
 }
