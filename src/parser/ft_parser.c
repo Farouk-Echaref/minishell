@@ -6,13 +6,14 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 01:58:50 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/06 11:29:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "token/token.h"
 #include <stdio.h>
+#include "utils/utils.h"
 
 int	ft_get_type_order(t_type type)
 {
@@ -55,6 +56,28 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 		ft_parser_rec(&(*root_ptr)->right, token);
 }
 
+void	ft_allocate_tree_nodes(t_tree *root)
+{
+	t_token	*token;
+
+	if (! root)
+		return ;
+	token = root->content;
+	if (! token->is_list)
+	{
+		if (token->type == SING_QUOT || token->type == DOUB_QUOT) {
+			token->value++;
+			token->length -= 2;
+		} else if (token->type == VAR) {
+			token->value++;
+			token->length--;
+		}
+		token->value = ft_str(token->value, token->length);
+	}
+	ft_allocate_tree_nodes(root->left);
+	ft_allocate_tree_nodes(root->right);
+}
+
 t_tree	*ft_parser(t_list *tokens)
 {
 	t_tree	*root;
@@ -69,5 +92,6 @@ t_tree	*ft_parser(t_list *tokens)
 			ft_parser_rec(&root, token);
 		tokens = tokens->next;
 	}
+	ft_allocate_tree_nodes(root);
 	return (root);
 }
