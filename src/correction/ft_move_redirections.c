@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 19:47:39 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/06 13:00:23 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ t_list	*ft_get_list_head(t_list *current)
 				|| ft_get_token(current)->type == SING_QUOT
 				|| ft_get_token(current)->type == DOUB_QUOT
 				|| ft_get_token(current)->type == VAR
-			) && (
-				current->prev == NULL
-				|| ! ft_is_redirection(ft_get_token(current->prev)->type)
+			)
+			&& (
+				current->prev == NULL || ! ft_is_redirection(ft_get_token(current->prev)->type)
 			)
 		)
 			break ;
@@ -74,13 +74,9 @@ t_list	*ft_move_redirections(t_list *current)
 	head = ft_get_list_head(current);
 	while (current)
 	{
-		if (
-			ft_is_redirection(ft_get_token_type(current))
-			&& ft_get_token_type(current->next) == WHITE_SPACE
-		)
-			free(ft_lstdetach(current->next));
 		if (! (
-				ft_is_redirection(ft_get_token_type(current))
+				current->next
+				&& ft_is_redirection(ft_get_token_type(current))
 				&& ft_get_token_type(current->next) == EXPRESSION
 			))
 		{
@@ -88,9 +84,12 @@ t_list	*ft_move_redirections(t_list *current)
 			continue ;
 		}
 		target = ft_get_target(current);
+		// printf("target: %s\n", ft_get_token(target)->value);
+		// printf("head: %s, prev: %s\n", ft_get_token(head)->value, ft_get_token(head->prev)->value);
+		// printf("+++++++++++++\n");
 		redir_token = current;
 		filename_token = current->next;
-		if (ft_get_token_type(current->prev) == WHITE_SPACE)
+		if (current->prev && ft_get_token_type(current->prev) == WHITE_SPACE)
 			space = current->prev;
 		current = current->next->next;
 		ft_get_token(filename_token)->type = FILE_NAME;
