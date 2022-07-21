@@ -15,6 +15,7 @@
         "_lexer.h": "c",
         "arr_utils.h": "c",
         "str_utils.h": "c",
-        "ft_expand_expression_list.C": "cpp"
+        "ft_expand_expression_list.C": "cpp",
+        "redirections.h": "c"
     }
 }
