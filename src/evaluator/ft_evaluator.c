@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/21 21:14:36 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/21 22:48:20 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,14 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data, cha
 void	ft_evaluator(t_tree	*tree, char **argenv)
 {
 	t_evaluator_data	evaluator_data;
+	int					pid;
 
+	pid = fork();
+	if (pid != 0)
+	{
+		waitpid(pid, NULL, 0);
+		return ;
+	}
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data, argenv);
 	ft_execute(&evaluator_data, argenv);
