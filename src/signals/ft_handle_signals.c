@@ -6,7 +6,7 @@
 /*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:53:26 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 23:53:13 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/23 00:27:41 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void	ft_ctrl_c(int sig)
 
 void	ft_ctrl_d(void)
 {
-	write (1, "Exit\n", 5);
+	write (1, "exit\n", 5);
 	exit(0);
 }
