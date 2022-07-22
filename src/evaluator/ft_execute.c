@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 16:22:58 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 19:44:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 			dup2(evaluator_data->redirect_left, STDIN_FILENO);
 			close(evaluator_data->redirect_left);
 		}
-		path = ft_get_command_path(command[0], argenv);
-		if (! path)
+		if (command[0][0] == '/' || command[0][0] == '.')
+			path = ft_strdup(command[0]);
+		else
+			path = ft_get_command_path(command[0], argenv);
+		if (! path || access(path, X_OK) != 0)
 		{
 			ft_putstr_fd("minishell: ", 1);
 			ft_putstr_fd(command[0], 1);
