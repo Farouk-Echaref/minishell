@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 22:51:43 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/23 00:31:48 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
+#include <errno.h>
 
 static char *ft_join_command_path(char *path, char *command_name)
 {
@@ -30,7 +31,6 @@ static	char *ft_get_command_path(char	*command_name, char	**env)
     char    *command_path;
     int     i;
 
-	(void)command_name;
 	path_env = ft_evaluate_var("PATH", env);
 	paths = ft_split(path_env, ':');
     i = 0;
@@ -47,7 +47,6 @@ static	char *ft_get_command_path(char	*command_name, char	**env)
 
 void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 {
-	int		pid;
 	char	*path;
 	char	**command;
 
@@ -56,35 +55,26 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 	command = evaluator_data->command;
 	if (! command || ! *command)
 		return ;
-	pid = fork();
-	if (pid == -1)
-		return ;
-	if (pid == 0)
+	if (evaluator_data->redirect_right >= 0)
 	{
-		if (evaluator_data->redirect_right >= 0)
-		{
-			dup2(evaluator_data->redirect_right, STDOUT_FILENO);
-			close(evaluator_data->redirect_right);
-		}
-		if (evaluator_data->redirect_left >= 0)
-		{
-			dup2(evaluator_data->redirect_left, STDIN_FILENO);
-			close(evaluator_data->redirect_left);
-		}
-		if (command[0][0] == '/' || command[0][0] == '.')
-			path = ft_strdup(command[0]);
-		else
-			path = ft_get_command_path(command[0], argenv);
-		if (! path || access(path, X_OK) != 0)
-		{
-			ft_putstr_fd("minishell: ", 1);
-			ft_putstr_fd(command[0], 1);
-			ft_putstr_fd(": command not found\n", 1);
-			exit(1);
-		}
-		execve(path, command, argenv);
+		dup2(evaluator_data->redirect_right, STDOUT_FILENO);
+		close(evaluator_data->redirect_right);
 	}
+	if (evaluator_data->redirect_left >= 0)
+	{
+		dup2(evaluator_data->redirect_left, STDIN_FILENO);
+		close(evaluator_data->redirect_left);
+	}
+	if (command[0][0] == '/' || command[0][0] == '.')
+		path = ft_strdup(command[0]);
 	else
-		waitpid(-1, NULL, 0);
-	exit(0);
+		path = ft_get_command_path(command[0], argenv);
+	if (! path || access(path, X_OK) != 0)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(command[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
+	execve(path, command, argenv);
 }

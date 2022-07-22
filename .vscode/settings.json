@@ -17,6 +17,7 @@
         "str_utils.h": "c",
         "ft_expand_expression_list.C": "cpp",
         "redirections.h": "c",
-        "signals.h": "c"
+        "errno.h": "c",
+        "stdio.h": "c"
     }
 }
