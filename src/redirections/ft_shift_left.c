@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 14:26:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 16:53:09 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data, char **env)
 	while (1)
 	{
 		line = readline("> ");
-		if (! line || ft_strncmp(line, stop_message, ft_strlen(line)) == 0)
+		if (! line || ft_strncmp(line, stop_message, ft_strlen(stop_message)) == 0)
 			break ;
 		line = ft_expand_line(line, env);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
         line = ft_free(line);
 	}
+	line = ft_free(line);
 	if (fd < 0)
 		return ;
 	close(fd);
