@@ -16,6 +16,7 @@
         "arr_utils.h": "c",
         "str_utils.h": "c",
         "ft_expand_expression_list.C": "cpp",
-        "redirections.h": "c"
+        "redirections.h": "c",
+        "signals.h": "c"
     }
 }
