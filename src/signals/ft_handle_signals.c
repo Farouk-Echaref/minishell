@@ -3,29 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_signals.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:53:26 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 20:10:12 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 23:53:13 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals/signals.h"
+#include <readline/readline.h>
+# include <readline/history.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include "libft/libft.h"
 
-static void	ft_nothing(int sig)
+void setup_term(void)
 {
-	sig = 0;
+    struct termios t;
+    tcgetattr(0, &t);
+    t.c_lflag &= ~ECHOCTL;
+    tcsetattr(0, TCSANOW, &t);
 }
 
-static void ft_ctrl_c(int sig)
+void	ft_ctrl_c(int sig)
 {
-	sig = 0;
+	if (sig == SIGINT)
+	{
+		write (1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
-void	ft_handle_signals()
+void	ft_ctrl_d(void)
 {
-	signal(SIGQUIT, ft_nothing);
-	signal(SIGINT, ft_ctrl_c);
+	write (1, "Exit\n", 5);
+	exit(0);
 }

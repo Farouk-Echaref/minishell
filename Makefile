@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+         #
+#    By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/22 05:27:27 by fech-cha          #+#    #+#              #
-#    Updated: 2022/06/30 04:35:11 by mzarhou          ###   ########.fr        #
+#    Updated: 2022/07/22 22:00:52 by fech-cha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ NAME = minishell
 
 ${ODIR}/%.o: %.c ${INCLUDES}
 	@mkdir -p ${@D}
-	${CC} ${CC_FLAGS} -c $< -o $@ -I ${INC}
+	${CC} ${CC_FLAGS} -c $< -o $@ -I /Users/fech-cha/.brew/opt/readline/include -I ${INC}
 
 all: ${NAME}
 
 $(NAME): ${OBJS}
 	${MAKE} -C src/libft
-	${CC} ${OBJS} -L./src/libft -lft -lreadline -o ${NAME}
+	${CC} ${OBJS} -L./src/libft -lft -lreadline -L /Users/fech-cha/.brew/opt/readline/lib -o ${NAME}
 
 clean:
 	${MAKE} clean -C src/libft

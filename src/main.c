@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 20:01:51 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 23:56:19 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ int	main(int argc, char **argv, char **argenv)
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init_data(&data);
-	ft_handle_signals();
+	setup_term();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_ctrl_c);
 	while (1)
 	{
 		s = readline("minishell> ");
+		if (s == NULL)
+			ft_ctrl_d();
 		add_history(s);
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
