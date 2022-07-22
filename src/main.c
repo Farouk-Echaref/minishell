@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 19:47:43 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 20:01:51 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "utils/utils.h"
 #include "correction/correction.h"
 #include "evaluator/evaluator.h"
+#include "signals/signals.h"
 
 int	main(int argc, char **argv, char **argenv)
 {
@@ -32,10 +33,11 @@ int	main(int argc, char **argv, char **argenv)
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init_data(&data);
+	ft_handle_signals();
 	while (1)
 	{
 		s = readline("minishell> ");
-        add_history(s);
+		add_history(s);
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
 		ft_correct_tokens(&data.tokens);
