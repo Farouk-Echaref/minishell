@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arr_utils.h                                        :+:      :+:    :+:   */
+/*   ft_arr_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/02 07:04:48 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 16:02:27 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/22 15:58:04 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/22 16:05:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ARR_UTILS_H
-# define ARR_UTILS_H
+#include "arr_utils.h"
 
-# include <stdlib.h>
-# include "utils/utils.h"
+char	**ft_arr_free(char **arr)
+{
+	int		i;
 
-void	ft_reverse_arr(char **arr);
-int		ft_arr_size(char **arr);
-char	**ft_arr_shift(char **command, char *str);
-char	**ft_arr_push(char **command, char *str);
-char	**ft_arr_free(char **arr);
-
-#endif
+	i = 0;
+	while (arr && arr[i])
+	{
+		arr[i] = ft_free(arr[i]);
+		i++;
+	}
+	return (ft_free(arr));
+}
