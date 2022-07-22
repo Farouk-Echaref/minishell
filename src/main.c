@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 14:06:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 19:47:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char **argv, char **argenv)
 	while (1)
 	{
 		s = readline("minishell> ");
+        add_history(s);
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
 		ft_correct_tokens(&data.tokens);
