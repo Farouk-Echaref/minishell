@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 13:10:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:06:24 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int	main(int argc, char **argv, char **argenv)
 		ft_evaluator(data.tree, argenv);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
+		free(s);
 	}
 }

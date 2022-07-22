@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/21 23:35:42 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 13:50:04 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_evaluator(t_tree	*tree, char **argenv)
 		return ;
 	if (pid != 0)
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(-1, NULL, 0);
 		return ;
 	}
 	ft_init_evaluator_data(&evaluator_data);

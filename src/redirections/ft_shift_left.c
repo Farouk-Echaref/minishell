@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 00:24:31 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:05:57 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
 			break ;
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
+		free(line);
 	}
 	if (fd < 0)
 		return ;
