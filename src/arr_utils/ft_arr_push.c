@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   correction.h                                       :+:      :+:    :+:   */
+/*   ft_arr_push.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 13:10:00 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/21 21:11:57 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/21 21:13:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORRECTION_H
-# define CORRECTION_H
+#include "arr_utils.h"
 
-# include "list/list.h"
-# include "token/token.h"
-# include "libft/libft.h"
+char	**ft_arr_push(char **command, char *str)
+{
+	char	**new_arr;
+	int		new_size;
+	int		i;
 
-t_list	*ft_move_redirections(t_list *current);
-void	ft_merge_expressions_wrapper(t_list **tokens_ptr);
-void	ft_rm_redirection_space(t_list *tokens);
-void	ft_correct_tokens(t_list **tokens_ptr);
-
-#endif
+	new_size = ft_arr_size(command) + 2;
+	new_arr = (char **)malloc(sizeof(char *) * new_size);
+	i = 0;
+	while (command[i])
+	{
+		new_arr[i] = command[i];
+		i++;
+	}
+	new_arr[i] = str;
+	command = ft_free(command);
+	new_arr[i + 1] = NULL;
+	return (new_arr);
+}

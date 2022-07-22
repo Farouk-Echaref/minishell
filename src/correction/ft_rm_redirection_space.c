@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   correction.h                                       :+:      :+:    :+:   */
+/*   ft_rm_redirection_space.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 13:10:00 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/06 12:43:45 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/06 13:03:33 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORRECTION_H
-# define CORRECTION_H
+#include "correction.h"
+#include "utils/utils.h"
 
-# include "list/list.h"
-# include "token/token.h"
-# include "libft/libft.h"
+void	ft_rm_redirection_space(t_list *tokens)
+{
+	t_list	*next;
 
-t_list	*ft_move_redirections(t_list *current);
-void	ft_merge_expressions_wrapper(t_list **tokens_ptr);
-void	ft_rm_redirection_space(t_list *tokens);
-void	ft_correct_tokens(t_list **tokens_ptr);
-
-#endif
+	while (tokens)
+	{
+		next = tokens->next;
+		if (
+			next
+			&& ft_is_redirection(ft_get_token(tokens)->type)
+			&& ft_get_token(next)->type == WHITE_SPACE
+		)
+		{
+			next = next->next;
+			ft_free(ft_lstdetach(tokens->next));
+		}
+		tokens = next;
+	}
+}

@@ -6,33 +6,47 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 15:18:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 14:16:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
-#include <stdio.h>
+#include "redirections/redirections.h"
 
-static void	ft_evaluator_rec(t_tree	*tree, char	***command, char **argenv)
+static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data, char **argenv)
 {
 	t_token	*token;
 
 	if (! tree)
 		return ;
+	ft_evaluator_rec(tree->left, evaluator_data, argenv);
 	ft_expand_expression(tree->content, argenv);
 	token = tree->content;
-	*command = ft_arr_shift(*command, token->value);
-	ft_evaluator_rec(tree->left, command, argenv);
+	if (ft_is_redirection(token->type))
+		ft_evaluate_redirection(tree, evaluator_data, argenv);
+	else if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == EXPRESSION)
+		evaluator_data->command = ft_arr_push(evaluator_data->command, token->value);
 }
 
 void	ft_evaluator(t_tree	*tree, char **argenv)
 {
-	char	**command;
+	t_evaluator_data	evaluator_data;
+	int					pid;
 
-	command = NULL;
-	command = (char **)malloc(sizeof(char *));
-	*command = NULL;
-	ft_evaluator_rec(tree, &command, argenv);
-	ft_execute(command, argenv);
-	command = ft_free(command);
+	pid = fork();
+	if (pid == -1)
+		return ;
+	if (pid != 0)
+	{
+		waitpid(-1, NULL, 0);
+		return ;
+	}
+	ft_init_evaluator_data(&evaluator_data);
+	ft_evaluator_rec(tree, &evaluator_data, argenv);
+	ft_execute(&evaluator_data, argenv);
+	evaluator_data.command = ft_free(evaluator_data.command);
+	if (evaluator_data.redirect_right >= 0)
+		close(evaluator_data.redirect_right);
+	if (evaluator_data.redirect_left >= 0)
+		close(evaluator_data.redirect_left);
 }
