@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 19:44:26 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 22:51:43 by fech-cha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 	}
 	else
 		waitpid(-1, NULL, 0);
+	exit(0);
 }
