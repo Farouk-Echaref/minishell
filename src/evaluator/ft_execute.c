@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 19:44:26 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 22:40:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 			path = ft_get_command_path(command[0], argenv);
 		if (! path || access(path, X_OK) != 0)
 		{
-			ft_putstr_fd("minishell: ", 1);
-			ft_putstr_fd(command[0], 1);
-			ft_putstr_fd(": command not found\n", 1);
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(command[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
 			exit(1);
 		}
 		execve(path, command, argenv);
