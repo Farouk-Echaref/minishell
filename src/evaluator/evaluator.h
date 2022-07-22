@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 13:52:35 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/22 18:53:34 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv);
 char	*ft_evaluate_var(char *var , char **env);
 void	ft_expand_expression_list(t_list *tokens, char **argenv);
 void	ft_init_evaluator_data(t_evaluator_data *data);
+void	ft_pipe(t_tree *node, char **argenv);
 
 #endif
