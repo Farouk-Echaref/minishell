@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.h                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 01:54:36 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 22:24:46 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/22 23:39:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/22 23:52:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H
-# define DATA_H
+#include "str_utils.h"
 
-# include "list/list.h"
-# include "tree/tree.h"
-# include <stdlib.h>
-
-int	g_exit_status;
-
-// single source of truth
-typedef struct s_data	t_data;
-
-struct s_data
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_list			*tokens;
-	struct s_tree	*tree;
-};
-
-void	ft_destroy_data(t_data *data);
-void	ft_init_data(t_data *data);
-
-#endif
+	if (!s1 || !s2 || *s1 != *s2)
+		return (-1);
+	while (*s1 && *++s1 == *++s2);
+	return (*s1 - *s2);
+}
