@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/21 22:48:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/21 23:35:42 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_evaluator(t_tree	*tree, char **argenv)
 	int					pid;
 
 	pid = fork();
+	if (pid == -1)
+		return ;
 	if (pid != 0)
 	{
 		waitpid(pid, NULL, 0);
