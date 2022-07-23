@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 00:31:48 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 17:59:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 		dup2(evaluator_data->redirect_left, STDIN_FILENO);
 		close(evaluator_data->redirect_left);
 	}
+	if (ft_is_builtin(command[0]))
+		return (ft_select_builtin_command(command[0])(command), exit(EXIT_SUCCESS));
 	if (command[0][0] == '/' || command[0][0] == '.')
 		path = ft_strdup(command[0]);
 	else
