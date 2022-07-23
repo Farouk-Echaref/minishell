@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:56:35 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 21:17:44 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/24 00:40:51 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "str_utils/str_utils.h"
 # include <unistd.h>
 # include <stdio.h>
+# include "list/list.h"
+# include "data/data.h"
 
 typedef void (*t_command_func)(char **);
 
@@ -24,5 +26,6 @@ int				ft_is_builtin(char *command_name);
 t_command_func	ft_select_builtin_command(char *command_name);
 void			ft_echo_command(char **cmd);
 void			ft_exit_command(char **command);
+void			ft_env_command(char **command);
 
 #endif
