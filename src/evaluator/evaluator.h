@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 14:08:46 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 17:52:54 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "str_utils/str_utils.h"
 # include "lexer/lexer.h"
 # include "data/data.h"
+# include "builtins/builtins.h"
 
 typedef struct s_evaluator_data	t_evaluator_data;
 struct s_evaluator_data
