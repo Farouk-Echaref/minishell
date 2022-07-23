@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 17:59:28 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 22:58:24 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static char *ft_join_command_path(char *path, char *command_name)
     return (command_path);
 }
 
-static	char *ft_get_command_path(char	*command_name, char	**env)
+static	char *ft_get_command_path(char	*command_name)
 {
 	char	*path_env;
 	char	**paths;
     char    *command_path;
     int     i;
 
-	path_env = ft_evaluate_var("PATH", env);
+	path_env = ft_evaluate_var("PATH");
 	paths = ft_split(path_env, ':');
     i = 0;
 	while (paths && paths[i])
@@ -45,7 +45,7 @@ static	char *ft_get_command_path(char	*command_name, char	**env)
 	return (ft_arr_free(paths), NULL);
 }
 
-void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
+void	ft_execute(t_evaluator_data *evaluator_data)
 {
 	char	*path;
 	char	**command;
@@ -70,7 +70,7 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 	if (command[0][0] == '/' || command[0][0] == '.')
 		path = ft_strdup(command[0]);
 	else
-		path = ft_get_command_path(command[0], argenv);
+		path = ft_get_command_path(command[0]);
 	if (! path || access(path, X_OK) != 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -78,5 +78,5 @@ void	ft_execute(t_evaluator_data *evaluator_data, char **argenv)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
-	execve(path, command, argenv);
+	execve(path, command, ft_lst2arr(g_.env));
 }

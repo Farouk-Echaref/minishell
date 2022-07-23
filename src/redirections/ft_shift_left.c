@@ -6,23 +6,23 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 00:19:26 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 21:59:32 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirections.h"
 #include <readline/readline.h>
 
-char	*ft_expand_line(char *line, char **env)
+char	*ft_expand_line(char *line)
 {
 	t_token	*token;
 
 	token = ft_new_token(line, EXPRESSION, ft_strlen(line));
-	ft_expand_double_qoutes(token, env);
+	ft_expand_double_qoutes(token);
 	return (token->value);
 }
 
-void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data, char **env)
+void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
 {
 	int		fd;
 	char	*stop_message;
@@ -41,7 +41,7 @@ void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data, char **env)
 		line = readline("> ");
 		if (! line || ft_strcmp(line, stop_message) == 0)
 			break ;
-		line = ft_expand_line(line, env);
+		line = ft_expand_line(line);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
         line = ft_free(line);
