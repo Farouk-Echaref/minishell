@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 01:00:02 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 01:54:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	main(int argc, char **argv, char **argenv)
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init_data(&data);
-	setup_term();
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_ctrl_c);
+	ft_handle_signals();
 	while (1)
 	{
+		g_.running_status = 1;
 		s = readline("minishell> ");
+		g_.running_status = 0;
 		if (s == NULL)
 			ft_ctrl_d();
 		if (ft_strlen(s) == 0)

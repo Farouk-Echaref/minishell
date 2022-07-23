@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 23:28:35 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 01:43:51 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_evaluator(t_tree	*tree, char **argenv)
 	if (pid != 0)
 	{
 		waitpid(-1, &status, 0);
-		g_exit_status = WEXITSTATUS(status);
+		g_.exit_status = WEXITSTATUS(status);
 		return ;
 	}
 	ft_init_evaluator_data(&evaluator_data);
