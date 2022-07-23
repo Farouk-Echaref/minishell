@@ -19,6 +19,8 @@ static	void f(char **command)
 
 t_command_func ft_select_builtin_command(char *command_name)
 {
-	(void)command_name;
+
+	if (ft_strcmp(command_name, "echo") == 0)
+		return (ft_echo_command);
 	return f;
 }
