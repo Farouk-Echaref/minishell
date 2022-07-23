@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 23:56:19 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/23 01:00:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int argc, char **argv, char **argenv)
 		s = readline("minishell> ");
 		if (s == NULL)
 			ft_ctrl_d();
+		if (ft_strlen(s) == 0)
+			continue;
 		add_history(s);
 		lxr = ft_init_lexer(s);
 		data.tokens = ft_lexer(lxr);
