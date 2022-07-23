@@ -6,13 +6,13 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:14:14 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 16:41:22 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 22:20:08 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 
-int	ft_pipe_left_fork(t_tree *tree, char **env, int fds[2])
+int	ft_pipe_left_fork(t_tree *tree, int fds[2])
 {
 	int	pid;
 
@@ -21,12 +21,12 @@ int	ft_pipe_left_fork(t_tree *tree, char **env, int fds[2])
 	{
 		close(fds[0]);
 		dup2(fds[1], STDOUT_FILENO);
-		ft_evaluator(tree, env);
+		ft_evaluator(tree);
 	}
 	return (pid);
 }
 
-int	ft_pipe_right_fork(t_tree *tree, char **env, int fds[2])
+int	ft_pipe_right_fork(t_tree *tree, int fds[2])
 {
 	int	pid;
 
@@ -35,12 +35,12 @@ int	ft_pipe_right_fork(t_tree *tree, char **env, int fds[2])
 	{
 		close(fds[1]);
 		dup2(fds[0], STDIN_FILENO);
-		ft_evaluator(tree, env);
+		ft_evaluator(tree);
 	}
 	return (pid);
 }
 
-void	ft_pipe(t_tree *node, char **env)
+void	ft_pipe(t_tree *node)
 {
 	int	fds[2];
 	int	status;
@@ -52,8 +52,8 @@ void	ft_pipe(t_tree *node, char **env)
 		perror("pipe error");
 		exit(1);
 	}
-	left_pid = ft_pipe_left_fork(node->left, env, fds);
-	right_pid = ft_pipe_right_fork(node->right, env, fds);
+	left_pid = ft_pipe_left_fork(node->left, fds);
+	right_pid = ft_pipe_right_fork(node->right, fds);
 	close(fds[0]);
 	close(fds[1]);
 	waitpid(left_pid, &status, 0);

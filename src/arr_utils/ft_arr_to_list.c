@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_data.c                                     :+:      :+:    :+:   */
+/*   ft_arr_to_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 01:55:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:59:22 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 22:04:23 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 22:22:49 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "arr_utils.h"
 
-void	ft_init_data(t_data *data, char **env)
+t_list	*ft_arr_to_list(char **argenv)
 {
-	if (! data)
-		return ;
-	g_.env = ft_arr_to_list(env);
-	g_.exit_status = 0;
-	data->tokens = NULL;
-	data->tree = NULL;
+	t_list	*lst;
+	int		i;
+
+	lst = NULL;
+	if (! argenv)
+		return NULL;
+	i = 0;
+	while (argenv[i])
+	{
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(argenv[i])));
+		i++;
+	}
+	return (lst);
 }

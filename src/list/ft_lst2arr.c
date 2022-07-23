@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_data.c                                     :+:      :+:    :+:   */
+/*   ft_lst2arr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 01:55:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:59:22 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 22:12:14 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 22:58:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "data.h"
+#include "list/list.h"
+#include "libft/libft.h"
+#include <stdlib.h>
 
-void	ft_init_data(t_data *data, char **env)
+char	**ft_lst2arr(t_list *lst)
 {
-	if (! data)
-		return ;
-	g_.env = ft_arr_to_list(env);
-	g_.exit_status = 0;
-	data->tokens = NULL;
-	data->tree = NULL;
+	int		lst_size;
+	char	**result;
+	int		i;
+
+	if (! lst)
+		return NULL;
+	lst_size = ft_lstsize(lst);
+	result = (char **)malloc(lst_size * sizeof(char *) + 1);
+	i = 0;
+	while (lst)
+	{
+		result[i++] = ft_strdup(lst->content);
+		lst = lst->next;
+	}
+	result[i] = 0;
+	return (result);
 }
