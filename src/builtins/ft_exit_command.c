@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_exit_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 16:56:35 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 19:05:03 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 18:16:40 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 19:01:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "str_utils/str_utils.h"
-# include <unistd.h>
-# include <stdio.h>
-
-typedef void (*t_command_func)(char **);
-
-int				ft_is_builtin(char *command_name);
-t_command_func	ft_select_builtin_command(char *command_name);
-void			ft_exit_command(char **command);
-
-#endif
+void	ft_exit_command(char **command)
+{
+	(void)command;
+	write (1, "exit\n", 5);
+	exit(200);
+}
