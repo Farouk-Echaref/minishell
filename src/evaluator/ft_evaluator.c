@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 01:43:51 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 14:17:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data, cha
 	if (! tree)
 		return ;
 	token = tree->content;
+	if (token->type == AND_OPR)
+		return (ft_and_opr(tree, argenv));
+	if (token->type == OR_OPR)
+		return (ft_or_opr(tree, argenv));
 	if (token->type == PIPE)
 		return (ft_pipe(tree, argenv));
 	ft_evaluator_rec(tree->left, evaluator_data, argenv);
@@ -33,18 +37,7 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data, cha
 void	ft_evaluator(t_tree	*tree, char **argenv)
 {
 	t_evaluator_data	evaluator_data;
-	int					pid;
-	int					status;
 
-	pid = fork();
-	if (pid == -1)
-		return ;
-	if (pid != 0)
-	{
-		waitpid(-1, &status, 0);
-		g_.exit_status = WEXITSTATUS(status);
-		return ;
-	}
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data, argenv);
 	ft_execute(&evaluator_data, argenv);
@@ -53,4 +46,19 @@ void	ft_evaluator(t_tree	*tree, char **argenv)
 		close(evaluator_data.redirect_right);
 	if (evaluator_data.redirect_left >= 0)
 		close(evaluator_data.redirect_left);
+	exit(EXIT_SUCCESS);
+}
+
+void	ft_evaluator_fork(t_tree	*tree, char **argenv)
+{
+	int					pid;
+	int					status;
+
+	pid = ft_fork();
+	if (pid != 0)
+	{
+		waitpid(-1, &status, 0);
+		g_.exit_status = WEXITSTATUS(status);
+	} else
+		ft_evaluator(tree, argenv);
 }
