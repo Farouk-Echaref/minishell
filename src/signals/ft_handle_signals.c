@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_signals.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:53:26 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 00:27:41 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/23 01:54:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,24 @@ void setup_term(void)
 
 void	ft_ctrl_c(int sig)
 {
-	if (sig == SIGINT)
-	{
-		write (1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	(void)sig;
+	if (g_.running_status != 1)
+		return ;
+	write (1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	ft_ctrl_d(void)
 {
 	write (1, "exit\n", 5);
 	exit(0);
+}
+
+void ft_handle_signals()
+{
+	setup_term();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_ctrl_c);
 }
