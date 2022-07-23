@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_select_builtin_command.c                                   :+:      :+:    :+:   */
+/*   ft_env_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 17:14:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 17:58:24 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 00:38:09 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 00:40:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static	void f(char **command)
+void	ft_env_command(char **command)
 {
+	t_list	*env;
+
 	(void)command;
-}
-
-t_command_func ft_select_builtin_command(char *command_name)
-{
-
-	if (ft_strcmp(command_name, "echo") == 0)
-		return (ft_echo_command);
-	if (ft_strcmp(command_name, "exit") == 0)
-		return (ft_exit_command);
-	if (ft_strcmp(command_name, "env") == 0)
-		return (ft_env_command);
-	return (f);
+	env = g_.env;
+	while (env)
+	{
+		printf("%s\n", env->content);
+		env = env->next;
+	}
 }
