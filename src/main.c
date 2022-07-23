@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 01:54:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 13:59:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **argenv)
 		data.tokens = ft_lexer(lxr);
 		ft_correct_tokens(&data.tokens);
 		data.tree = ft_parser(data.tokens);
-		ft_evaluator(data.tree, argenv);
+		ft_evaluator_fork(data.tree, argenv);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
 		free(s);
