@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_search_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 20:46:53 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 21:20:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 21:40:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "env.h"
 
-# include "tree/tree.h"
-# include "list/list.h"
-# include "token/token.h"
-# include <stdio.h>
-# include "utils/utils.h"
+t_list	*ft_search_env(char *var_name)
+{
+	t_list	*lst;
 
-t_tree	*ft_parser(t_list *tokens);
-void	ft_cleanup_token(t_token *token);
-
-#endif
+	lst = g_.env;
+	while (lst)
+	{
+		if (
+			(int)ft_strlen(var_name) == ft_strchr(lst->content, '=') - (char *)lst->content
+			&& ft_strncmp(var_name, (char *)lst->content, ft_strlen(var_name)) == 0
+		)
+			return (lst);
+		lst = lst->next;
+	}
+	return (NULL);
+}

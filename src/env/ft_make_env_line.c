@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_make_env_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 20:46:53 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 21:29:19 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 21:31:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "env/env.h"
 
-# include "tree/tree.h"
-# include "list/list.h"
-# include "token/token.h"
-# include <stdio.h>
-# include "utils/utils.h"
+char	*ft_make_env_line(char *var_name, char *value)
+{
+	char	*result;
+	char	*temp;
 
-t_tree	*ft_parser(t_list *tokens);
-void	ft_cleanup_token(t_token *token);
-
-#endif
+	if (! var_name || ! value)
+		return (NULL);
+	temp = ft_strjoin(var_name, "=");
+	result = ft_strjoin(temp, value);
+	return (result);
+}

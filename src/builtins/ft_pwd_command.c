@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_pwd_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 20:46:53 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 19:18:25 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 21:38:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "builtins.h"
 
-# include "tree/tree.h"
-# include "list/list.h"
-# include "token/token.h"
-# include <stdio.h>
-# include "utils/utils.h"
+void	ft_pwd_command(char **command)
+{
+	char	cwd[256];
 
-t_tree	*ft_parser(t_list *tokens);
-void	ft_cleanup_token(t_token *token);
-
-#endif
+	(void)command;
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		perror("getcwd() error");
+	else
+		printf("%s\n", cwd);
+}
