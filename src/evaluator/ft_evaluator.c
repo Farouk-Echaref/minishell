@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:19:56 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 16:44:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,29 @@ void	ft_evaluator(t_tree	*tree)
 	if (command_name)
 	{
 		if (ft_should_run_on_main_process(command_name))
-		{
-			printf("======> run %s on main process\n", command_name);
 			ft_execute(&evaluator_data);
-		}
 		else
-		{
-			printf("======> run %s on child process\n", command_name);
 			ft_execute_fork(&evaluator_data);
-		}
 	}
+	evaluator_data.command = ft_free(evaluator_data.command);
+	if (evaluator_data.redirect_right >= 0)
+		close(evaluator_data.redirect_right);
+	if (evaluator_data.redirect_left >= 0)
+		close(evaluator_data.redirect_left);
+}
+
+void	ft_evaluator_no_fork(t_tree	*tree)
+{
+	t_evaluator_data	evaluator_data;
+	char				*command_name;
+
+	ft_init_evaluator_data(&evaluator_data);
+	ft_evaluator_rec(tree, &evaluator_data);
+	command_name = evaluator_data.command[0];
+	if (command_name)
+		ft_execute(&evaluator_data);
+	else
+		exit(EXIT_SUCCESS);
 	evaluator_data.command = ft_free(evaluator_data.command);
 	if (evaluator_data.redirect_right >= 0)
 		close(evaluator_data.redirect_right);
