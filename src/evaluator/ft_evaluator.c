@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:09:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 13:53:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	ft_evaluator_fork(t_tree	*tree)
 	if (pid != 0)
 	{
 		waitpid(-1, &status, 0);
-		if (WEXITSTATUS(status) == 200)
-			exit(g_.exit_status);
 		g_.exit_status = WEXITSTATUS(status);
 	} else
 		ft_evaluator(tree);
