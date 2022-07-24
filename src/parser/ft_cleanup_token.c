@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_cleanup_token.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:42:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 20:46:53 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 20:45:21 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 20:46:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "parser/parser.h"
 
-# include "tree/tree.h"
-# include "list/list.h"
-# include "token/token.h"
-# include <stdio.h>
-# include "utils/utils.h"
-
-t_tree	*ft_parser(t_list *tokens);
-void	ft_cleanup_token(t_token *token);
-
-#endif
+void	ft_cleanup_token(t_token *token)
+{
+		if (token->type == SING_QUOT || token->type == DOUB_QUOT) {
+			token->value++;
+			token->length -= 2;
+		} else if (token->type == VAR) {
+			token->value++;
+			token->length--;
+		}
+}
