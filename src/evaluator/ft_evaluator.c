@@ -6,12 +6,26 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 13:53:41 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 15:37:48 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 #include "redirections/redirections.h"
+
+static int	ft_should_run_on_main_process(char *command_name)
+{
+	if (
+		ft_strcmp(command_name, "exit") == 0
+		|| ft_str_start_with(command_name, "exit ")
+		|| ft_strcmp(command_name, "unset") == 0
+		|| ft_str_start_with(command_name, "unset ")
+		|| ft_strcmp(command_name, "export") == 0
+		|| ft_str_start_with(command_name, "export ")
+	)
+		return (1);
+	return (0);
+}
 
 static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 {
@@ -37,28 +51,24 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 void	ft_evaluator(t_tree	*tree)
 {
 	t_evaluator_data	evaluator_data;
+	char				*command_name;
 
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data);
-	ft_execute(&evaluator_data);
+	command_name = evaluator_data.command[0];
+	if (ft_should_run_on_main_process(command_name))
+	{
+		printf("main process\n");
+		ft_execute(&evaluator_data);
+	}
+	else
+	{
+		printf("child process\n");
+		ft_execute_fork(&evaluator_data);
+	}
 	evaluator_data.command = ft_free(evaluator_data.command);
 	if (evaluator_data.redirect_right >= 0)
 		close(evaluator_data.redirect_right);
 	if (evaluator_data.redirect_left >= 0)
 		close(evaluator_data.redirect_left);
-	exit(EXIT_SUCCESS);
-}
-
-void	ft_evaluator_fork(t_tree	*tree)
-{
-	int					pid;
-	int					status;
-
-	pid = ft_fork();
-	if (pid != 0)
-	{
-		waitpid(-1, &status, 0);
-		g_.exit_status = WEXITSTATUS(status);
-	} else
-		ft_evaluator(tree);
 }

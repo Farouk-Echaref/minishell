@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 19:15:25 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/23 19:29:39 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:54:10 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_echo_command(char **cmd)
 	i = 1;
 	nl = 0;
 	if (!cmd)
-		return ;
+		return (exit(EXIT_SUCCESS));
 	while (*cmd && ft_check_nl(cmd[i]))
 	{
 		nl = 1;
@@ -58,4 +58,5 @@ void	ft_echo_command(char **cmd)
 	ft_print_args(cmd, i);
 	if (!nl)
 		printf ("\n");
+	exit(EXIT_SUCCESS);
 }

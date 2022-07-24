@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 21:59:06 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 15:40:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ struct s_evaluator_data
 
 void	ft_expand_expression(t_token *token);
 void	ft_evaluator(t_tree	*tree);
-void	ft_evaluator_fork(t_tree	*tree);
 void	ft_merge_tokens(t_token *token);
 void	ft_expand_double_qoutes(t_token *token);
 void	ft_execute(t_evaluator_data *evaluator_data);
@@ -45,5 +44,6 @@ void	ft_pipe(t_tree *node);
 pid_t	ft_fork();
 void	ft_and_opr(t_tree *node);
 void	ft_or_opr(t_tree *node);
+void	ft_execute_fork(t_evaluator_data *evaluator_data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 00:38:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 13:31:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 14:55:03 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void	ft_env_command(char **command)
 		printf("%s\n", (char *)env->content);
 		env = env->next;
 	}
+	exit(EXIT_SUCCESS);
 }
