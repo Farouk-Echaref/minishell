@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:05:56 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 00:16:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void ft_redir_right(t_tree *tree, t_evaluator_data *evaluator_data)
 	if (! tree || ! evaluator_data)
 		return ;
 	file_name = ft_get_file_name(tree);
-	fd = ft_open_file(file_name, ft_get_file_open_mode(tree));
+	fd = ft_open_file(file_name, ft_get_file_open_mode(tree), evaluator_data);
 	if (fd > -1)
 	{
 		if (evaluator_data->redirect_right >= 0)

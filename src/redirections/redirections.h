@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:22:46 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:05:37 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 00:15:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	ft_redir_right(t_tree *tree, t_evaluator_data *evaluator_data);
 void	ft_redir_left(t_tree *tree, t_evaluator_data *evaluator_data);
 void	ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data);
 void	ft_shift_right(t_tree *tree, t_evaluator_data *evaluator_data);
-int		ft_open_file(char *file_path, int flags);
+int		ft_open_file(char *file_path, int flags, t_evaluator_data *evaluator_data);
 
 #endif

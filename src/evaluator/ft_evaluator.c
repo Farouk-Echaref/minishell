@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:44:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 00:18:08 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	if (token->type == PIPE)
 		return (ft_pipe(tree));
 	ft_evaluator_rec(tree->left, evaluator_data);
+	if (! evaluator_data->ok)
+		return ;
 	ft_expand_expression(tree->content);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
@@ -56,7 +58,7 @@ void	ft_evaluator(t_tree	*tree)
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data);
 	command_name = evaluator_data.command[0];
-	if (command_name)
+	if (command_name && evaluator_data.ok)
 	{
 		if (ft_should_run_on_main_process(command_name))
 			ft_execute(&evaluator_data);
