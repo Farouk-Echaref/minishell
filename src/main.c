@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:33:17 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 14:19:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 int	main(int argc, char **argv, char **argenv)
 {
 	t_data	data;
-	char	*s;
+	char	*command_str;
 	t_lexer	*lxr;
 
-	s = "> file1 > fie2 << end ls && < f2 ls >> f20 -al";
+	command_str = "> file1 > fie2 << end ls && < f2 ls >> f20 -al";
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init_data(&data, argenv);
@@ -37,21 +37,27 @@ int	main(int argc, char **argv, char **argenv)
 	while (1)
 	{
 		g_.running_status = 1;
-		s = readline("minishell> ");
+		command_str = readline("minishell> ");
 		g_.running_status = 0;
-		if (s == NULL)
+		if (command_str == NULL)
 			ft_ctrl_d();
-		if (ft_strlen(s) == 0)
+		if (ft_strlen(command_str) == 0)
 			continue;
-		add_history(s);
-		lxr = ft_init_lexer(s);
+		add_history(command_str);
+		lxr = ft_init_lexer(command_str);
 		data.tokens = ft_lexer(lxr);
 		ft_correct_tokens(&data.tokens);
 		data.tree = ft_parser(data.tokens);
-		ft_evaluator_fork(data.tree);
+		if (
+			ft_strcmp(command_str, "exit") == 0
+			|| ft_str_start_with(command_str, "exit ")
+		)
+			ft_evaluator(data.tree);
+		else
+			ft_evaluator_fork(data.tree);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
-		free(s);
+		free(command_str);
 	}
 	ft_lstclear(&g_.env, &free);
 }
