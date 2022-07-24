@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 11:29:05 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 20:33:36 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 void	ft_allocate_tree_nodes(t_tree *root)
 {
 	t_token	*token;
+	t_list	*lst;
 
 	if (! root)
 		return ;
@@ -73,6 +74,13 @@ void	ft_allocate_tree_nodes(t_tree *root)
 			token->length--;
 		}
 		token->value = ft_str(token->value, token->length);
+	} else {
+		lst = token->value;
+		while (lst)
+		{
+			ft_get_token(lst)->value = ft_str(ft_get_token(lst)->value, ft_get_token(lst)->length);
+			lst = lst->next;
+		}
 	}
 	ft_allocate_tree_nodes(root->left);
 	ft_allocate_tree_nodes(root->right);
