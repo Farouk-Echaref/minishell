@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 14:19:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 14:23:03 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ int	main(int argc, char **argv, char **argenv)
 		if (
 			ft_strcmp(command_str, "exit") == 0
 			|| ft_str_start_with(command_str, "exit ")
+			|| ft_strcmp(command_str, "unset") == 0
+			|| ft_str_start_with(command_str, "unset ")
+			|| ft_strcmp(command_str, "export") == 0
+			|| ft_str_start_with(command_str, "export ")
 		)
 			ft_evaluator(data.tree);
 		else
