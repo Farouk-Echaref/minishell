@@ -6,14 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 11:29:05 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 20:48:45 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "token/token.h"
-#include <stdio.h>
-#include "utils/utils.h"
 
 int	ft_get_type_order(t_type type)
 {
@@ -59,20 +56,23 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 void	ft_allocate_tree_nodes(t_tree *root)
 {
 	t_token	*token;
+	t_list	*lst;
 
 	if (! root)
 		return ;
 	token = root->content;
 	if (! token->is_list)
 	{
-		if (token->type == SING_QUOT || token->type == DOUB_QUOT) {
-			token->value++;
-			token->length -= 2;
-		} else if (token->type == VAR) {
-			token->value++;
-			token->length--;
-		}
+		ft_cleanup_token(token);
 		token->value = ft_str(token->value, token->length);
+	} else {
+		lst = token->value;
+		while (lst)
+		{
+			ft_cleanup_token(ft_get_token(lst));
+			ft_get_token(lst)->value = ft_str(ft_get_token(lst)->value, ft_get_token(lst)->length);
+			lst = lst->next;
+		}
 	}
 	ft_allocate_tree_nodes(root->left);
 	ft_allocate_tree_nodes(root->right);

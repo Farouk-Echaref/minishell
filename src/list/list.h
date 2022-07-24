@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 01:08:18 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 01:08:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 22:18:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ int		ft_lstsize(t_list *lst);
 
 void	ft_lstpush_after(t_list *target, t_list *new_el);
 t_list	*ft_lstdetach(t_list *el);
+char	**ft_lst2arr(t_list *lst);
 
 #endif

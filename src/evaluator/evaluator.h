@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 17:52:54 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 16:35:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,19 @@ struct s_evaluator_data
 	int		redirect_left;
 };
 
-void	ft_expand_expression(t_token *token, char **argenv);
-void	ft_evaluator(t_tree	*tree, char **argenv);
-void	ft_evaluator_fork(t_tree	*tree, char **argenv);
+void	ft_expand_expression(t_token *token);
+void	ft_evaluator(t_tree	*tree);
+void	ft_evaluator_no_fork(t_tree	*tree);
 void	ft_merge_tokens(t_token *token);
-void	ft_expand_double_qoutes(t_token *token, char **env);
-void	ft_execute(t_evaluator_data *evaluator_data, char **argenv);
-char	*ft_evaluate_var(char *var , char **env);
-void	ft_expand_expression_list(t_list *tokens, char **argenv);
+void	ft_expand_double_qoutes(t_token *token);
+void	ft_execute(t_evaluator_data *evaluator_data);
+char	*ft_evaluate_var(char *var );
+void	ft_expand_expression_list(t_list *tokens);
 void	ft_init_evaluator_data(t_evaluator_data *data);
-void	ft_pipe(t_tree *node, char **argenv);
+void	ft_pipe(t_tree *node);
 pid_t	ft_fork();
-void	ft_and_opr(t_tree *node, char **env);
-void	ft_or_opr(t_tree *node, char **env);
+void	ft_and_opr(t_tree *node);
+void	ft_or_opr(t_tree *node);
+void	ft_execute_fork(t_evaluator_data *evaluator_data);
 
 #endif

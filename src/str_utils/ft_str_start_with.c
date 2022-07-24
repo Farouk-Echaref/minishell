@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_and_opr.c                                       :+:      :+:    :+:   */
+/*   ft_str_start_with.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 13:33:22 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 13:48:28 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 13:51:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "str_utils.h"
 
-void	ft_and_opr(t_tree *node)
+int	ft_str_start_with(char *str, char *start_with)
 {
-	// main process
-
-	ft_evaluator(node->left);
-	if (g_.exit_status != 0)
-		return ;
-	ft_evaluator(node->right);
+	if (! str || ! start_with)
+		return (0);
+	if (ft_strlen(str) < ft_strlen(start_with))
+		return (0);
+	while (start_with)
+	{
+		if (*str != *start_with)
+			return (0);
+		start_with++;
+		str++;
+	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:24:46 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 23:42:10 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 13:52:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 # include "libft/libft.h"
 
 int	ft_strcmp(char *s1, char *s2);
+int	ft_str_start_with(char *str, char *start_with);
 
 #endif

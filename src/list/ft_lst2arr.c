@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_and_opr.c                                       :+:      :+:    :+:   */
+/*   ft_lst2arr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 13:33:22 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 22:12:14 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 22:58:05 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "list/list.h"
+#include "libft/libft.h"
+#include <stdlib.h>
 
-void	ft_and_opr(t_tree *node)
+char	**ft_lst2arr(t_list *lst)
 {
-	// main process
+	int		lst_size;
+	char	**result;
+	int		i;
 
-	ft_evaluator(node->left);
-	if (g_.exit_status != 0)
-		return ;
-	ft_evaluator(node->right);
+	if (! lst)
+		return NULL;
+	lst_size = ft_lstsize(lst);
+	result = (char **)malloc(lst_size * sizeof(char *) + 1);
+	i = 0;
+	while (lst)
+	{
+		result[i++] = ft_strdup(lst->content);
+		lst = lst->next;
+	}
+	result[i] = 0;
+	return (result);
 }

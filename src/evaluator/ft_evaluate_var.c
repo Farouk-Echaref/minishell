@@ -6,27 +6,27 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:59 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 01:16:54 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 13:31:51 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 
-char	*ft_evaluate_var(char *var , char **env)
+char	*ft_evaluate_var(char *var)
 {
-	int		i;
+	t_list	*env;
 
-	i = 0;
+	env = g_.env;
 	if (ft_strcmp(var, "?") == 0)
 		return (ft_itoa(g_.exit_status));
-	while (env[i])
+	while (env)
 	{
 		if (
-			(int) ft_strlen(var) == (ft_strchr(env[i], '=') - env[i])
-			&& ft_strncmp(env[i], var, ft_strchr(env[i], '=') - env[i]) == 0
+			(int) ft_strlen(var) == (ft_strchr(env->content, '=') - (char *)env->content)
+			&& ft_strncmp(env->content, var, ft_strchr(env->content, '=') - (char *)env->content) == 0
 		)
-			return ft_strdup(ft_strchr(env[i], '=') + 1);
-		i++;
+			return ft_strdup(ft_strchr(env->content, '=') + 1);
+		env = env->next;
 	}
 	return (ft_strdup(""));
 }

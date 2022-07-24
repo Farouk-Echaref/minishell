@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_and_opr.c                                       :+:      :+:    :+:   */
+/*   ft_arr_to_list.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 13:33:22 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 22:04:23 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 22:22:49 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "arr_utils.h"
 
-void	ft_and_opr(t_tree *node)
+t_list	*ft_arr_to_list(char **argenv)
 {
-	// main process
+	t_list	*lst;
+	int		i;
 
-	ft_evaluator(node->left);
-	if (g_.exit_status != 0)
-		return ;
-	ft_evaluator(node->right);
+	lst = NULL;
+	if (! argenv)
+		return NULL;
+	i = 0;
+	while (argenv[i])
+	{
+		ft_lstadd_back(&lst, ft_lstnew(ft_strdup(argenv[i])));
+		i++;
+	}
+	return (lst);
 }

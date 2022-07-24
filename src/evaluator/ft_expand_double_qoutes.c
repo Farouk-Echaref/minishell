@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:27:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 16:37:31 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/23 21:59:32 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	ft_free_parts(char **parts)
 	}
 }
 
-void	ft_expand_double_qoutes(t_token *token, char **env)
+void	ft_expand_double_qoutes(t_token *token)
 {
 	char	*parts[4];
 	char	*dollar_ptr;
@@ -73,12 +73,12 @@ void	ft_expand_double_qoutes(t_token *token, char **env)
 		return ;
 	var_name = ft_str(dollar_ptr + 1, var_length - 1);
 	parts[0] = ft_str(token->value, dollar_ptr - (char *)token->value);
-	parts[1] = ft_evaluate_var(var_name, env);
+	parts[1] = ft_evaluate_var(var_name);
 	parts[2] = ft_strdup(dollar_ptr + var_length);
 	token->value = ft_free(token->value);
 	token->value = ft_concat_parts(parts);
 	token->length = ft_strlen(token->value);
 	ft_free_parts(parts);
 	var_name = ft_free(var_name);
-	ft_expand_double_qoutes(token, env);
+	ft_expand_double_qoutes(token);
 }
