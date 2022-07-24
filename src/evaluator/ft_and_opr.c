@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 13:33:22 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 21:59:32 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 16:17:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 void	ft_and_opr(t_tree *node)
 {
-	int	pid;
-	int	status;
+	// main process
 
-	pid = ft_fork();
-	if (pid == 0)
-		ft_evaluator(node->left);
-	waitpid(pid, &status, 0);
-	if (WEXITSTATUS(status) != 0)
-		exit(WEXITSTATUS(status));
+	ft_evaluator(node->left);
+	if (g_.exit_status != 0)
+		return ;
 	ft_evaluator(node->right);
 }
