@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 13:55:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 14:19:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,10 @@ int	main(int argc, char **argv, char **argenv)
 		if (
 			ft_strcmp(command_str, "exit") == 0
 			|| ft_str_start_with(command_str, "exit ")
-		) {
-			printf("main process\n");
+		)
 			ft_evaluator(data.tree);
-		}
 		else
-		{
-			printf("child process\n");
 			ft_evaluator_fork(data.tree);
-		}
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);
 		free(command_str);
