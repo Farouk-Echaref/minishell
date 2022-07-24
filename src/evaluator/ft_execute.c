@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:58:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 15:34:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_execute(t_evaluator_data *evaluator_data)
 		close(evaluator_data->redirect_left);
 	}
 	if (ft_is_builtin(command[0]))
-		return (ft_select_builtin_command(command[0])(command), exit(EXIT_SUCCESS));
+		return (ft_select_builtin_command(command[0])(command));
 	if (command[0][0] == '/' || command[0][0] == '.')
 		path = ft_strdup(command[0]);
 	else
@@ -79,4 +79,21 @@ void	ft_execute(t_evaluator_data *evaluator_data)
 		exit(127);
 	}
 	execve(path, command, ft_lst2arr(g_.env));
+}
+
+
+void	ft_execute_fork(t_evaluator_data *evaluator_data)
+{
+	int	pid;
+	int	status;
+
+	pid = ft_fork();
+	if (pid == 0)
+		ft_execute(evaluator_data);
+	else
+	{
+		// main process
+		waitpid(pid, &status, 0);
+		g_.exit_status = WEXITSTATUS(status);
+	}
 }

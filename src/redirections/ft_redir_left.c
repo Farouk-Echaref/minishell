@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:55 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/22 22:40:44 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 15:22:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void ft_redir_left(t_tree *tree, t_evaluator_data *evaluator_data)
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
-		ft_free(file_name);
-		exit(1);
+		g_.exit_status = 1;
 	}
 	ft_free(file_name);
 }
