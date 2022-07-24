@@ -15,6 +15,7 @@
 static	void f(char **command)
 {
 	(void)command;
+	exit(EXIT_SUCCESS);
 }
 
 t_command_func ft_select_builtin_command(char *command_name)
