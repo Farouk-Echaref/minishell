@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:56:35 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 21:00:51 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 21:31:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include "list/list.h"
 # include "data/data.h"
+# include "evaluator/evaluator.h"
+# include "env/env.h"
 
 typedef void (*t_command_func)(char **);
 
