@@ -6,13 +6,13 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 00:57:12 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/04 13:41:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-t_token	*ft_new_token(const char *value, t_type type, int length)
+t_token	*ft_new_token(void *value, t_type type, int length)
 {
 	t_token	*t;
 
@@ -20,5 +20,6 @@ t_token	*ft_new_token(const char *value, t_type type, int length)
 	t->length = length;
 	t->type = type;
 	t->value = value;
+	t->is_list = 0;
 	return (t);
 }

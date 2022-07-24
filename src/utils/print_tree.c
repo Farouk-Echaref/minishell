@@ -51,14 +51,18 @@ static void printTreeRec(t_tree* root, Trunk *prev, int isLeft)
     }
     showTrunks(trunk);
 	t_token	*token = root->content;
-	str = ft_str(token->value, token->length);
-	printf(" %s(%s)\n", str, ft_get_type_name(token->type));
+	if (token->is_list) {
+		printf("(tokens list)\n");
+	} else {
+		str = ft_str(token->value, token->length);
+		printf(" %s(%s)\n", str, ft_get_type_name(token->type));
+		free(str);
+	}
     if (prev) {
         prev->str = prev_str;
     }
     trunk->str = "   |";
 	printTreeRec(root->left, trunk, 0);
-	free(str);
 }
 
 void	print_tree(t_tree *root)

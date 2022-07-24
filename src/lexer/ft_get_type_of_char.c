@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_type_of_char.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fech-cha <fech-cha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 04:37:24 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/01 04:38:43 by fech-cha         ###   ########.fr       */
+/*   Updated: 2022/07/04 10:31:12 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,5 @@ t_type	ft_get_type_of_char(char c)
 		return (DOUB_QUOT);
 	if (c == '|')
 		return (PIPE);
-	if (c == '$')
-		return (VAR);
 	return (OTHER);
 }

@@ -13,6 +13,13 @@
         "utils.h": "c",
         "evaluator.h": "c",
         "_lexer.h": "c",
-        "arr_utils.h": "c"
+        "arr_utils.h": "c",
+        "str_utils.h": "c",
+        "ft_expand_expression_list.C": "cpp",
+        "redirections.h": "c",
+        "errno.h": "c",
+        "stdio.h": "c",
+        "signals.h": "c",
+        "builtins.h": "c"
     }
 }

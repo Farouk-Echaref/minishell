@@ -6,61 +6,85 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/02 07:14:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 16:44:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
-#include <stdio.h>
-#include "utils/utils.h"
-#include "libft/libft.h"
-#include <unistd.h>
+#include "redirections/redirections.h"
 
-static void	ft_execute(char **command, char **argenv)
+static int	ft_should_run_on_main_process(char *command_name)
 {
-	int		pid;
-	char	*path;
-
-	if (! command || ! *command)
-		return ;
-	pid = fork();
-	if (pid == -1)
-		return ;
-	if (pid == 0)
-	{
-		path = ft_strjoin("/bin/", command[0]);
-		execve(path, command, argenv);
-	}
-	else
-		waitpid(-1, NULL, 0);
+	if (
+		ft_strcmp(command_name, "exit") == 0
+		|| ft_str_start_with(command_name, "exit ")
+		|| ft_strcmp(command_name, "unset") == 0
+		|| ft_str_start_with(command_name, "unset ")
+		|| ft_strcmp(command_name, "export") == 0
+		|| ft_str_start_with(command_name, "export ")
+	)
+		return (1);
+	return (0);
 }
 
-static void	ft_evaluator_rec(t_tree	*tree, char	***command)
+static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 {
-	t_token	*token;
+	t_token		*token;
 
 	if (! tree)
 		return ;
 	token = tree->content;
-	*command = ft_arr_shift(*command, ft_str(token->value, token->length));
-	ft_evaluator_rec(tree->left, command);
+	if (token->type == AND_OPR)
+		return (ft_and_opr(tree));
+	if (token->type == OR_OPR)
+		return (ft_or_opr(tree));
+	if (token->type == PIPE)
+		return (ft_pipe(tree));
+	ft_evaluator_rec(tree->left, evaluator_data);
+	ft_expand_expression(tree->content);
+	if (ft_is_redirection(token->type))
+		ft_evaluate_redirection(tree, evaluator_data);
+	else if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == EXPRESSION)
+		evaluator_data->command = ft_arr_push(evaluator_data->command, token->value);
 }
 
-void	ft_evaluator(t_tree	*tree, char **argenv)
+void	ft_evaluator(t_tree	*tree)
 {
-	char	**command;
-	int		i;
+	t_evaluator_data	evaluator_data;
+	char				*command_name;
 
-	command = NULL;
-	command = (char **)malloc(sizeof(char *));
-	*command = NULL;
-	ft_evaluator_rec(tree, &command);
-	ft_execute(command, argenv);
-	i = 0;
-	while (command[i] != NULL)
+	ft_init_evaluator_data(&evaluator_data);
+	ft_evaluator_rec(tree, &evaluator_data);
+	command_name = evaluator_data.command[0];
+	if (command_name)
 	{
-		command[i] = ft_free(command[i]);
-		i++;
+		if (ft_should_run_on_main_process(command_name))
+			ft_execute(&evaluator_data);
+		else
+			ft_execute_fork(&evaluator_data);
 	}
-	command = ft_free(command);
+	evaluator_data.command = ft_free(evaluator_data.command);
+	if (evaluator_data.redirect_right >= 0)
+		close(evaluator_data.redirect_right);
+	if (evaluator_data.redirect_left >= 0)
+		close(evaluator_data.redirect_left);
+}
+
+void	ft_evaluator_no_fork(t_tree	*tree)
+{
+	t_evaluator_data	evaluator_data;
+	char				*command_name;
+
+	ft_init_evaluator_data(&evaluator_data);
+	ft_evaluator_rec(tree, &evaluator_data);
+	command_name = evaluator_data.command[0];
+	if (command_name)
+		ft_execute(&evaluator_data);
+	else
+		exit(EXIT_SUCCESS);
+	evaluator_data.command = ft_free(evaluator_data.command);
+	if (evaluator_data.redirect_right >= 0)
+		close(evaluator_data.redirect_right);
+	if (evaluator_data.redirect_left >= 0)
+		close(evaluator_data.redirect_left);
 }
