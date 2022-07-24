@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_redir_left.c                                    :+:      :+:    :+:   */
+/*   ft_open_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 19:21:55 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:06:04 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 23:53:57 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/25 00:05:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirections.h"
 
-void ft_redir_left(t_tree *tree, t_evaluator_data *evaluator_data)
+int	ft_open_file(char *file_path, int flags)
 {
-	char	*file_name;
+	int	fd;
 
-	if (
-		! tree
-		|| ! evaluator_data
-	)
-		return ;
-	file_name = ft_get_file_name(tree);
-	if (evaluator_data->redirect_left >= 0)
-		close(evaluator_data->redirect_left);
-	evaluator_data->redirect_left = ft_open_file(file_name, O_RDONLY);
-	ft_free(file_name);
+	fd = open(file_path, flags, 0644);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file_path, 2);
+		perror("");
+		g_.exit_status = 1;
+	}
+	return (fd);
 }
