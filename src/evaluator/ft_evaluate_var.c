@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:59 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:07:46 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/24 13:31:51 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 char	*ft_evaluate_var(char *var)
 {
-	int		i;
 	t_list	*env;
 
-	i = 0;
 	env = g_.env;
 	if (ft_strcmp(var, "?") == 0)
 		return (ft_itoa(g_.exit_status));
