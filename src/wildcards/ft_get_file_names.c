@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_expression_list.c                        :+:      :+:    :+:   */
+/*   ft_get_file_names.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 11:33:54 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 22:59:01 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/25 18:40:25 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/25 18:40:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "wildcards.h"
 
-void	ft_expand_expression_list(t_list *tokens)
+t_list	*ft_get_file_names()
 {
-	while (tokens)
+	DIR				*dir;
+	struct dirent	*ent;
+	t_list			*file_names;
+
+	file_names = NULL;
+	if ((dir = opendir (".")) == NULL)
+		return (perror (""), file_names);
+	while ((ent = readdir (dir)) != NULL)
 	{
-		ft_expand_expression_no_star(ft_get_token(tokens));
-		tokens = tokens->next;
+		if (ent->d_name[0] == '.')
+			continue;
+		ft_lstadd_back(&file_names, ft_lstnew(ft_strdup(ent->d_name)));
 	}
+	closedir (dir);
+	return (file_names);
 }

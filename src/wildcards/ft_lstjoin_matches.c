@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_expression_list.c                        :+:      :+:    :+:   */
+/*   ft_lstjoin_matches.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 11:33:54 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 22:59:01 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/25 18:42:20 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/25 18:42:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "wildcards.h"
 
-void	ft_expand_expression_list(t_list *tokens)
+char	*ft_lstjoin_matches(t_list *lst)
 {
-	while (tokens)
+	char	*result;
+	char	*temp;
+
+	result = ft_strdup("");
+	while (lst)
 	{
-		ft_expand_expression_no_star(ft_get_token(tokens));
-		tokens = tokens->next;
+		temp = ft_strjoin(result, lst->content);
+		temp = ft_strjoin(temp, " ");
+		result = ft_free(result);
+		result = temp;
+		lst = lst->next;
 	}
+	return (result);
 }

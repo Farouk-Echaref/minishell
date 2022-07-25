@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 10:12:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:20:39 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 15:36:29 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,17 @@
 
 static int	ft_check_expression(t_list *tokens)
 {
+	t_type token_type;
+
 	if (! tokens)
 		return (0);
+	token_type = ft_get_token_type(tokens);
 	if (
-		ft_get_token_type(tokens) == EXPRESSION
-		|| ft_get_token_type(tokens) == SING_QUOT
-		|| ft_get_token_type(tokens) == DOUB_QUOT
-		|| ft_get_token_type(tokens) == VAR
-		|| ft_get_token_type(tokens) == STAR
+		token_type == EXPRESSION
+		|| token_type == SING_QUOT
+		|| token_type == DOUB_QUOT
+		|| token_type == VAR
+		|| token_type == STAR
 	)
 		return (1);
 	return (0);

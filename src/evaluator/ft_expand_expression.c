@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 14:16:59 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:47:23 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 #include <stdio.h>
 #include "lexer/lexer.h"
 
-void	ft_expand_expression(t_token *token, t_token *right_token)
+static	void	ft_expand(t_token *token, t_token *right_token, int expand_star)
 {
 	char	*str;
 
-	if (token->is_list) {
+	if (right_token)
+		ft_expand_expression(right_token, NULL);
+	else if (token->is_list) {
 		ft_expand_expression_list(token->value);
+		ft_expand_star_list(token);
 		ft_merge_tokens(token);
 	} else if (token->type == DOUB_QUOT) {
 		ft_expand_double_qoutes(token);
@@ -29,7 +32,17 @@ void	ft_expand_expression(t_token *token, t_token *right_token)
 		token->length = ft_strlen(token->value);
 		token->type = EXPRESSION;
 		str = ft_free(str);
-	} else if (right_token) {
-		ft_expand_expression(right_token, NULL);
+	} else if (token->type == STAR && expand_star) {
+		ft_expand_wildcard(token);
 	}
+}
+
+void	ft_expand_expression(t_token *token, t_token *right_token)
+{
+	ft_expand(token, right_token, 1);
+}
+
+void	ft_expand_expression_no_star(t_token *token)
+{
+	ft_expand(token, NULL, 0);
 }
