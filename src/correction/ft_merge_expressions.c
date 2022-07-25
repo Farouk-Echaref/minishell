@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 10:12:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 16:02:53 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 15:20:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int	ft_check_expression(t_list *tokens)
 		|| ft_get_token_type(tokens) == SING_QUOT
 		|| ft_get_token_type(tokens) == DOUB_QUOT
 		|| ft_get_token_type(tokens) == VAR
+		|| ft_get_token_type(tokens) == STAR
 	)
 		return (1);
 	return (0);

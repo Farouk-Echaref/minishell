@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/06 13:00:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 15:28:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,35 +68,20 @@ t_list	*ft_move_redirections(t_list *current)
 	t_list	*redir_token;
 	t_list	*filename_token;
 	t_list	*head;
-	t_list	*space;
 
-	space = NULL;
 	head = ft_get_list_head(current);
 	while (current)
 	{
-		if (! (
-				current->next
-				&& ft_is_redirection(ft_get_token_type(current))
-				&& ft_get_token_type(current->next) == EXPRESSION
-			))
+		if (! (current->next && ft_is_redirection(ft_get_token_type(current))))
 		{
 			current = current->next;
 			continue ;
 		}
 		target = ft_get_target(current);
-		// printf("target: %s\n", ft_get_token(target)->value);
-		// printf("head: %s, prev: %s\n", ft_get_token(head)->value, ft_get_token(head->prev)->value);
-		// printf("+++++++++++++\n");
 		redir_token = current;
 		filename_token = current->next;
-		if (current->prev && ft_get_token_type(current->prev) == WHITE_SPACE)
-			space = current->prev;
 		current = current->next->next;
 		ft_get_token(filename_token)->type = FILE_NAME;
-		if (space) {
-			ft_lstpush_after(target, ft_lstdetach(space));
-			target = space;
-		}
 		ft_lstpush_after(target, ft_lstdetach(redir_token));
 		ft_lstpush_after(redir_token, ft_lstdetach(filename_token));
 	}
