@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:38:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 19:25:22 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:41:21 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include <dirent.h>
 
 t_list	*ft_get_file_names();
-int ft_match(const char *pattern, const char *file_name, int p, int f);
-t_list	*ft_get_matches(t_list *file_names, t_token *token);
 char	*ft_lstjoin_matches(t_list *lst);
 void	ft_expand_wildcard(t_token *token);
 void	ft_expand_star_list(t_token *token);

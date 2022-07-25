@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 20:11:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 22:54:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,12 @@ static int	ft_should_run_on_main_process(char *command_name)
 
 void	ft_expand_tokens(t_tree *node)
 {
-	t_token	*token;
-
 	if (! node)
 		return ;
-	token = ft_get_token_tree(node);
-	if (ft_is_redirection(token->type))
-	{
+	if (ft_is_redirection(ft_get_token_tree(node)->type))
 		ft_expand_expression(node->content, node->right->content);
-		ft_expand_wildcard(node->right->content);
-	}
 	else
-	{
 		ft_expand_expression(node->content, NULL);
-		ft_expand_wildcard(node->content);
-	}
 }
 
 static char	**ft_push_star_values(t_evaluator_data *evaluator_data, t_token *token)

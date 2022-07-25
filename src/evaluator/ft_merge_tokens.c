@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:28:57 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 14:46:20 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 21:16:45 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_merge_tokens(t_token *token)
 	char	*temp;
 	char	*str;
 
+	if (! token->is_list)
+		return ;
 	result = ft_strdup("");
 	tokens = token->value;
 	while (tokens)
