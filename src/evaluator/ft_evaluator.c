@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 14:15:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 17:52:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,30 @@ static int	ft_should_run_on_main_process(char *command_name)
 	return (0);
 }
 
+void	ft_expand_tokens(t_tree *node)
+{
+	t_token	*token;
+
+	if (! node)
+		return ;
+	token = ft_get_token_tree(node);
+	if (ft_is_redirection(token->type))
+	{
+		ft_expand_expression(node->content, node->right->content);
+		ft_expand_wildcard(node->right->content);
+	}
+	else
+	{
+		ft_expand_expression(node->content, NULL);
+		ft_expand_wildcard(node->content);
+	}
+}
+
 static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 {
 	t_token		*token;
+	char		**star_token_values;
+	char		**temp;
 
 	if (! tree)
 		return ;
@@ -47,13 +68,24 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	ft_evaluator_rec(tree->left, evaluator_data);
 	if (! evaluator_data->ok)
 		return ;
-	if (ft_is_redirection(token->type))
-		ft_expand_expression(tree->content, tree->right->content);
-	else
-		ft_expand_expression(tree->content, NULL);
+	ft_expand_tokens(tree);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
-	else if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == EXPRESSION)
+	else if (token->type == STAR) {
+		star_token_values = ft_split(token->value, ' ');
+		temp = star_token_values;
+		while (star_token_values && *star_token_values)
+		{
+			evaluator_data->command = ft_arr_push(evaluator_data->command, *star_token_values);
+			star_token_values++;
+		}
+		temp = ft_free(temp);
+		star_token_values = NULL;
+	} else if (
+		token->type == SING_QUOT
+		|| token->type == DOUB_QUOT
+		|| token->type == EXPRESSION
+	)
 		evaluator_data->command = ft_arr_push(evaluator_data->command, token->value);
 }
 
