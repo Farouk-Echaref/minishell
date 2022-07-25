@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:23:26 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 14:15:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	ft_evaluator_rec(tree->left, evaluator_data);
 	if (! evaluator_data->ok)
 		return ;
-	ft_expand_expression(tree->content);
+	if (ft_is_redirection(token->type))
+		ft_expand_expression(tree->content, tree->right->content);
+	else
+		ft_expand_expression(tree->content, NULL);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
 	else if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == EXPRESSION)
