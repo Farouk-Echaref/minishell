@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 15:34:27 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 21:11:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,13 @@ void	ft_execute(t_evaluator_data *evaluator_data)
 	}
 	if (ft_is_builtin(command[0]))
 		return (ft_select_builtin_command(command[0])(command));
-	if (command[0][0] == '/' || command[0][0] == '.')
+	if (ft_strchr(command[0], '/') != NULL)
 		path = ft_strdup(command[0]);
 	else
 		path = ft_get_command_path(command[0]);
-	if (! path || access(path, X_OK) != 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(command[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit(127);
-	}
 	execve(path, command, ft_lst2arr(g_.env));
+	perror("minishell");
+	exit(EXIT_FAILURE);
 }
 
 
