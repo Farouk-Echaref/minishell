@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 14:44:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 21:35:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 		*root_ptr = ft_change_root(
 				*root_ptr,
 				ft_new_tree_node(ft_duplicate_token(token)));
+	else if (ft_is_redirection(root_content->type) && ! token->is_filename)
+		ft_parser_rec(&(*root_ptr)->left, token);
 	else if (*root_ptr)
 		ft_parser_rec(&(*root_ptr)->right, token);
 }
