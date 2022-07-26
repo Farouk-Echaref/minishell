@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_tokens_list.c                             :+:      :+:    :+:   */
+/*   ft_get_file_names.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 15:48:20 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:25:44 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/25 18:40:25 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/25 18:40:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "wildcards.h"
 
-void	ft_print_tokens_list(t_token *token)
+t_list	*ft_get_file_names()
 {
-	char	*str;
-	t_list	*list;
+	DIR				*dir;
+	struct dirent	*ent;
+	t_list			*file_names;
 
-	if (! token)
-		return ;
-	list = token->value;
-	printf("list(%s): ", ft_get_type_name(token->type));
-	while (list)
+	file_names = NULL;
+	if ((dir = opendir (".")) == NULL)
+		return (perror (""), file_names);
+	while ((ent = readdir (dir)) != NULL)
 	{
-		str = ft_str(ft_get_token(list)->value, ft_get_token(list)->length);
-		printf(" |%s(%s)| ", str, ft_get_type_name(ft_get_token(list)->type));
-		free(str);
-		list = list->next;
+		if (ent->d_name[0] == '.')
+			continue;
+		ft_lstadd_back(&file_names, ft_lstnew(ft_strdup(ent->d_name)));
 	}
-	printf("\n");
+	closedir (dir);
+	return (file_names);
 }

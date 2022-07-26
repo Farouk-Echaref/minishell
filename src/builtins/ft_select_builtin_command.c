@@ -15,6 +15,7 @@
 static	void f(char **command)
 {
 	(void)command;
+	exit(EXIT_SUCCESS);
 }
 
 t_command_func ft_select_builtin_command(char *command_name)
@@ -24,6 +25,10 @@ t_command_func ft_select_builtin_command(char *command_name)
 		return (ft_echo_command);
 	if (ft_strcmp(command_name, "exit") == 0)
 		return (ft_exit_command);
+	if (ft_strcmp(command_name, "cd") == 0)
+		return (ft_cd_command);
+	if (ft_strcmp(command_name, "pwd") == 0)
+		return (ft_pwd_command);
 	if (ft_strcmp(command_name, "env") == 0 || ft_strcmp(command_name, "ENV") == 0)
 		return (ft_env_command);
 	if (ft_strcmp(command_name, "unset") == 0)

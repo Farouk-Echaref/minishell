@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_tokens_list.c                             :+:      :+:    :+:   */
+/*   ft_search_env.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 15:48:20 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:25:44 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 21:20:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 21:40:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "env.h"
 
-void	ft_print_tokens_list(t_token *token)
+t_list	*ft_search_env(char *var_name)
 {
-	char	*str;
-	t_list	*list;
+	t_list	*lst;
 
-	if (! token)
-		return ;
-	list = token->value;
-	printf("list(%s): ", ft_get_type_name(token->type));
-	while (list)
+	lst = g_.env;
+	while (lst)
 	{
-		str = ft_str(ft_get_token(list)->value, ft_get_token(list)->length);
-		printf(" |%s(%s)| ", str, ft_get_type_name(ft_get_token(list)->type));
-		free(str);
-		list = list->next;
+		if (
+			(int)ft_strlen(var_name) == ft_strchr(lst->content, '=') - (char *)lst->content
+			&& ft_strncmp(var_name, (char *)lst->content, ft_strlen(var_name)) == 0
+		)
+			return (lst);
+		lst = lst->next;
 	}
-	printf("\n");
+	return (NULL);
 }

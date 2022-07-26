@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_token.c                                     :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/26 14:27:16 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 21:18:08 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/24 21:35:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#ifndef ENV_H
+# define ENV_H
 
-t_token	*ft_new_token(void *value, t_type type, int length)
-{
-	t_token	*t;
+# include "data/data.h"
+# include "list/list.h"
+# include "libft/libft.h"
+# include "str_utils/str_utils.h"
 
-	t = malloc(sizeof(t_token));
-	t->length = length;
-	t->type = type;
-	t->value = value;
-	t->is_list = 0;
-	t->is_filename = 0;
-	return (t);
-}
+t_list	*ft_search_env(char *var_name);
+char	*ft_make_env_line(char *var_name, char *value);
+
+
+#endif

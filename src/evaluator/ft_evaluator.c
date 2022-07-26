@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 16:44:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/25 22:54:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,40 @@ static int	ft_should_run_on_main_process(char *command_name)
 		|| ft_str_start_with(command_name, "unset ")
 		|| ft_strcmp(command_name, "export") == 0
 		|| ft_str_start_with(command_name, "export ")
+		|| ft_strcmp(command_name, "cd") == 0
+		|| ft_str_start_with(command_name, "cd ")
+		|| ft_strcmp(command_name, "pwd") == 0
+		|| ft_str_start_with(command_name, "pwd ")
 	)
 		return (1);
 	return (0);
+}
+
+void	ft_expand_tokens(t_tree *node)
+{
+	if (! node)
+		return ;
+	if (ft_is_redirection(ft_get_token_tree(node)->type))
+		ft_expand_expression(node->content, node->right->content);
+	else
+		ft_expand_expression(node->content, NULL);
+}
+
+static char	**ft_push_star_values(t_evaluator_data *evaluator_data, t_token *token)
+{
+	char		**star_token_values;
+	char		**temp;
+
+	star_token_values = ft_split(token->value, ' ');
+	temp = star_token_values;
+	while (star_token_values && *star_token_values)
+	{
+		evaluator_data->command = ft_arr_push(evaluator_data->command, *star_token_values);
+		star_token_values++;
+	}
+	temp = ft_free(temp);
+	star_token_values = NULL;
+	return (evaluator_data->command);
 }
 
 static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
@@ -41,10 +72,18 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	if (token->type == PIPE)
 		return (ft_pipe(tree));
 	ft_evaluator_rec(tree->left, evaluator_data);
-	ft_expand_expression(tree->content);
+	if (! evaluator_data->ok)
+		return ;
+	ft_expand_tokens(tree);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
-	else if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == EXPRESSION)
+	else if (token->type == STAR) {
+		evaluator_data->command = ft_push_star_values(evaluator_data, token);
+	} else if (
+		token->type == SING_QUOT
+		|| token->type == DOUB_QUOT
+		|| token->type == EXPRESSION
+	)
 		evaluator_data->command = ft_arr_push(evaluator_data->command, token->value);
 }
 
@@ -56,7 +95,7 @@ void	ft_evaluator(t_tree	*tree)
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data);
 	command_name = evaluator_data.command[0];
-	if (command_name)
+	if (command_name && evaluator_data.ok)
 	{
 		if (ft_should_run_on_main_process(command_name))
 			ft_execute(&evaluator_data);

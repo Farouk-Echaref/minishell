@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_evaluate_redirection.c                          :+:      :+:    :+:   */
+/*   ft_open_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 19:04:42 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:16:05 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/24 23:53:57 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/25 00:18:33 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "redirections.h"
 
-void ft_evaluate_redirection(t_tree *tree, t_evaluator_data *evaluator_data)
+int	ft_open_file(char *file_path, int flags, t_evaluator_data *evaluator_data)
 {
-	t_token	*token;
+	int	fd;
 
-	if (! tree || ! evaluator_data)
-		return ;
-	token = tree->content;
-	if (token->type == REDIR_RIGHT || token->type == SHIFT_RIGHT) {
-		ft_redir_right(tree, evaluator_data);
-	} else if (token->type == REDIR_LEFT) {
-		ft_redir_left(tree, evaluator_data);
-	} else if (token->type == SHIFT_LEFT) {
-		ft_shift_left(tree, evaluator_data);
+	fd = open(file_path, flags, 0644);
+	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file_path, 2);
+		perror(" ");
+		g_.exit_status = 1;
+		evaluator_data->ok = 0;
 	}
+	return (fd);
 }

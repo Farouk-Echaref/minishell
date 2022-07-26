@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_tokens_list.c                             :+:      :+:    :+:   */
+/*   ft_pwd_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 15:48:20 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:25:44 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/23 19:18:25 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/23 21:38:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "builtins.h"
 
-void	ft_print_tokens_list(t_token *token)
+void	ft_pwd_command(char **command)
 {
-	char	*str;
-	t_list	*list;
+	char	cwd[256];
 
-	if (! token)
-		return ;
-	list = token->value;
-	printf("list(%s): ", ft_get_type_name(token->type));
-	while (list)
-	{
-		str = ft_str(ft_get_token(list)->value, ft_get_token(list)->length);
-		printf(" |%s(%s)| ", str, ft_get_type_name(ft_get_token(list)->type));
-		free(str);
-		list = list->next;
-	}
-	printf("\n");
+	(void)command;
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		perror("getcwd() error");
+	else
+		printf("%s\n", cwd);
 }
