@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 03:12:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/06/30 03:13:34 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:49:33 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ char	*ft_get_type_name(t_type t)
 {
 	switch (t)
 	{
-		case COMMAND:
-			return "CMD";
-		case CMD_OPTION:
-			return "CMD_OPT";
-		case CMD_ARG:
-			return "CMD_ARG";
 		case WHITE_SPACE:
 			return "SPACE";
 		case REDIR_RIGHT:
@@ -48,8 +42,6 @@ char	*ft_get_type_name(t_type t)
 			return "PIPE";
 		case VAR:
 			return "VAR";
-		case FILE_NAME:
-			return "FILE_NAME";
 		case EXPRESSION:
 			return "EXPR";
 		default:

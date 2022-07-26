@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 23:47:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:59:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	void	ft_expand(t_token *token, t_token *right_token, int expand_star)
 	char	*str;
 
 	if (right_token)
-		ft_expand_expression(right_token, NULL);
+		ft_expand(right_token, NULL, 1);
 	else if (token->is_list) {
 		ft_expand_expression_list(token->value);
 		ft_expand_star_list(token);

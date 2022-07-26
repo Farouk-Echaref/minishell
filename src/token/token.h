@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/21 23:25:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:52:29 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ typedef struct s_token	t_token;
 
 enum e_type
 {
-	COMMAND = 1,
-	CMD_OPTION	= 2,
-	CMD_ARG		= 3,
 	WHITE_SPACE = 4,
 	REDIR_RIGHT = 5,
 	REDIR_LEFT = 6,
@@ -38,7 +35,6 @@ enum e_type
 	DOUB_QUOT = 14,
 	PIPE = 15,
 	VAR = 16,
-	FILE_NAME = 17,
 	EXPRESSION = 18,
 	OTHER = 19
 };
@@ -49,6 +45,7 @@ struct s_token
 	void	*value;
 	int		length;
 	int		is_list;
+	int		is_filename;
 };
 
 t_token	*ft_new_token(void *value, t_type type, int length);

@@ -6,21 +6,26 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 20:48:45 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:44:23 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	ft_get_type_order(t_type type)
+int	ft_get_type_order(t_token *token)
 {
+	t_type	type;
+
+	if (! token)
+		return (6);
+	type = token->type;
 	if (type == AND_OPR || type == OR_OPR)
 		return (10);
 	if (type == PIPE)
 		return (9);
 	if (ft_is_redirection(type))
 		return (8);
-	if (type == FILE_NAME)
+	if (token->is_filename)
 		return (7);
 	return (6);
 }
@@ -43,8 +48,8 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 	if (*root_ptr)
 		root_content = (*root_ptr)->content;
 	if (
-		! root_content || (ft_get_type_order(root_content->type)
-			<= ft_get_type_order(token->type)
+		! root_content || (ft_get_type_order(root_content)
+			<= ft_get_type_order(token)
 		))
 		*root_ptr = ft_change_root(
 				*root_ptr,
@@ -56,24 +61,14 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 void	ft_allocate_tree_nodes(t_tree *root)
 {
 	t_token	*token;
-	t_list	*lst;
 
 	if (! root)
 		return ;
 	token = root->content;
-	if (! token->is_list)
-	{
+	if (token->is_list)
+		ft_lstiter(token->value, (t_lstiter_func)ft_cleanup_token);
+	else
 		ft_cleanup_token(token);
-		token->value = ft_str(token->value, token->length);
-	} else {
-		lst = token->value;
-		while (lst)
-		{
-			ft_cleanup_token(ft_get_token(lst));
-			ft_get_token(lst)->value = ft_str(ft_get_token(lst)->value, ft_get_token(lst)->length);
-			lst = lst->next;
-		}
-	}
 	ft_allocate_tree_nodes(root->left);
 	ft_allocate_tree_nodes(root->right);
 }
