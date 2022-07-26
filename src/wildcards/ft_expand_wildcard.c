@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:45:58 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 23:40:54 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:55:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ static int ft_match(const char *pattern, const char *candidate, int p, int c)
 static t_list	*ft_get_matches(t_list *file_names, t_token *token)
 {
 	t_list	*matches;
+	char	*file_name;
 
 	matches = NULL;
 	while (file_names)
 	{
-		if (ft_match(token->value, file_names->content, 0, 0))
-			ft_lstadd_back(&matches, ft_lstnew(ft_strdup(file_names->content)));
+		file_name = file_names->content;
+		if (ft_match(token->value, file_name, 0, 0))
+			ft_lstadd_back(&matches, ft_lstnew(ft_strdup(file_name)));
 		file_names = file_names->next;
 	}
 	return (matches);
@@ -57,6 +59,7 @@ void	ft_expand_wildcard(t_token *token)
 	if (! matches)
 		return ;
 	token->value = ft_lstjoin_matches(matches);
+	((char *)token->value)[ft_strlen(token->value) - 1] = 0;
 	token->type = STAR;
 	ft_lstclear(&matches, free);
 }

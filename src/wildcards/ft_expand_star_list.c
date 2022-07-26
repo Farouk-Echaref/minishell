@@ -6,20 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 23:37:35 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:57:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
-
-void	ft_print_lst(t_list *lst)
-{
-	while (lst)
-	{
-		printf("%s\n", (char *)lst->content);
-		lst = lst->next;
-	}
-}
 
 static int	ft_list_has_star(t_list *lst)
 {
@@ -123,6 +114,7 @@ void	ft_expand_star_list(t_token *token)
 		return ;
 	token->type = STAR;
 	token->value = ft_lstjoin_matches(matches);
+	((char *)token->value)[ft_strlen(token->value) - 1] = 0;
 	token->is_list = 0;
 	ft_lstclear(&matches, free);
 }

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 00:16:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:52:18 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,4 @@ void ft_redir_right(t_tree *tree, t_evaluator_data *evaluator_data)
 			close(evaluator_data->redirect_right);
 		evaluator_data->redirect_right = fd;
 	}
-	ft_free(file_name);
 }
