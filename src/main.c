@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 15:43:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 20:11:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **argenv)
 	char	*command_str;
 	t_lexer	*lxr;
 
-	command_str = "> file1 > fie2 << end ls && < f2 ls >> f20 -al";
+	// command_str = "> file1 > file2 << end ls && < file2 ls >> f20 -al";
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init_data(&data, argenv);
@@ -47,7 +47,9 @@ int	main(int argc, char **argv, char **argenv)
 		lxr = ft_init_lexer(command_str);
 		data.tokens = ft_lexer(lxr);
 		ft_correct_tokens(&data.tokens);
+		ft_print_list(data.tokens);
 		data.tree = ft_parser(data.tokens);
+		print_tree(data.tree);
 		ft_evaluator(data.tree);
 		ft_destroy_lexer(lxr);
 		ft_destroy_data(&data);

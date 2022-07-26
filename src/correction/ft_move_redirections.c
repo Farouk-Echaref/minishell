@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 18:32:16 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 20:09:56 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_list	*ft_move_redirections(t_list *current)
 	t_list	*head;
 
 	head = ft_get_list_head(current);
-	while (current && current != head)
+	while (current)
 	{
 		if (ft_is_redirection(ft_get_token_type(current)) && current->next)
 		{
