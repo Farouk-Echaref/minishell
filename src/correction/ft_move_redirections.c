@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 02:05:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 14:27:45 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 16:23:24 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ t_list	*ft_get_list_head(t_list *current)
 				|| ft_get_token(current)->type == SING_QUOT
 				|| ft_get_token(current)->type == DOUB_QUOT
 				|| ft_get_token(current)->type == VAR
-			)
-			&& (
+			) && (
 				current->prev == NULL || ! ft_is_redirection(ft_get_token(current->prev)->type)
 			)
 		)
@@ -72,18 +71,19 @@ t_list	*ft_move_redirections(t_list *current)
 	head = ft_get_list_head(current);
 	while (current)
 	{
-		if (! (current->next && ft_is_redirection(ft_get_token_type(current))))
+		if (ft_is_redirection(ft_get_token_type(current)) && current->next)
 		{
-			current = current->next;
-			continue ;
+			target = ft_get_target(current);
+			redir_token = current;
+			filename_token = current->next;
+			current = current->next->next;
+			ft_get_token(filename_token)->is_filename = 1;
+			ft_lstpush_after(target, ft_lstdetach(redir_token));
+			ft_lstpush_after(redir_token, ft_lstdetach(filename_token));
 		}
-		target = ft_get_target(current);
-		redir_token = current;
-		filename_token = current->next;
-		current = current->next->next;
-		ft_get_token(filename_token)->is_filename = 1;
-		ft_lstpush_after(target, ft_lstdetach(redir_token));
-		ft_lstpush_after(redir_token, ft_lstdetach(filename_token));
+		if (! current)
+			break ;
+		current = current->next;
 	}
 	return (head);
 }
