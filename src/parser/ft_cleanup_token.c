@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 20:45:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 14:14:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 17:42:42 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_cleanup_token(t_token *token)
 {
-	if (token->type == SING_QUOT || token->type == DOUB_QUOT) {
+	if (token->type == SING_QUOT || token->type == DOUB_QUOT || token->type == SUB_CMD) {
 		token->value++;
 		token->length -= 2;
 	} else if (token->type == VAR) {

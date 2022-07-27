@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 02:15:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 17:43:00 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	if (! tree)
 		return ;
 	token = tree->content;
+	if (token->type == SUB_CMD)
+		return (ft_run_command(token->value));
 	if (token->type == AND_OPR)
 		return (ft_and_opr(tree));
 	if (token->type == OR_OPR)
@@ -120,9 +122,4 @@ void	ft_evaluator_no_fork(t_tree	*tree)
 		ft_execute(&evaluator_data);
 	else
 		exit(EXIT_SUCCESS);
-	// evaluator_data.command = ft_free(evaluator_data.command);
-	// if (evaluator_data.redirect_right >= 0)
-	// 	close(evaluator_data.redirect_right);
-	// if (evaluator_data.redirect_left >= 0)
-	// 	close(evaluator_data.redirect_left);
 }

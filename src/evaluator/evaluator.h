@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 23:00:16 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 17:37:56 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "data/data.h"
 # include "builtins/builtins.h"
 # include "wildcards/wildcards.h"
+# include "minishell.h"
 
 typedef struct s_evaluator_data	t_evaluator_data;
 struct s_evaluator_data
