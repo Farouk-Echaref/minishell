@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 22:54:06 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 02:15:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static char	**ft_push_star_values(t_evaluator_data *evaluator_data, t_token *tok
 		star_token_values++;
 	}
 	temp = ft_free(temp);
-	star_token_values = NULL;
 	return (evaluator_data->command);
 }
 
@@ -84,7 +83,7 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 		|| token->type == DOUB_QUOT
 		|| token->type == EXPRESSION
 	)
-		evaluator_data->command = ft_arr_push(evaluator_data->command, token->value);
+		evaluator_data->command = ft_arr_push(evaluator_data->command, ft_strdup(token->value));
 }
 
 void	ft_evaluator(t_tree	*tree)
@@ -102,7 +101,7 @@ void	ft_evaluator(t_tree	*tree)
 		else
 			ft_execute_fork(&evaluator_data);
 	}
-	evaluator_data.command = ft_free(evaluator_data.command);
+	ft_arr_free(evaluator_data.command);
 	if (evaluator_data.redirect_right >= 0)
 		close(evaluator_data.redirect_right);
 	if (evaluator_data.redirect_left >= 0)
@@ -121,9 +120,9 @@ void	ft_evaluator_no_fork(t_tree	*tree)
 		ft_execute(&evaluator_data);
 	else
 		exit(EXIT_SUCCESS);
-	evaluator_data.command = ft_free(evaluator_data.command);
-	if (evaluator_data.redirect_right >= 0)
-		close(evaluator_data.redirect_right);
-	if (evaluator_data.redirect_left >= 0)
-		close(evaluator_data.redirect_left);
+	// evaluator_data.command = ft_free(evaluator_data.command);
+	// if (evaluator_data.redirect_right >= 0)
+	// 	close(evaluator_data.redirect_right);
+	// if (evaluator_data.redirect_left >= 0)
+	// 	close(evaluator_data.redirect_left);
 }

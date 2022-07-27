@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:45:58 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 16:55:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 02:13:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	ft_expand_wildcard(t_token *token)
 	ft_lstclear(&file_names, free);
 	if (! matches)
 		return ;
+	token->value = ft_free(token->value);
 	token->value = ft_lstjoin_matches(matches);
-	((char *)token->value)[ft_strlen(token->value) - 1] = 0;
 	token->type = STAR;
 	ft_lstclear(&matches, free);
 }

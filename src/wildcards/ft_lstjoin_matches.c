@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:42:20 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 18:42:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 02:18:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,22 @@
 char	*ft_lstjoin_matches(t_list *lst)
 {
 	char	*result;
-	char	*temp;
+	char	*result_item;
+	char	*result_item_space;
 
 	result = ft_strdup("");
 	while (lst)
 	{
-		temp = ft_strjoin(result, lst->content);
-		temp = ft_strjoin(temp, " ");
+		result_item = ft_strjoin(result, lst->content);
+		if (lst->next)
+			result_item_space = ft_strjoin(result_item, " ");
 		result = ft_free(result);
-		result = temp;
+		if (lst->next) {
+			result = result_item_space;
+			result_item = ft_free(result_item);
+		} else {
+			result = result_item;
+		}
 		lst = lst->next;
 	}
 	return (result);

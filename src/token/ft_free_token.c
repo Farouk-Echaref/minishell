@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:45:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 14:46:34 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/26 22:59:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_free_token(void *tree_content)
 	token = tree_content;
 	if (! token)
 		return ;
+	if (token->is_list)
+		ft_lstclear((t_list **)&token->value, &ft_free_token);
 	token->value = ft_free(token->value);
 	token = ft_free(token);
 }
