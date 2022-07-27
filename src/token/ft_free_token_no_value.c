@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rm_redirection_space.c                          :+:      :+:    :+:   */
+/*   ft_free_token_no_value.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 12:43:45 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 23:00:21 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 14:45:41 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/26 23:00:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "correction.h"
+#include "token/token.h"
 #include "utils/utils.h"
 
-void	ft_rm_redirection_space(t_list *tokens)
+void	ft_free_token_no_value(void *tree_content)
 {
-	t_list	*next;
-	t_list	*temp;
+	t_token	*token;
 
-	while (tokens)
-	{
-		next = tokens->next;
-		if (
-			next
-			&& ft_is_redirection(ft_get_token(tokens)->type)
-			&& ft_get_token(next)->type == WHITE_SPACE
-		)
-		{
-			next = next->next;
-			temp = ft_lstdetach(tokens->next);
-			ft_free_token_no_value(temp->content);
-			ft_free(temp);
-		}
-		tokens = next;
-	}
+	token = tree_content;
+	if (! token)
+		return ;
+	if (token->is_list)
+		ft_lstclear((t_list **)&token->value, &ft_free_token_no_value);
+	token->value = NULL;
+	token = ft_free(token);
 }

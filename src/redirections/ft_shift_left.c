@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 21:59:32 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/27 01:08:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@
 char	*ft_expand_line(char *line)
 {
 	t_token	*token;
+	char	*str;
 
 	token = ft_new_token(line, EXPRESSION, ft_strlen(line));
 	ft_expand_double_qoutes(token);
-	return (token->value);
+	str = ft_strdup(token->value);
+	ft_free_token(token);
+	return (str);
 }
 
 void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
