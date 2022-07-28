@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/27 00:04:05 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/28 16:25:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ enum e_type
 	PIPE = 15,
 	VAR = 16,
 	EXPRESSION = 18,
-	OTHER = 19
+	OTHER = 19,
+	SPLITED_VAR = 20
 };
 
 struct s_token
