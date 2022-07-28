@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 17:36:03 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/28 14:09:06 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **argenv)
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init(argenv);
+	ft_setup_term();
 	ft_handle_signals();
 	while (1)
 	{
