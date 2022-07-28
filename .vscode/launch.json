@@ -11,6 +11,9 @@
             "program": "minishell",
             "terminal": "integrated",
             "args": [],
+			"env": {
+				"tt": "m* s*"
+			}
         }
     ]
 }

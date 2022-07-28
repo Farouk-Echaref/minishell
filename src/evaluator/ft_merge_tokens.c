@@ -6,23 +6,22 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:28:57 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 21:16:45 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/28 21:01:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 
-void	ft_merge_tokens(t_token *token)
+void	ft_merge_tokens(t_token *t)
 {
 	char	*result;
 	t_list	*tokens;
 	char	*temp;
 	char	*str;
-
-	if (! token->is_list)
+	if (! t->is_list)
 		return ;
 	result = ft_strdup("");
-	tokens = token->value;
+	tokens = t->value;
 	while (tokens)
 	{
 		if (ft_get_token(tokens)->value)
@@ -35,9 +34,9 @@ void	ft_merge_tokens(t_token *token)
 		}
 		tokens = tokens->next;
 	}
-	token->type = EXPRESSION;
-	ft_lstclear((t_list **)&token->value, ft_free_token);
-	token->value = ft_free(token->value);
-	token->value = result;
-	token->is_list = 0;
+	t->type = EXPRESSION;
+	ft_lstclear((t_list **)&t->value, ft_free_token);
+	t->value = ft_free(t->value);
+	t->value = result;
+	t->is_list = 0;
 }
