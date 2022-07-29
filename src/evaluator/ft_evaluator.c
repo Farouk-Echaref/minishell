@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 17:43:00 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 01:33:03 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,6 @@ static int	ft_should_run_on_main_process(char *command_name)
 	)
 		return (1);
 	return (0);
-}
-
-void	ft_expand_tokens(t_tree *node)
-{
-	if (! node)
-		return ;
-	if (ft_is_redirection(ft_get_token_tree(node)->type))
-		ft_expand_expression(node->content, node->right->content);
-	else
-		ft_expand_expression(node->content, NULL);
 }
 
 static char	**ft_push_star_values(t_evaluator_data *evaluator_data, t_token *token)
@@ -75,7 +65,9 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	ft_evaluator_rec(tree->left, evaluator_data);
 	if (! evaluator_data->ok)
 		return ;
-	ft_expand_tokens(tree);
+	if (ft_is_redirection(ft_get_token_tree(tree)->type))
+		ft_expand_expression(tree->right->content, 1);
+	ft_expand_expression(tree->content, 1);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
 	else if (token->type == STAR) {

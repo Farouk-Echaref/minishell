@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_expression_list.c                        :+:      :+:    :+:   */
+/*   ft_contains_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 11:33:54 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:32:27 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/29 21:05:44 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/29 21:07:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#include "token.h"
 
-void	ft_expand_expression_list(t_list *tokens)
+int	ft_contains_token(t_list *lst, t_type token_type)
 {
-	while (tokens)
+	while (lst)
 	{
-		ft_expand_expression(ft_get_token(tokens), 0);
-		tokens = tokens->next;
+		if (ft_get_token_type(lst) == token_type)
+			return (1);
+		lst = lst->next;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/29 00:43:37 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 01:41:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,46 +39,29 @@ static t_list	*ft_split_var(char *var_value)
 	return (data.tokens);
 }
 
-t_list	*ft_lst_flatten(t_list *tokens)
+static void	ft_expand_lists(t_list *lst)
 {
-	t_list	*head;
-	t_list	*detached;
-	t_list	*target;
-	t_list	*next_token;
-	t_list	*last;
-
-	head = tokens;
-	while (tokens)
+	while (lst)
 	{
-		target = tokens->prev;
-		next_token = tokens->next;
-		if (ft_get_token(tokens)->is_list && target) {
-			detached = ft_lstdetach(tokens);
-			ft_lstpush_list_after(target, ft_get_token(tokens)->value);
-			detached = ft_free(detached);
-		} else if (ft_get_token(tokens)->is_list) {
-			head = ft_get_token(tokens)->value;
-			last = ft_lstlast(head);
-			last->next = tokens->next;
-			tokens->prev = last;
-		}
-		tokens = next_token;
+		if (ft_get_token(lst)->is_list || ft_get_token_type(lst) == STAR)
+			ft_expand_expression(ft_get_token(lst), 1);
+		lst = lst->next;
 	}
-	return (head);
 }
 
-static	void	ft_expand(t_token *token, t_token *right_token, int from_tree)
+void	ft_expand_expression(t_token *token, int from_tree)
 {
 	char	*str;
 
-	if (right_token)
-		ft_expand(right_token, NULL, 1);
-	else if (token->is_list) {
+	if (token->is_list) {
 		ft_expand_expression_list(token->value);
-		token->value = ft_lst_flatten(token->value);
-		// ft_print_list(token->value);
-		// printf("-----------------\n");
-		ft_expand_star_list(token);
+		token->value = ft_lstflatten_tokens(token->value);
+		if (ft_contains_token(token->value, WHITE_SPACE)) {
+			ft_merge_expressions_wrapper((t_list **)&token->value);
+			ft_expand_lists(token->value);
+			token->type = STAR;
+		} else if (ft_expand_star_list(token))
+			return ;
 		ft_merge_tokens(token);
 	} else if (token->type == DOUB_QUOT) {
 		ft_expand_double_qoutes(token);
@@ -92,18 +75,10 @@ static	void	ft_expand(t_token *token, t_token *right_token, int from_tree)
 		token->value = ft_split_var(token->value);
 		str = ft_free(str);
 		if (from_tree)
-			ft_expand(token, NULL, 1);
-	} else if (token->type == STAR && from_tree) {
+			ft_expand_expression(token, 1);
+	} else if (token->type == STAR) {
 		ft_expand_wildcard(token);
 	}
-}
-
-void	ft_expand_expression(t_token *token, t_token *right_token)
-{
-	ft_expand(token, right_token, 1);
-}
-
-void	ft_expand_expression_from_list(t_token *token)
-{
-	ft_expand(token, NULL, 0);
+	if (! token->is_list)
+		token->length = ft_strlen(token->value);
 }

@@ -12,7 +12,7 @@
             "terminal": "integrated",
             "args": [],
 			"env": {
-				"tt": "m* s*"
+				"tt": "cho test"
 			}
         }
     ]
