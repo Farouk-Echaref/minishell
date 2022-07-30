@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:38:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:39:48 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 17:56:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@
 # include "builtins/builtins.h"
 # include <sys/types.h>
 # include <dirent.h>
+# include "errors/errors.h"
+# include "evaluator/evaluator.h"
 
 t_list	*ft_get_file_names();
 char	*ft_lstjoin_matches(t_list *lst);
-void	ft_expand_wildcard(t_token *token);
-int		ft_expand_star_list(t_token *token);
+int		ft_expand_wildcard(t_token *token, int is_redirection);
+int	ft_expand_star_list(t_token *token, int is_redirection, int *is_ambiguous_redirection_status);
 
 #endif

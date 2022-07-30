@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:41:39 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 17:57:19 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,42 @@ static t_list	*ft_split_var(char *var_value)
 	return (data.tokens);
 }
 
-static void	ft_expand_lists(t_list *lst)
+static void	ft_expand_lists(t_list *lst, t_evaluator_data *ev_data, int is_redirection)
 {
 	while (lst)
 	{
 		if (ft_get_token(lst)->is_list || ft_get_token_type(lst) == STAR)
-			ft_expand_expression(ft_get_token(lst), 1);
+			ft_expand_expression(ft_get_token(lst), ev_data, 1, is_redirection);
 		lst = lst->next;
 	}
 }
 
-void	ft_expand_expression(t_token *token, int from_tree)
+void	ft_ambiguous_redirection(t_evaluator_data *ev_data)
+{
+	ft_error_message("*", AMBIGUOUS_MESSAGE);
+	ev_data->ok = 0;
+	g_.exit_status = 1;
+}
+
+void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tree, int is_redirection)
 {
 	char	*str;
+	int		is_ambiguous_redirection;
 
+	if (! ev_data->ok)
+		return ;
 	if (token->is_list) {
-		ft_expand_expression_list(token->value);
+		ft_expand_expression_list(token->value, ev_data, is_redirection);
 		token->value = ft_lstflatten_tokens(token->value);
 		if (ft_contains_token(token->value, WHITE_SPACE)) {
 			ft_merge_expressions_wrapper((t_list **)&token->value);
-			ft_expand_lists(token->value);
+			ft_expand_lists(token->value, ev_data, is_redirection);
 			token->type = STAR;
-		} else if (ft_expand_star_list(token))
+		} else if (ft_expand_star_list(token, is_redirection, &is_ambiguous_redirection)) {
+			if (is_ambiguous_redirection)
+				ft_ambiguous_redirection(ev_data);
 			return ;
+		}
 		ft_merge_tokens(token);
 	} else if (token->type == DOUB_QUOT) {
 		ft_expand_double_qoutes(token);
@@ -75,9 +88,9 @@ void	ft_expand_expression(t_token *token, int from_tree)
 		token->value = ft_split_var(token->value);
 		str = ft_free(str);
 		if (from_tree)
-			ft_expand_expression(token, 1);
-	} else if (token->type == STAR) {
-		ft_expand_wildcard(token);
+			ft_expand_expression(token, ev_data, 1, is_redirection);
+	} else if (token->type == STAR && from_tree && ! ft_expand_wildcard(token, is_redirection)) {
+		ft_ambiguous_redirection(ev_data);
 	}
 	if (! token->is_list)
 		token->length = ft_strlen(token->value);

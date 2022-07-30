@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:33:03 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 03:11:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	if (token->type == PIPE)
 		return (ft_pipe(tree));
 	ft_evaluator_rec(tree->left, evaluator_data);
+	if (ft_is_redirection(ft_get_token_tree(tree)->type))
+		ft_expand_expression(tree->right->content, evaluator_data, 1, 1);
+	ft_expand_expression(tree->content, evaluator_data, 1, 0);
 	if (! evaluator_data->ok)
 		return ;
-	if (ft_is_redirection(ft_get_token_tree(tree)->type))
-		ft_expand_expression(tree->right->content, 1);
-	ft_expand_expression(tree->content, 1);
 	if (ft_is_redirection(token->type))
 		ft_evaluate_redirection(tree, evaluator_data);
 	else if (token->type == STAR) {

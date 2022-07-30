@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:42:19 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 17:57:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static t_list	*ft_get_matches(t_list *file_names, t_list *pattern)
 	return (result);
 }
 
-int	ft_expand_star_list(t_token *token)
+int	ft_expand_star_list(t_token *token, int is_redirection, int *is_ambiguous_redirection_status)
 {
 	t_list	*file_names;
 	t_list	*matches;
@@ -107,6 +107,7 @@ int	ft_expand_star_list(t_token *token)
 
 	matches = NULL;
 	pattern = NULL;
+	*is_ambiguous_redirection_status = 0;
 	if (! ft_list_has_star(token->value))
 		return (0);
 	file_names = ft_get_file_names();
@@ -121,6 +122,8 @@ int	ft_expand_star_list(t_token *token)
 	token->type = STAR;
 	token->is_list = 0;
 	token->length = ft_strlen(token->value);
+	if (ft_lstsize(matches) > 1 && is_redirection)
+		*is_ambiguous_redirection_status = 1;
 	ft_lstclear(&matches, free);
 	return (1);
 }

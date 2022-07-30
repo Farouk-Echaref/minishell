@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_expression_list.c                        :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 11:33:54 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 03:23:19 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/30 02:17:51 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/30 02:23:07 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "evaluator.h"
+#ifndef ERRORS_H
+# define ERRORS_H
 
-void	ft_expand_expression_list(t_list *tokens, t_evaluator_data *ev_data, int is_redirection)
-{
-	while (tokens)
-	{
-		ft_expand_expression(ft_get_token(tokens), ev_data, 0, is_redirection);
-		tokens = tokens->next;
-	}
-}
+# define AMBIGUOUS_MESSAGE "ambiguous redirect"
+
+# include "libft/libft.h"
+
+void	ft_error_message(char *key, char *error_message);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 01:32:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 03:14:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "builtins/builtins.h"
 # include "wildcards/wildcards.h"
 # include "minishell.h"
+# include "errors/errors.h"
 
 typedef struct s_evaluator_data	t_evaluator_data;
 struct s_evaluator_data
@@ -35,14 +36,14 @@ struct s_evaluator_data
 	int		ok;
 };
 
-void	ft_expand_expression(t_token *token, int from_tree);
+void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tree, int is_redirection);
 void	ft_evaluator(t_tree	*tree);
 void	ft_evaluator_no_fork(t_tree	*tree);
 void	ft_merge_tokens(t_token *token);
 void	ft_expand_double_qoutes(t_token *token);
 void	ft_execute(t_evaluator_data *evaluator_data);
 char	*ft_evaluate_var(char *var );
-void	ft_expand_expression_list(t_list *tokens);
+void	ft_expand_expression_list(t_list *tokens, t_evaluator_data *ev_data, int is_redirection);
 void	ft_init_evaluator_data(t_evaluator_data *data);
 void	ft_pipe(t_tree *node);
 pid_t	ft_fork();
