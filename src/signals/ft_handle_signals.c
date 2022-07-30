@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 19:53:26 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 01:54:43 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/28 15:21:53 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 
-void setup_term(void)
+void ft_setup_term(void)
 {
     struct termios t;
     tcgetattr(0, &t);
@@ -43,9 +43,14 @@ void	ft_ctrl_d(void)
 	exit(0);
 }
 
+void	ft_set_signals_default()
+{
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+}
+
 void ft_handle_signals()
 {
-	setup_term();
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_ctrl_c);
 }

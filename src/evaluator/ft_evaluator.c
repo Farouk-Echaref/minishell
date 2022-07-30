@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 03:11:43 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 22:10:23 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	ft_evaluator_no_fork(t_tree	*tree)
 	t_evaluator_data	evaluator_data;
 	char				*command_name;
 
+	ft_set_signals_default();
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data);
 	command_name = evaluator_data.command[0];
