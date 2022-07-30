@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 17:59:22 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/28 15:23:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,22 @@ void	ft_execute_fork(t_evaluator_data *evaluator_data)
 
 	pid = ft_fork();
 	if (pid == 0)
+	{
+		ft_set_signals_default();
 		ft_execute(evaluator_data);
+	}
 	else
 	{
 		// main process
 		waitpid(pid, &status, 0);
 		g_.exit_status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+		{
+			g_.exit_status = 128 + WTERMSIG(status);
+			if (WTERMSIG(status) == SIGQUIT)
+				printf("Quit: 3\n");
+			if (WTERMSIG(status) == SIGINT)
+				printf("\n");
+		}
 	}
 }
