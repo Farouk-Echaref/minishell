@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdetach.c                                     :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 02:47:19 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/29 00:36:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/30 02:17:51 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/30 02:23:07 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#ifndef ERRORS_H
+# define ERRORS_H
 
-t_list	*ft_lstdetach(t_list *el)
-{
-	t_list	*prev;
-	t_list	*next;
+# define AMBIGUOUS_MESSAGE "ambiguous redirect"
 
-	if (! el)
-		return (NULL);
-	prev = el->prev;
-	next = el->next;
-	el->prev = NULL;
-	el->next = NULL;
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-	return (el);
-}
+# include "libft/libft.h"
+
+void	ft_error_message(char *key, char *error_message);
+
+#endif

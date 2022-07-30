@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdetach.c                                     :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 02:47:19 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/29 00:36:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/30 02:17:39 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/30 03:15:37 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#include "errors.h"
 
-t_list	*ft_lstdetach(t_list *el)
+void	ft_error_message(char *key, char *error_message)
 {
-	t_list	*prev;
-	t_list	*next;
-
-	if (! el)
-		return (NULL);
-	prev = el->prev;
-	next = el->next;
-	el->prev = NULL;
-	el->next = NULL;
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-	return (el);
+	ft_putstr_fd("minishell: ", 2);
+	if (key)
+	{
+		ft_putstr_fd(key, 2);
+		ft_putstr_fd(": ", 2);
+	}
+	if (error_message)
+		ft_putstr_fd(error_message, 2);
+	ft_putstr_fd("\n", 2);
 }

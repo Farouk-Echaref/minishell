@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdetach.c                                     :+:      :+:    :+:   */
+/*   ft_contains_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 02:47:19 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/29 00:36:43 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/29 21:05:44 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/29 21:07:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "list.h"
-#include <stdlib.h>
+#include "token.h"
 
-t_list	*ft_lstdetach(t_list *el)
+int	ft_contains_token(t_list *lst, t_type token_type)
 {
-	t_list	*prev;
-	t_list	*next;
-
-	if (! el)
-		return (NULL);
-	prev = el->prev;
-	next = el->next;
-	el->prev = NULL;
-	el->next = NULL;
-	if (prev)
-		prev->next = next;
-	if (next)
-		next->prev = prev;
-	return (el);
+	while (lst)
+	{
+		if (ft_get_token_type(lst) == token_type)
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
 }

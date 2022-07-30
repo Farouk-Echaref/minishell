@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:45:58 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 02:13:06 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 03:14:59 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,25 @@ static t_list	*ft_get_matches(t_list *file_names, t_token *token)
 	return (matches);
 }
 
-void	ft_expand_wildcard(t_token *token)
+int	ft_expand_wildcard(t_token *token, int is_redirection)
 {
 	t_list	*file_names;
 	t_list	*matches;
+	int		is_ambiguous_redirection;
 
+	is_ambiguous_redirection = 0;
 	if (! ft_strchr(token->value, '*') || token->type == DOUB_QUOT || token->type == SING_QUOT)
-		return ;
+		return (1);
 	file_names = ft_get_file_names();
 	matches = ft_get_matches(file_names, token);
 	ft_lstclear(&file_names, free);
 	if (! matches)
-		return ;
+		return (1);
+	if (ft_lstsize(matches) > 1 && is_redirection)
+		is_ambiguous_redirection = 1;
 	token->value = ft_free(token->value);
 	token->value = ft_lstjoin_matches(matches);
 	token->type = STAR;
 	ft_lstclear(&matches, free);
+	return (! is_ambiguous_redirection);
 }
