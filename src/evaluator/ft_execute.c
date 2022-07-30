@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:01 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/28 15:23:02 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 21:49:36 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_execute(t_evaluator_data *evaluator_data)
 		}
 	}
 	execve(path, command, ft_lst2arr(g_.env));
+	path = ft_free(path);
 	perror("minishell");
 	exit(127);
 }
