@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 02:48:41 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 03:59:54 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	ft_evaluator_rec(t_tree	*tree, t_evaluator_data *evaluator_data)
 	ft_evaluator_rec(tree->left, evaluator_data);
 	if (ft_is_redirection(ft_get_token_tree(tree)->type))
 		ft_expand_expression(tree->right->content, evaluator_data, 1, 1);
+	if (evaluator_data->command && ft_strcmp(evaluator_data->command[0], "export") == 0)
+		evaluator_data->expand_star = 0;
 	ft_expand_expression(tree->content, evaluator_data, 1, 0);
 	if (! evaluator_data->ok)
 		return ;

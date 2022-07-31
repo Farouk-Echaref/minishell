@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:04:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 03:14:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 03:54:10 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ struct s_evaluator_data
 	int		redirect_right;
 	int		redirect_left;
 	int		ok;
+	int		expand_star;
 };
 
 void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tree, int is_redirection);
