@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/05 10:49:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:16:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_whitespace(t_lexer *lxr)
 {
-	int	move;
+	int		move;
 	char	*org;
 
 	move = 0;
@@ -42,17 +42,6 @@ int	check_dollar(t_lexer *lxr)
 		return (1);
 	}
 	return (var_length);
-
-	// next_char = *(lxr->content + 1);
-	// if (next_char == '$' || next_char == '?' || next_char == '*')
-	// 	return (2);
-	// temp = (char *)(lxr->content + 1);
-	// while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
-	// {
-	// 	temp++;
-	// 	move++;
-	// }
-	// return (move);
 }
 
 t_type	ft_matching(t_lexer *lxr)
@@ -64,19 +53,23 @@ t_type	ft_matching(t_lexer *lxr)
 	return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
 }
 
+void	ft_(t_lexer *lxr, t_type *type)
+{
+	if (! type)
+		return ;
+	*type = EXPRESSION;
+	if (ft_is_var(lxr->content) > 1)
+		*type = VAR;
+}
+
 t_type	ft_get_type(t_lexer *lxr)
 {
 	t_type	type;
 
 	if (*lxr->content == '$')
-	{
-		type = EXPRESSION;
-		if (ft_is_var(lxr->content) > 1)
-			type = VAR;
-		return (ft_move_content(lxr, check_dollar(lxr)), type);
-	}
+		return (ft_(lxr, &type), ft_move_content(lxr, check_dollar(lxr)), type);
 	if (*lxr->content == ' ')
-        return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
+		return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
 		return (ft_move_content(lxr, 2), SHIFT_LEFT);
 	if (ft_strncmp(lxr->content, ">>", 2) == 0)
