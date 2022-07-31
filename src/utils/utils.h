@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:38:56 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 20:01:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:40:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		ft_isvalidnumber(char *s);
 void	ft_print_lst(t_list *lst);
 void	ft_print_token_value_ln(t_token *token);
 void	ft_print_token_value(t_token *token);
+char	*ft_assign_free(char *value_to_free, char *new_value);
 
 #endif
