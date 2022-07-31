@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 01:39:21 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 03:00:18 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ int	ft_check_syntax(t_list *tokens)
 	while (tokens)
 	{
 		t = ft_get_token(tokens);
-		str = ft_str(t->value, t->length);
 		if (ft_check_matching(t) == 0)
 			return (0);
-		if (t->type == EXPRESSION && ft_strchr(str, '\\'))
-			return (0);
+		if (t->type == EXPRESSION)
+		{
+			str = ft_str(t->value, t->length);
+			if (ft_strchr(str, '\\'))
+				return (ft_free(str), 0);
+			str = ft_free(str);
+		}
 		if (
 			(t->type == PIPE || t->type == AND_OPR || t->type == OR_OPR)
 			&& (ft_has(LEFT, tokens->prev) == 0 || ft_has(RIGHT, tokens->next) == 0)
