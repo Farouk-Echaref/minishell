@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 22:04:23 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:22:49 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:31:30 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*ft_arr_to_list(char **argenv)
 
 	lst = NULL;
 	if (! argenv)
-		return NULL;
+		return (NULL);
 	i = 0;
 	while (argenv[i])
 	{
