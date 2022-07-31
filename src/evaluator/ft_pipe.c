@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 18:14:14 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 17:03:47 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 22:13:37 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_pipe_left_fork(t_tree *tree, int fds[2])
 		close(fds[0]);
 		dup2(fds[1], STDOUT_FILENO);
 		ft_evaluator_no_fork(tree);
+		exit(g_.exit_status);
 	}
 	return (pid);
 }
@@ -36,6 +37,7 @@ int	ft_pipe_right_fork(t_tree *tree, int fds[2])
 		close(fds[1]);
 		dup2(fds[0], STDIN_FILENO);
 		ft_evaluator_no_fork(tree);
+		exit(g_.exit_status);
 	}
 	return (pid);
 }
