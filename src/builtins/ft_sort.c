@@ -1,22 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 23:39:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 05:56:37 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/31 06:04:00 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/31 06:09:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "str_utils.h"
+#include "builtins.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	ft_sort(char **args, int size)
 {
-	if (!s1 || !s2)
-		return (-1);
-	if ( *s1 == *s2)
-		while (*s1 && *++s1 == *++s2);
-	return (*s1 - *s2);
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (ft_strcmp(args[i], args[j]) > 0)
+			{
+				temp = args[i];
+				args[i] = args[j];
+				args[j] = temp;
+			}
+			j++;
+		}
+		i++;
+	}
 }

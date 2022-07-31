@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 17:57:19 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 05:49:11 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tr
 	if (token->is_list) {
 		ft_expand_expression_list(token->value, ev_data, is_redirection);
 		token->value = ft_lstflatten_tokens(token->value);
-		if (ft_contains_token(token->value, WHITE_SPACE)) {
+		if (ft_contains_token(token->value, WHITE_SPACE))
+			token->type = STAR;
+		if ( ev_data->expand_star && ft_contains_token(token->value, WHITE_SPACE)) {
 			ft_merge_expressions_wrapper((t_list **)&token->value);
 			ft_expand_lists(token->value, ev_data, is_redirection);
-			token->type = STAR;
-		} else if (ft_expand_star_list(token, is_redirection, &is_ambiguous_redirection)) {
+		} else if (ev_data->expand_star && ft_expand_star_list(token, is_redirection, &is_ambiguous_redirection)) {
 			if (is_ambiguous_redirection)
 				ft_ambiguous_redirection(ev_data);
 			return ;
@@ -89,7 +90,7 @@ void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tr
 		str = ft_free(str);
 		if (from_tree)
 			ft_expand_expression(token, ev_data, 1, is_redirection);
-	} else if (token->type == STAR && from_tree && ! ft_expand_wildcard(token, is_redirection)) {
+	} else if (token->type == STAR && from_tree && ev_data->expand_star && ! ft_expand_wildcard(token, is_redirection)) {
 		ft_ambiguous_redirection(ev_data);
 	}
 	if (! token->is_list)

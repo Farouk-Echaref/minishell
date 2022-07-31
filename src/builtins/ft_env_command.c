@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 00:38:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 02:46:55 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 05:51:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_env_command(char **command)
 	}
 	while (env)
 	{
-		printf("%s\n", (char *)env->content);
+		if (ft_strchr(env->content, '='))
+			printf("%s\n", (char *)env->content);
 		env = env->next;
 	}
 	exit(EXIT_SUCCESS);
