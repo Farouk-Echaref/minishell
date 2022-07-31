@@ -6,13 +6,13 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 13:34:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 13:53:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:36:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 
-pid_t	ft_fork()
+pid_t	ft_fork(void)
 {
 	pid_t	pid;
 

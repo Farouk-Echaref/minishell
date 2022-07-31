@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 03:19:25 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 22:01:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:53:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	ft_add_env(char *var_name, char *value, int concat)
 		ft_free(ft_lstdetach(old_line));
 	}
 	if (concat && old_value)
-		value = ft_assign_free(value, ft_strjoin(old_value, value));
+		value = ft_assign_free(&value, ft_strjoin(old_value, value));
 	line = ft_make_env_line(var_name, value);
 	ft_lstadd_back(&g_.env, ft_lstnew(line));
 	old_value = ft_free(old_value);
