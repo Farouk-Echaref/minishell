@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 02:54:44 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:29:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ static void	ft_init(char **env)
 
 int	main(int argc, char **argv, char **argenv)
 {
-
 	char	*command_str;
 
-	command_str = "> file1 > file2 ls && < file2 ls >> f20 -al && echo * && echo f*";
+	command_str = NULL;
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
 	ft_init(argenv);
@@ -49,7 +48,7 @@ int	main(int argc, char **argv, char **argenv)
 		if (command_str == NULL)
 			ft_ctrl_d();
 		if (ft_strlen(command_str) == 0)
-			continue;
+			continue ;
 		add_history(command_str);
 		ft_run_command(command_str);
 		free(command_str);
