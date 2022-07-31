@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 22:12:14 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 22:58:05 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:19:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**ft_lst2arr(t_list *lst)
 	int		i;
 
 	if (! lst)
-		return NULL;
+		return (NULL);
 	lst_size = ft_lstsize(lst);
 	result = (char **)malloc(lst_size * sizeof(char *) + 1);
 	i = 0;
