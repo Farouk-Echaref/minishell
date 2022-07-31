@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 21:18:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 21:35:02 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:11:34 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@
 
 t_list	*ft_search_env(char *var_name);
 char	*ft_make_env_line(char *var_name, char *value);
-
 
 #endif
