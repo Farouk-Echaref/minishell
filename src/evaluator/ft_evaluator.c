@@ -6,30 +6,12 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 22:10:23 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 02:48:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "evaluator.h"
 #include "redirections/redirections.h"
-
-static int	ft_should_run_on_main_process(char *command_name)
-{
-	if (
-		ft_strcmp(command_name, "exit") == 0
-		|| ft_str_start_with(command_name, "exit ")
-		|| ft_strcmp(command_name, "unset") == 0
-		|| ft_str_start_with(command_name, "unset ")
-		|| ft_strcmp(command_name, "export") == 0
-		|| ft_str_start_with(command_name, "export ")
-		|| ft_strcmp(command_name, "cd") == 0
-		|| ft_str_start_with(command_name, "cd ")
-		|| ft_strcmp(command_name, "pwd") == 0
-		|| ft_str_start_with(command_name, "pwd ")
-	)
-		return (1);
-	return (0);
-}
 
 static char	**ft_push_star_values(t_evaluator_data *evaluator_data, t_token *token)
 {
