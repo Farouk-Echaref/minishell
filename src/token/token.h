@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/26 14:52:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 01:15:57 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ enum e_type
 	PIPE = 15,
 	VAR = 16,
 	EXPRESSION = 18,
-	OTHER = 19
+	OTHER = 19,
+	SPLITED_VAR = 20
 };
 
 struct s_token
@@ -55,6 +56,9 @@ t_type	ft_get_token_type(t_list	*lst);
 t_token	*ft_get_token(t_list *lst);
 int		ft_is_redirection(t_type token_type);
 void	ft_free_token(void *tree_content);
+void	ft_free_token_no_value(void *tree_content);
 t_token	*ft_get_token_tree(t_tree *tree);
+int		ft_contains_token(t_list *lst, t_type token_type);
+t_list	*ft_lstflatten_tokens(t_list *tokens);
 
 #endif

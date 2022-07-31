@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 02:16:11 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 15:43:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 02:54:44 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,24 @@
 #include "correction/correction.h"
 #include "evaluator/evaluator.h"
 #include "signals/signals.h"
+#include "minishell.h"
+
+static void	ft_init(char **env)
+{
+	g_.env = ft_arr_to_list(env);
+	g_.exit_status = 0;
+}
 
 int	main(int argc, char **argv, char **argenv)
 {
-	t_data	data;
-	char	*command_str;
-	t_lexer	*lxr;
 
-	command_str = "> file1 > fie2 << end ls && < f2 ls >> f20 -al";
+	char	*command_str;
+
+	command_str = "> file1 > file2 ls && < file2 ls >> f20 -al && echo * && echo f*";
 	if (argc != 1 || ! argv || ! argenv)
 		return (1);
-	ft_init_data(&data, argenv);
+	ft_init(argenv);
+	ft_setup_term();
 	ft_handle_signals();
 	while (1)
 	{
@@ -44,13 +51,7 @@ int	main(int argc, char **argv, char **argenv)
 		if (ft_strlen(command_str) == 0)
 			continue;
 		add_history(command_str);
-		lxr = ft_init_lexer(command_str);
-		data.tokens = ft_lexer(lxr);
-		ft_correct_tokens(&data.tokens);
-		data.tree = ft_parser(data.tokens);
-		ft_evaluator(data.tree);
-		ft_destroy_lexer(lxr);
-		ft_destroy_data(&data);
+		ft_run_command(command_str);
 		free(command_str);
 	}
 	ft_lstclear(&g_.env, &free);

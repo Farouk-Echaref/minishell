@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rm_redirection_space.c                          :+:      :+:    :+:   */
+/*   syntax_checker.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 12:43:45 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 23:00:21 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/30 22:23:36 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/31 01:39:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "correction.h"
+#ifndef SYNTAX_CHECKER_H
+# define SYNTAX_CHECKER_H
+
+#include <stdio.h>
+#include "data/data.h"
+#include "token/token.h"
+#include "lexer/lexer.h"
+#include "list/list.h"
+#include "parser/parser.h"
 #include "utils/utils.h"
+#include "correction/correction.h"
+#include "evaluator/evaluator.h"
+#include "signals/signals.h"
+#include "minishell.h"
 
-void	ft_rm_redirection_space(t_list *tokens)
+typedef enum e_direction t_direction;
+
+enum e_direction
 {
-	t_list	*next;
-	t_list	*temp;
+	LEFT,
+	RIGHT
+};
 
-	while (tokens)
-	{
-		next = tokens->next;
-		if (
-			next
-			&& ft_is_redirection(ft_get_token(tokens)->type)
-			&& ft_get_token(next)->type == WHITE_SPACE
-		)
-		{
-			next = next->next;
-			temp = ft_lstdetach(tokens->next);
-			ft_free_token_no_value(temp->content);
-			ft_free(temp);
-		}
-		tokens = next;
-	}
-}
+int	ft_check_syntax(t_list *tokens);
+
+#endif

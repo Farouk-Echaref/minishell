@@ -55,7 +55,10 @@ static void printTreeRec(t_tree* root, Trunk *prev, int isLeft)
 		printf("(tokens list)\n");
 	} else {
 		str = ft_str(token->value, token->length);
-		printf(" %s(%s)\n", str, ft_get_type_name(token->type));
+		printf(" %s(%s)", str, ft_get_type_name(token->type));
+		if (token->is_filename)
+			printf("(FILE_NAME)");
+		printf("\n");
 		free(str);
 	}
     if (prev) {

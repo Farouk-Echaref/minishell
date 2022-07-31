@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_correct_tokens.c                                :+:      :+:    :+:   */
+/*   ft_contains_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 13:06:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 21:42:05 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/29 21:05:44 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/29 21:07:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "correction.h"
+#include "token.h"
 
-void	ft_set_file_names(t_list *tokens)
+int	ft_contains_token(t_list *lst, t_type token_type)
 {
-	while (tokens)
+	while (lst)
 	{
-		if (ft_is_redirection(ft_get_token_type(tokens)))
-			ft_get_token(tokens->next)->is_filename = 1;
-		tokens = tokens->next;
+		if (ft_get_token_type(lst) == token_type)
+			return (1);
+		lst = lst->next;
 	}
-}
-
-void	ft_correct_tokens(t_list **tokens_ptr)
-{
-		ft_merge_expressions_wrapper(tokens_ptr);
-		ft_rm_redirection_space(*tokens_ptr);
-		ft_set_file_names(*tokens_ptr);
+	return (0);
 }

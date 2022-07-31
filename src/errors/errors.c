@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_correct_tokens.c                                :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 13:06:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 21:42:05 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/30 02:17:39 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/30 03:15:37 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "correction.h"
+#include "errors.h"
 
-void	ft_set_file_names(t_list *tokens)
+void	ft_error_message(char *key, char *error_message)
 {
-	while (tokens)
+	ft_putstr_fd("minishell: ", 2);
+	if (key)
 	{
-		if (ft_is_redirection(ft_get_token_type(tokens)))
-			ft_get_token(tokens->next)->is_filename = 1;
-		tokens = tokens->next;
+		ft_putstr_fd(key, 2);
+		ft_putstr_fd(": ", 2);
 	}
-}
-
-void	ft_correct_tokens(t_list **tokens_ptr)
-{
-		ft_merge_expressions_wrapper(tokens_ptr);
-		ft_rm_redirection_space(*tokens_ptr);
-		ft_set_file_names(*tokens_ptr);
+	if (error_message)
+		ft_putstr_fd(error_message, 2);
+	ft_putstr_fd("\n", 2);
 }

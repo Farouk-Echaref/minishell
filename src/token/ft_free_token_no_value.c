@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_correct_tokens.c                                :+:      :+:    :+:   */
+/*   ft_free_token_no_value.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/06 13:06:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 21:42:05 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/05 14:45:41 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/07/26 23:00:02 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "correction.h"
+#include "token/token.h"
+#include "utils/utils.h"
 
-void	ft_set_file_names(t_list *tokens)
+void	ft_free_token_no_value(void *tree_content)
 {
-	while (tokens)
-	{
-		if (ft_is_redirection(ft_get_token_type(tokens)))
-			ft_get_token(tokens->next)->is_filename = 1;
-		tokens = tokens->next;
-	}
-}
+	t_token	*token;
 
-void	ft_correct_tokens(t_list **tokens_ptr)
-{
-		ft_merge_expressions_wrapper(tokens_ptr);
-		ft_rm_redirection_space(*tokens_ptr);
-		ft_set_file_names(*tokens_ptr);
+	token = tree_content;
+	if (! token)
+		return ;
+	if (token->is_list)
+		ft_lstclear((t_list **)&token->value, &ft_free_token_no_value);
+	token->value = NULL;
+	token = ft_free(token);
 }

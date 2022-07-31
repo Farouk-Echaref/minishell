@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 16:57:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/30 17:57:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ static t_list	*ft_split_pattern(t_list *lst)
 	while (lst)
 	{
 		if (ft_get_token(lst)->type == STAR) {
-			ft_lstadd_back(&result, ft_lstnew(ft_duplicate_token(lst->content)));
+			token = ft_duplicate_token(lst->content);
+			token->value = ft_strdup(token->value);
+			ft_lstadd_back(&result, ft_lstnew(token));
 		} else {
 			s = ft_get_token(lst)->value;
 			while (s && *s)
@@ -97,24 +99,31 @@ static t_list	*ft_get_matches(t_list *file_names, t_list *pattern)
 	return (result);
 }
 
-void	ft_expand_star_list(t_token *token)
+int	ft_expand_star_list(t_token *token, int is_redirection, int *is_ambiguous_redirection_status)
 {
 	t_list	*file_names;
 	t_list	*matches;
 	t_list	*pattern;
 
+	matches = NULL;
+	pattern = NULL;
+	*is_ambiguous_redirection_status = 0;
 	if (! ft_list_has_star(token->value))
-		return ;
+		return (0);
 	file_names = ft_get_file_names();
 	pattern = ft_split_pattern(token->value);
 	matches = ft_get_matches(file_names, pattern);
 	ft_lstclear(&file_names, free);
-	ft_lstclear(&pattern, free);
+	ft_lstclear(&pattern, &ft_free_token);
 	if (! matches)
-		return ;
-	token->type = STAR;
+		return (0);
+	ft_lstclear((t_list **)&token->value, &ft_free_token);
 	token->value = ft_lstjoin_matches(matches);
-	((char *)token->value)[ft_strlen(token->value) - 1] = 0;
+	token->type = STAR;
 	token->is_list = 0;
+	token->length = ft_strlen(token->value);
+	if (ft_lstsize(matches) > 1 && is_redirection)
+		*is_ambiguous_redirection_status = 1;
 	ft_lstclear(&matches, free);
+	return (1);
 }

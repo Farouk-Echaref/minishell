@@ -33,5 +33,7 @@ t_command_func ft_select_builtin_command(char *command_name)
 		return (ft_env_command);
 	if (ft_strcmp(command_name, "unset") == 0)
 		return (ft_unset_command);
+	if (ft_strcmp(command_name, "export") == 0)
+		return (ft_export_command);
 	return (f);
 }
