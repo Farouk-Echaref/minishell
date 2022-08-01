@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 05:49:11 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 04:54:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,14 @@ void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tr
 		token->value = ft_evaluate_var(str);
 		str = ft_free(str);
 		token->length = ft_strlen(token->value);
-		token->is_list = 1;
-		token->type = EXPRESSION;
-		token->value = ft_split_var(token->value);
-		str = ft_free(str);
-		if (from_tree)
-			ft_expand_expression(token, ev_data, 1, is_redirection);
+		if (ft_strcmp(token->value, "") != 0)
+		{
+			token->is_list = 1;
+			token->type = EXPRESSION;
+			token->value = ft_split_var(token->value);
+			if (from_tree)
+				ft_expand_expression(token, ev_data, 1, is_redirection);
+		}
 	} else if (token->type == STAR && from_tree && ev_data->expand_star && ! ft_expand_wildcard(token, is_redirection)) {
 		ft_ambiguous_redirection(ev_data);
 	}
