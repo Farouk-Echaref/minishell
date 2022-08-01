@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/01 03:16:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 03:48:08 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_whitespace(t_lexer *lxr)
 {
-	int	move;
+	int		move;
 	char	*org;
 
 	move = 0;
@@ -40,19 +40,23 @@ t_type	ft_matching(t_lexer *lxr)
 	return (ft_handle_matching(lxr, '"'), DOUB_QUOT);
 }
 
-t_type	ft_get_type(t_lexer *lxr)
+t_type	ft_var_type(t_lexer *lxr)
 {
 	t_type	type;
 
+	type = EXPRESSION;
+	if (ft_var_length(lxr->content) > 1)
+		type = VAR;
+	ft_move_content(lxr, ft_var_length(lxr->content));
+	return (type);
+}
+
+t_type	ft_get_type(t_lexer *lxr)
+{
 	if (*lxr->content == '$')
-	{
-		type = EXPRESSION;
-		if (ft_var_length(lxr->content) > 1)
-			type = VAR;
-		return (ft_move_content(lxr, ft_var_length(lxr->content)), type);
-	}
+		return (ft_var_type(lxr));
 	if (*lxr->content == ' ')
-        return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
+		return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
 		return (ft_move_content(lxr, 2), SHIFT_LEFT);
 	if (ft_strncmp(lxr->content, ">>", 2) == 0)

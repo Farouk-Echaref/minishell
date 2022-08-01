@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/04 13:37:46 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:59:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_list	*ft_lexer(t_lexer *lxr)
 	t_list	*tokens;
 
 	tokens = NULL;
-    while (lxr->content && *lxr->content)
-    {
+	while (lxr->content && *lxr->content)
+	{
 		value = (void *)lxr->content;
 		type = ft_get_type(lxr);
 		len = lxr->content - (char *)value;

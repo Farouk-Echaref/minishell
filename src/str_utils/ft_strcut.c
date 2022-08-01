@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:21:37 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 11:48:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:59:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strcut(char *start, char *end)
 	int		i;
 
 	if (! start || ! end || start >= end)
-		return ft_strdup("");
+		return (ft_strdup(""));
 	res = (char *)malloc(sizeof(char) * (end - start + 1));
 	i = 0;
 	while (*start && start < end)

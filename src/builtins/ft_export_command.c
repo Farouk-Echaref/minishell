@@ -6,13 +6,13 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 03:19:25 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 06:24:14 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:53:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_sort_print()
+void	ft_sort_print(void)
 {
 	char	**arr;
 	int		i;
@@ -46,7 +46,6 @@ static void	ft_add_env(char *var_name, char *value, int concat)
 	char	*line;
 	t_list	*old_line;
 	char	*old_value;
-	char	*temp;
 
 	if (! var_name)
 		return ;
@@ -55,17 +54,14 @@ static void	ft_add_env(char *var_name, char *value, int concat)
 	if (old_line && ft_strchr(old_line->content, '='))
 		old_value = ft_strdup(ft_strchr(old_line->content, '=') + 1);
 	if (! value && old_value)
-		return free(old_value);
-	if (old_line) {
+		return (free(old_value));
+	if (old_line)
+	{
 		old_line->content = ft_free(old_line->content);
 		ft_free(ft_lstdetach(old_line));
 	}
 	if (concat && old_value)
-	{
-		temp = value;
-		value = ft_strjoin(old_value, value);
-		temp = ft_free(temp);
-	}
+		value = ft_assign_free(&value, ft_strjoin(old_value, value));
 	line = ft_make_env_line(var_name, value);
 	ft_lstadd_back(&g_.env, ft_lstnew(line));
 	old_value = ft_free(old_value);
@@ -97,9 +93,7 @@ static int	ft_export(char *arg)
 	if (ft_strchr(arg, '='))
 		value = ft_strdup(ft_strchr(arg, '=') + 1);
 	ft_add_env(var_name, value, concat);
-	value = ft_free(value);
-	var_name = ft_free(var_name);
-	return (1);
+	return (ft_free(value), ft_free(var_name), 1);
 }
 
 void	ft_export_command(char **argv)

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:42:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 02:17:17 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:20:46 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	ft_parser_rec(t_tree **root_ptr, t_token *token)
 			<= ft_get_type_order(token)
 		))
 		*root_ptr = ft_change_root(
-			*root_ptr,
-			ft_new_tree_node(ft_duplicate_token(token))
-		);
+				*root_ptr,
+				ft_new_tree_node(ft_duplicate_token(token))
+				);
 	else if (ft_is_redirection(root_content->type) && ! token->is_filename)
 		ft_parser_rec(&(*root_ptr)->left, token);
 	else if (*root_ptr)
@@ -68,10 +68,12 @@ void	ft_allocate_tree_nodes(t_tree *root)
 	if (! root)
 		return ;
 	token = root->content;
-	if (token->is_list) {
+	if (token->is_list)
+	{
 		token->value = ft_duplicate_tokens_list(token->value);
 		ft_lstiter(token->value, (t_lstiter_func)ft_cleanup_token);
-	} else
+	}
+	else
 		ft_cleanup_token(token);
 	ft_allocate_tree_nodes(root->left);
 	ft_allocate_tree_nodes(root->right);

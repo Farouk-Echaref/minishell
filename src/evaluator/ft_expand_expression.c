@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 04:54:28 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 05:09:48 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_list	*ft_split_var(char *var_value)
 	t_lexer	*lxr;
 	t_data	data;
 	t_list	*tokens;
-	t_token *t;
+	t_token	*t;
 
 	data.tokens = NULL;
 	data.tree = NULL;
@@ -39,7 +39,8 @@ static t_list	*ft_split_var(char *var_value)
 	return (data.tokens);
 }
 
-static void	ft_expand_lists(t_list *lst, t_evaluator_data *ev_data, int is_redirection)
+static void	ft_expand_lists(t_list *lst,
+	t_evaluator_data *ev_data, int is_redirection)
 {
 	while (lst)
 	{
@@ -56,45 +57,58 @@ void	ft_ambiguous_redirection(t_evaluator_data *ev_data)
 	g_.exit_status = 1;
 }
 
-void	ft_expand_expression(t_token *token, t_evaluator_data *ev_data, int from_tree, int is_redirection)
+void	ft_expand_lst(t_token *token,
+	t_evaluator_data *ev_data, int is_redirection)
+{
+	int		is_ambiguous_redirection;
+
+	ft_expand_expression_list(token->value, ev_data, is_redirection);
+	token->value = ft_lstflatten_tokens(token->value);
+	if (ft_contains_token(token->value, WHITE_SPACE))
+		token->type = STAR;
+	if (ev_data->expand_star && ft_contains_token(token->value, WHITE_SPACE))
+	{
+		ft_merge_expressions_wrapper((t_list **)&token->value);
+		ft_expand_lists(token->value, ev_data, is_redirection);
+	}
+	else if (
+		ev_data->expand_star
+		&& ft_expand_star_list(token, is_redirection, &is_ambiguous_redirection)
+	)
+	{
+		if (is_ambiguous_redirection)
+			ft_ambiguous_redirection(ev_data);
+		return ;
+	}
+	ft_merge_tokens(token);
+}
+
+void	ft_expand_expression(t_token *token,
+	t_evaluator_data *ev_data, int from_tree, int is_redirection)
 {
 	char	*str;
-	int		is_ambiguous_redirection;
 
 	if (! ev_data->ok)
 		return ;
-	if (token->is_list) {
-		ft_expand_expression_list(token->value, ev_data, is_redirection);
-		token->value = ft_lstflatten_tokens(token->value);
-		if (ft_contains_token(token->value, WHITE_SPACE))
-			token->type = STAR;
-		if ( ev_data->expand_star && ft_contains_token(token->value, WHITE_SPACE)) {
-			ft_merge_expressions_wrapper((t_list **)&token->value);
-			ft_expand_lists(token->value, ev_data, is_redirection);
-		} else if (ev_data->expand_star && ft_expand_star_list(token, is_redirection, &is_ambiguous_redirection)) {
-			if (is_ambiguous_redirection)
-				ft_ambiguous_redirection(ev_data);
-			return ;
-		}
-		ft_merge_tokens(token);
-	} else if (token->type == DOUB_QUOT) {
+	if (token->is_list)
+		ft_expand_lst(token, ev_data, is_redirection);
+	else if (token->type == DOUB_QUOT)
 		ft_expand_double_qoutes(token);
-	} else if (token->type == VAR) {
+	else if (token->type == VAR)
+	{
 		str = ft_str(token->value, token->length);
-		token->value = ft_evaluate_var(str);
-		str = ft_free(str);
+		token->value = ft_assign_free(&str, ft_evaluate_var(str));
 		token->length = ft_strlen(token->value);
-		if (ft_strcmp(token->value, "") != 0)
-		{
-			token->is_list = 1;
-			token->type = EXPRESSION;
-			token->value = ft_split_var(token->value);
-			if (from_tree)
-				ft_expand_expression(token, ev_data, 1, is_redirection);
-		}
-	} else if (token->type == STAR && from_tree && ev_data->expand_star && ! ft_expand_wildcard(token, is_redirection)) {
-		ft_ambiguous_redirection(ev_data);
+		if (ft_strcmp(token->value, "") == 0)
+			return ;
+		token->is_list = 1;
+		token->type = EXPRESSION;
+		token->value = ft_split_var(token->value);
+		if (from_tree)
+			ft_expand_expression(token, ev_data, 1, is_redirection);
 	}
-	if (! token->is_list)
-		token->length = ft_strlen(token->value);
+	else if (token->type == STAR && from_tree
+		&& ev_data->expand_star
+		&& ! ft_expand_wildcard(token, is_redirection))
+		ft_ambiguous_redirection(ev_data);
 }

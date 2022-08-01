@@ -6,15 +6,14 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 01:08:18 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/29 00:13:16 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:19:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
 
-typedef void (*t_lstiter_func)(void *);
-
+typedef void			(*t_lstiter_func)(void *);
 typedef struct s_list	t_list;
 
 struct s_list

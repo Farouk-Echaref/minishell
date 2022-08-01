@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/27 01:08:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:54:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ char	*ft_expand_line(char *line)
 	t_token	*token;
 	char	*str;
 
-	token = ft_new_token(line, EXPRESSION, ft_strlen(line));
+	token = ft_new_token(ft_strdup(line), EXPRESSION, ft_strlen(line));
 	ft_expand_double_qoutes(token);
 	str = ft_strdup(token->value);
 	ft_free_token(token);
 	return (str);
 }
 
-void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
+void	ft_write_ln(int fd, char *line)
+{
+	write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+}
+
+void	ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
 {
 	int		fd;
 	char	*stop_message;
@@ -42,16 +48,12 @@ void ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
 	while (1)
 	{
 		line = readline("> ");
-		if (! line || ft_strcmp(line, stop_message) == 0)
+		if ((! line || ft_strcmp(line, stop_message) == 0) && ! ft_free(line))
 			break ;
-		line = ft_expand_line(line);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-        line = ft_free(line);
+		line = ft_assign_free(&line, ft_expand_line(line));
+		ft_write_ln(fd, line);
+		line = ft_free(line);
 	}
-	line = ft_free(line);
-	if (fd < 0)
-		return ;
 	close(fd);
 	fd = open(file_name, O_RDONLY, 0644);
 	if (fd > 0)

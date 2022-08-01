@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 17:57:58 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 01:31:58 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,66 +23,28 @@ static int	ft_list_has_star(t_list *lst)
 	return (0);
 }
 
-char	*ft_char_helper(char c)
-{
-	char *result;
-
-	result = (char *)malloc(2);
-	result[0] = c;
-	result[1] = 0;
-	return (result);
-}
-
-static t_list	*ft_split_pattern(t_list *lst)
-{
-	t_list *result;
-	t_token	*token;
-	char	*s;
-
-	result = NULL;
-	while (lst)
-	{
-		if (ft_get_token(lst)->type == STAR) {
-			token = ft_duplicate_token(lst->content);
-			token->value = ft_strdup(token->value);
-			ft_lstadd_back(&result, ft_lstnew(token));
-		} else {
-			s = ft_get_token(lst)->value;
-			while (s && *s)
-			{
-				token = ft_new_token(ft_char_helper(*s), EXPRESSION, 1);
-				ft_lstadd_back(&result, ft_lstnew(token));
-				s++;
-			}
-		}
-		lst = lst->next;
-	}
-	ft_print_list(lst);
-	return (result);
-}
-
-
-static int ft_match_pattern(t_list *pattern, const char *candidate, int c)
+static int	ft_match_pattern(t_list *pattern, const char *candidate, int c)
 {
 	char	*pattern_value;
 
 	pattern_value = NULL;
 	if (pattern)
 		pattern_value = ft_get_token(pattern)->value;
-	if (! pattern) {
-		return candidate[c] == '\0';
-	} else if (ft_get_token(pattern)->type == STAR) {
-		while (candidate[c] != '\0') {
+	if (! pattern)
+		return (candidate[c] == '\0');
+	else if (ft_get_token(pattern)->type == STAR)
+	{
+		while (candidate[c] != '\0')
+		{
 			if (ft_match_pattern(pattern->next, candidate, c))
-				return 1;
+				return (1);
 			c++;
 		}
-		return ft_match_pattern(pattern->next, candidate, c);
-	} else if (pattern_value[0] != '?' && pattern_value[0] != candidate[c]) {
-		return 0;
-	}  else {
-		return ft_match_pattern(pattern->next, candidate, c+1);
+		return (ft_match_pattern(pattern->next, candidate, c));
 	}
+	else if (pattern_value[0] != '?' && pattern_value[0] != candidate[c])
+		return (0);
+	return (ft_match_pattern(pattern->next, candidate, c + 1));
 }
 
 static t_list	*ft_get_matches(t_list *file_names, t_list *pattern)
@@ -99,7 +61,8 @@ static t_list	*ft_get_matches(t_list *file_names, t_list *pattern)
 	return (result);
 }
 
-int	ft_expand_star_list(t_token *token, int is_redirection, int *is_ambiguous_redirection_status)
+int	ft_expand_star_list(t_token *token,
+	int is_redirection, int *is_ambiguous_redirection_status)
 {
 	t_list	*file_names;
 	t_list	*matches;

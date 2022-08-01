@@ -6,10 +6,9 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 17:34:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 02:17:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 01:45:20 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include "syntax_checker/syntax_checker.h"
