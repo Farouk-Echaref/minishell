@@ -6,29 +6,29 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:45:58 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 05:04:55 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:34:31 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcards.h"
 
-static int	ft_match(const char *pattern, const char *candidate, int p, int c)
+static int	ft_match(const char *pattern, const char *fname, int p, int c)
 {
 	if (pattern[p] == '\0')
-		return (candidate[c] == '\0');
+		return (fname[c] == '\0');
 	else if (pattern[p] == '*')
 	{
-		while (candidate[c] != '\0')
+		while (fname[c] != '\0')
 		{
-			if (ft_match(pattern, candidate, p + 1, c))
+			if (ft_match(pattern, fname, p + 1, c))
 				return (1);
 			c++;
 		}
-		return (ft_match(pattern, candidate, p + 1, c));
+		return (ft_match(pattern, fname, p + 1, c));
 	}
-	else if (pattern[p] != '?' && pattern[p] != candidate[c])
+	else if (pattern[p] != fname[c])
 		return (0);
-	return (ft_match(pattern, candidate, p + 1, c + 1));
+	return (ft_match(pattern, fname, p + 1, c + 1));
 }
 
 static t_list	*ft_get_matches(t_list *file_names, t_token *token)
