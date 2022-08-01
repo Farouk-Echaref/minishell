@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:27:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:34:00 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 03:45:47 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_get_var_ptr(char *value)
 {
 	while (value && *value)
 	{
-		if (*value == '$' && ft_is_var(value) > 1)
+		if (*value == '$' && ft_var_length(value) > 1)
 			return (value);
 		value++;
 	}
@@ -68,7 +68,7 @@ void	ft_expand_double_qoutes(t_token *token)
 		return ;
 	parts[3] = NULL;
 	dollar_ptr = ft_get_var_ptr(token->value);
-	var_length = ft_is_var(dollar_ptr);
+	var_length = ft_var_length(dollar_ptr);
 	if (! dollar_ptr || var_length < 2)
 		return ;
 	var_name = ft_str(dollar_ptr + 1, var_length - 1);
