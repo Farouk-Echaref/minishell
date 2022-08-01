@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/05 10:49:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 03:16:29 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,6 @@ int	check_whitespace(t_lexer *lxr)
 	return (move);
 }
 
-int	check_dollar(t_lexer *lxr)
-{
-	int		var_length;
-
-	var_length = ft_is_var(lxr->content);
-	if (var_length < 2)
-	{
-		ft_move2_next_token(lxr);
-		return (1);
-	}
-	return (var_length);
-
-	// next_char = *(lxr->content + 1);
-	// if (next_char == '$' || next_char == '?' || next_char == '*')
-	// 	return (2);
-	// temp = (char *)(lxr->content + 1);
-	// while (*temp && ft_get_type_of_char(*temp) == OTHER && ! ft_is_var(temp))
-	// {
-	// 	temp++;
-	// 	move++;
-	// }
-	// return (move);
-}
-
 t_type	ft_matching(t_lexer *lxr)
 {
 	if (*lxr->content == '(')
@@ -71,9 +47,9 @@ t_type	ft_get_type(t_lexer *lxr)
 	if (*lxr->content == '$')
 	{
 		type = EXPRESSION;
-		if (ft_is_var(lxr->content) > 1)
+		if (ft_var_length(lxr->content) > 1)
 			type = VAR;
-		return (ft_move_content(lxr, check_dollar(lxr)), type);
+		return (ft_move_content(lxr, ft_var_length(lxr->content)), type);
 	}
 	if (*lxr->content == ' ')
         return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_var.c                                        :+:      :+:    :+:   */
+/*   ft_var_length.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "lexer.h"
 #include "_lexer.h"
 
-int	ft_is_var(const char *content)
+int	ft_var_length(const char *content)
 {
 	int		len;
 
