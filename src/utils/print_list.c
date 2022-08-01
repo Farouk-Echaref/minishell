@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 04:37:13 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/28 18:26:31 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 01:15:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	ft_print_list(t_list *list)
 	while (list)
 	{
 		token = list->content;
-		if (token->is_list) {
+		if (token->is_list)
 			ft_print_tokens_list(token);
-		} else {
+		else
+		{
 			str = ft_str(token->value, token->length);
 			printf("|%s|(%s)\n", str, ft_get_type_name(token->type));
 			free(str);
@@ -48,7 +49,7 @@ void	ft_print_list_values(t_list *list)
 			ft_print_list(token->value);
 			printf("------------------ list end\n");
 			list = list->next;
-			continue;
+			continue ;
 		}
 		str = ft_str(token->value, token->length);
 		printf("%s ", str);
@@ -76,7 +77,7 @@ void	ft_print_list_values_reverse(t_list *list)
 			ft_print_list(token->value);
 			printf("------------------ list end\n");
 			list = list->next;
-			continue;
+			continue ;
 		}
 		str = ft_str(token->value, token->length);
 		printf("%s ", str);
