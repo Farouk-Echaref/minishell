@@ -40,6 +40,11 @@ cd
 > 'klsklf--$HOME---'
 > asdlfkjadklsfj----$PATH----
 ```
+```bash
+<< "en"d cat
+> 'klsklf--$HOME---'
+> asdlfkjadklsfj----$PATH----
+```
 #### exit status
 ```bash
 ./minishell
