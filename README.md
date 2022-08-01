@@ -46,6 +46,14 @@ cd
 > asdlfkjadklsfj----$PATH----
 ```
 ```bash
+<< *$tt cat
+> *$tt
+```
+```bash
+<< $tt cat
+> $tt
+```
+```bash
 << end cat
 >
 ctrl + d
