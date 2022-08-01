@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 01:31:58 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:34:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_list_has_star(t_list *lst)
 	return (0);
 }
 
-static int	ft_match_pattern(t_list *pattern, const char *candidate, int c)
+static int	ft_match_pattern(t_list *pattern, const char *fname, int c)
 {
 	char	*pattern_value;
 
@@ -31,20 +31,20 @@ static int	ft_match_pattern(t_list *pattern, const char *candidate, int c)
 	if (pattern)
 		pattern_value = ft_get_token(pattern)->value;
 	if (! pattern)
-		return (candidate[c] == '\0');
+		return (fname[c] == '\0');
 	else if (ft_get_token(pattern)->type == STAR)
 	{
-		while (candidate[c] != '\0')
+		while (fname[c] != '\0')
 		{
-			if (ft_match_pattern(pattern->next, candidate, c))
+			if (ft_match_pattern(pattern->next, fname, c))
 				return (1);
 			c++;
 		}
-		return (ft_match_pattern(pattern->next, candidate, c));
+		return (ft_match_pattern(pattern->next, fname, c));
 	}
-	else if (pattern_value[0] != '?' && pattern_value[0] != candidate[c])
+	else if (pattern_value[0] != fname[c])
 		return (0);
-	return (ft_match_pattern(pattern->next, candidate, c + 1));
+	return (ft_match_pattern(pattern->next, fname, c + 1));
 }
 
 static t_list	*ft_get_matches(t_list *file_names, t_list *pattern)

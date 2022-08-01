@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_token.c                                     :+:      :+:    :+:   */
+/*   ft_is_herdoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/01 21:37:29 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/01 21:40:13 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/01 22:26:38 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "token/token.h"
 
-t_token	*ft_new_token(void *value, t_type type, int length)
+int	ft_is_herdoc_tree(t_tree *tree)
 {
-	t_token	*t;
+	t_token	*token;
 
-	t = malloc(sizeof(t_token));
-	t->length = length;
-	t->type = type;
-	t->value = value;
-	t->is_list = 0;
-	t->is_filename = 0;
-	t->is_herdoc_expr_list = 0;
-	return (t);
+	if (! tree)
+		return (0);
+	token = ft_get_token_tree(tree);
+	if (token->type == SHIFT_LEFT)
+		return (1);
+	return (0);
 }

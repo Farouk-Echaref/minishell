@@ -43,6 +43,7 @@
         "util.h": "c",
         "errors.h": "c",
         "signal.h": "c",
-        "syntax_checker.h": "c"
+        "syntax_checker.h": "c",
+        "minishell.h": "c"
     }
 }

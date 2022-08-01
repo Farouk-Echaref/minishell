@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 20:45:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 00:21:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 21:12:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,6 @@ void	ft_cleanup_token(t_token *token)
 	{
 		token->value++;
 		token->length -= 2;
-	}
-	else if (token->type == VAR)
-	{
-		token->value++;
-		token->length--;
 	}
 	token->value = ft_str(token->value, token->length);
 }

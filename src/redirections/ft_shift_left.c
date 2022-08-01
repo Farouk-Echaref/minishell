@@ -6,18 +6,28 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 00:54:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 22:21:53 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "redirections.h"
 #include <readline/readline.h>
 
-char	*ft_expand_line(char *line)
+char	*ft_expand_line(char *line, t_tree *fname_node)
 {
 	t_token	*token;
 	char	*str;
+	t_token	*fname_token;
 
+	if (! fname_node)
+		return (ft_strdup(line));
+	fname_token = ft_get_token_tree(fname_node);
+	if (
+		fname_token->is_herdoc_expr_list
+		|| fname_token->type == SING_QUOT
+		|| fname_token->type == DOUB_QUOT
+	)
+		return (ft_strdup(line));
 	token = ft_new_token(ft_strdup(line), EXPRESSION, ft_strlen(line));
 	ft_expand_double_qoutes(token);
 	str = ft_strdup(token->value);
@@ -50,7 +60,7 @@ void	ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
 		line = readline("> ");
 		if ((! line || ft_strcmp(line, stop_message) == 0) && ! ft_free(line))
 			break ;
-		line = ft_assign_free(&line, ft_expand_line(line));
+		line = ft_assign_free(&line, ft_expand_line(line, tree->right));
 		ft_write_ln(fd, line);
 		line = ft_free(line);
 	}
