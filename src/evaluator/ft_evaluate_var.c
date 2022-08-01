@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 11:30:59 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 06:35:56 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:14:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ char	*ft_evaluate_var(char *var)
 	while (env)
 	{
 		if (
-			(int) ft_strlen(var) == (ft_strchr(env->content, '=') - (char *)env->content)
-			&& ft_strncmp(env->content, var, ft_strchr(env->content, '=') - (char *)env->content) == 0
+			(int) ft_strlen(var)
+			== (ft_strchr(env->content, '=') - (char *)env->content)
+			&& ft_strncmp(env->content, var,
+				ft_strchr(env->content, '=') - (char *)env->content
+			)
+			== 0
 			&& ft_strchr(env->content, '=')
 		)
-			return ft_strdup(ft_strchr(env->content, '=') + 1);
+			return (ft_strdup(ft_strchr(env->content, '=') + 1));
 		env = env->next;
 	}
 	return (ft_strdup(""));

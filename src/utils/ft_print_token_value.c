@@ -6,14 +6,13 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:58:36 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 20:01:51 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 01:14:11 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-// #include "token/token.h"
 
-static void ft_print(t_token *token, int with_newline)
+static void	ft_print(t_token *token, int with_newline)
 {
 	char	*str;
 
@@ -24,12 +23,12 @@ static void ft_print(t_token *token, int with_newline)
 	str = ft_free(str);
 }
 
-void ft_print_token_value(t_token *token)
+void	ft_print_token_value(t_token *token)
 {
 	ft_print(token, 0);
 }
 
-void ft_print_token_value_ln(t_token *token)
+void	ft_print_token_value_ln(t_token *token)
 {
 	ft_print(token, 1);
 }

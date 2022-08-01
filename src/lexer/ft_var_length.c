@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_var_length.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 21:18:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:11:34 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/01 05:14:17 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/01 05:14:18 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "lexer.h"
+#include "_lexer.h"
 
-# include "data/data.h"
-# include "list/list.h"
-# include "libft/libft.h"
-# include "str_utils/str_utils.h"
+int	ft_var_length(const char *content)
+{
+	int		len;
 
-t_list	*ft_search_env(char *var_name);
-char	*ft_make_env_line(char *var_name, char *value);
-
-#endif
+	if (! content || *content != '$')
+		return (1);
+	content++;
+	if (*content == '*'
+		|| *content == '$'
+		|| *content == '?'
+		|| ft_isdigit(*content)
+	)
+		return (2);
+	len = 1;
+	while (ft_isalnum(*content++) && len++)
+		;
+	return (len);
+}

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 10:12:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:36:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:04:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	ft_check_expression(t_list *tokens)
 {
-	t_type token_type;
+	t_type	token_type;
 
 	if (! tokens)
 		return (0);
@@ -48,8 +48,13 @@ static int	ft_calc_length(t_list *tokens)
 
 static t_list	*ft_next_token(t_list *tokens)
 {
+	t_list	*temp;
+
+	temp = tokens;
 	while (ft_check_expression(tokens))
 		tokens = tokens->next;
+	if (temp && temp == tokens)
+		return (tokens->next);
 	return (tokens);
 }
 
@@ -61,10 +66,11 @@ static t_list	*ft_merge_expressions(t_list *tokens)
 	t_token	*new_token;
 
 	value = NULL;
-	while (ft_check_expression(tokens)) {
+	while (ft_check_expression(tokens))
+	{
 		next = tokens->next;
 		detached_el = ft_lstdetach(tokens);
-		ft_lstadd_back(&value , detached_el);
+		ft_lstadd_back(&value, detached_el);
 		tokens = next;
 	}
 	new_token = ft_new_token(value, EXPRESSION, ft_calc_length(value));
@@ -84,19 +90,17 @@ void	ft_merge_expressions_wrapper(t_list **tokens_ptr)
 	tokens = *tokens_ptr;
 	while (tokens)
 	{
-		if (! ft_check_expression(tokens) || ! ft_check_expression(tokens->next))
-		{
-			tokens = tokens->next;
-			continue;
-		}
 		next_token = ft_next_token(tokens);
-		prev = tokens->prev;
-		new_token = ft_merge_expressions(tokens);
-		if (prev) {
+		if (next_token != tokens->next)
+		{
+			prev = tokens->prev;
+			new_token = ft_merge_expressions(tokens);
 			ft_lstpush_after(prev, new_token);
-		} else {
-			*tokens_ptr = new_token;
-			(*tokens_ptr)->next = next_token;
+			if (! prev)
+				*tokens_ptr = new_token;
+			new_token->next = next_token;
+			if (next_token)
+				next_token->prev = new_token;
 		}
 		tokens = next_token;
 	}

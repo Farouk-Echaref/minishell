@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 19:15:25 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/24 14:54:10 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:32:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_nl(char *str)
 {
 	if (!str)
 		return (0);
-	if(*str == '-')
+	if (*str == '-')
 	{
 		str++;
 		while (str && *str)

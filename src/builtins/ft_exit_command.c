@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 18:16:40 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 02:41:06 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 21:34:00 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ft_exit_command(char **command)
 {
 	char			*arg;
-	unsigned char	exit_status;
 
 	arg = command[1];
 	write (1, "exit\n", 5);
@@ -27,11 +26,8 @@ void	ft_exit_command(char **command)
 	}
 	if (! arg)
 		exit(g_.exit_status);
-	if (ft_isvalidnumber(arg)) {
-		exit_status = ft_atoi(arg);
-		exit(exit_status);
-	} else {
-		ft_error_message("exit", "numeric argument required");
-		exit(-1);
-	}
+	if (ft_isvalidnumber(arg))
+		exit(ft_atoi(arg));
+	ft_error_message("exit", "numeric argument required");
+	exit(-1);
 }

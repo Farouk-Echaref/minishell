@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_var.c                                        :+:      :+:    :+:   */
+/*   ft_has.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 10:36:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/05 13:38:32 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/01 02:05:06 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/01 02:05:25 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
-#include "_lexer.h"
+#include "syntax_checker.h"
 
-int	ft_is_var(const char *content)
+int	ft_has(t_direction direction, t_list *node)
 {
-	int		len;
+	t_token	*t;
 
-	if (! content || *content != '$')
+	if (! node)
+		return (0);
+	t = ft_get_token(node);
+	if (t->type == AND_OPR || t->type == OR_OPR || t->type == PIPE)
+		return (0);
+	if (t->type != WHITE_SPACE)
 		return (1);
-	content++;
-	if (*content == '*' || *content == '$' || *content == '?' || ft_isdigit(*content))
-		return (2);
-	len = 1;
-	while (ft_isalnum(*content++) && len++)
-		;
-	return (len);
+	if (direction == LEFT)
+		return (ft_has(LEFT, node->prev));
+	return (ft_has(RIGHT, node->next));
 }

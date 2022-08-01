@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:50 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/05 09:57:27 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 03:16:29 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct s_lexer
 t_lexer	*ft_init_lexer(const char *s);
 void	ft_destroy_lexer(t_lexer *lxr);
 t_list	*ft_lexer(t_lexer *lxr);
-int		ft_is_var(const char *content);
+int		ft_var_length(const char *content);
 
 #endif

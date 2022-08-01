@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:21:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 16:52:18 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 00:22:57 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_get_file_open_mode(t_tree *node)
 	return (O_CREAT | O_APPEND | O_WRONLY);
 }
 
-void ft_redir_right(t_tree *tree, t_evaluator_data *evaluator_data)
+void	ft_redir_right(t_tree *tree, t_evaluator_data *evaluator_data)
 {
 	char	*file_name;
 	int		fd;

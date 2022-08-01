@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 02:17:51 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/30 02:23:07 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:29:16 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 # include "libft/libft.h"
 
 void	ft_error_message(char *key, char *error_message);
+void	ft_error(char *key);
 
 #endif

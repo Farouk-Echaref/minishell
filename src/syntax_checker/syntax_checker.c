@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 03:00:18 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/01 02:06:15 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,6 @@ int	ft_check_matching(t_token *t)
 	if (t->type == SUB_CMD && t->length <= 2)
 		return (0);
 	return (1);
-}
-
-static int	ft_has(t_direction direction, t_list *node)
-{
-	t_token *t;
-
-	if (! node)
-		return (0);
-	t = ft_get_token(node);
-	if (t->type == AND_OPR || t->type == OR_OPR || t->type == PIPE)
-		return (0);
-	if (t->type != WHITE_SPACE)
-		return (1);
-	if (direction == LEFT)
-		return (ft_has(LEFT, node->prev));
-	return (ft_has(RIGHT, node->next));
 }
 
 int	ft_check_subcommand(t_list *node)
@@ -64,10 +48,16 @@ int	ft_check_subcommand(t_list *node)
 	return (result);
 }
 
-int	ft_check_redirection(t_list *next_node)
+int	ft_check_redirection(t_list *node)
 {
-	t_token *t;
+	t_token	*t;
+	t_list	*next_node;
 
+	if (! node || ! node->next)
+		return (0);
+	next_node = node->next;
+	if (ft_get_token_type(next_node) == WHITE_SPACE)
+		next_node = next_node->next;
 	if (! next_node)
 		return (0);
 	t = ft_get_token(next_node);
@@ -81,37 +71,35 @@ int	ft_check_redirection(t_list *next_node)
 	return (1);
 }
 
+int	ft_check_expression(t_token *t)
+{
+	char	*str;
+
+	str = ft_str(t->value, t->length);
+	if (ft_strchr(str, '\\'))
+		return (ft_free(str), 0);
+	str = ft_free(str);
+	return (1);
+}
+
 int	ft_check_syntax(t_list *tokens)
 {
 	t_token	*t;
-	char	*str;
-	t_list	*next_node;
 
 	while (tokens)
 	{
 		t = ft_get_token(tokens);
 		if (ft_check_matching(t) == 0)
 			return (0);
-		if (t->type == EXPRESSION)
-		{
-			str = ft_str(t->value, t->length);
-			if (ft_strchr(str, '\\'))
-				return (ft_free(str), 0);
-			str = ft_free(str);
-		}
-		if (
-			(t->type == PIPE || t->type == AND_OPR || t->type == OR_OPR)
-			&& (ft_has(LEFT, tokens->prev) == 0 || ft_has(RIGHT, tokens->next) == 0)
-		)
+		if (t->type == EXPRESSION && ft_check_expression(t) == 0)
+			return (0);
+		if ((t->type == PIPE || t->type == AND_OPR || t->type == OR_OPR) && (
+				ft_has(LEFT, tokens->prev) == 0
+				|| ft_has(RIGHT, tokens->next) == 0
+			))
 			return (0);
 		if (ft_is_redirection(t->type) && ft_check_redirection(tokens) == 0)
-		{
-			next_node = tokens->next;
-			if (tokens->next && ft_get_token_type(tokens->next) == WHITE_SPACE)
-				next_node = tokens->next->next;
-			if (ft_check_redirection(next_node) == 0)
-				return (0);
-		}
+			return (0);
 		if (t->type == SUB_CMD && ft_check_subcommand(tokens) == 0)
 			return (0);
 		tokens = tokens->next;

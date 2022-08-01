@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 21:29:19 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 06:18:24 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/07/31 23:11:44 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_make_env_line(char *var_name, char *value)
 		return (NULL);
 	if (! value)
 		result = ft_strdup(var_name);
-	else {
+	else
+	{
 		temp = ft_strjoin(var_name, "=");
 		result = ft_strjoin(temp, value);
 		temp = ft_free(temp);
