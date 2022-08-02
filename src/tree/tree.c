@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:54:26 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/01 02:00:16 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 20:53:29 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_tree	*ft_new_tree_node(void *content)
 	t_tree	*node;
 
 	node = malloc(sizeof(t_tree));
+	if (! node)
+		exit(1);
 	node->content = content;
 	node->left = NULL;
 	node->right = NULL;

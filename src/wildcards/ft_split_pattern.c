@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 01:22:47 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 01:34:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 20:53:52 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*ft_char_helper(char c)
 	char	*result;
 
 	result = (char *)malloc(2);
+	if (! result)
+		exit(1);
 	result[0] = c;
 	result[1] = 0;
 	return (result);

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 10:43:07 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 01:14:52 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 20:53:42 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*ft_str(const char *s, int len)
 		return (NULL);
 	i = 0;
 	res = (char *)malloc(sizeof(char) * (len + 1));
+	if (! res)
+		exit(1);
 	while (s[i] != '\0' && i < len)
 	{
 		res[i] = s[i];

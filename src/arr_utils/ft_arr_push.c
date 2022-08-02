@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 21:11:57 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/21 21:13:52 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 20:50:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	**ft_arr_push(char **command, char *str)
 
 	new_size = ft_arr_size(command) + 2;
 	new_arr = (char **)malloc(sizeof(char *) * new_size);
+	if (! new_arr)
+		exit(1);
 	i = 0;
 	while (command[i])
 	{

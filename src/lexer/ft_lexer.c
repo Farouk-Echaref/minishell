@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:59:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 20:51:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_lexer	*ft_init_lexer(const char *s)
 	t_lexer	*lxr;
 
 	lxr = (t_lexer *)malloc(sizeof(t_lexer));
+	if (! lxr)
+		exit(1);
 	lxr->start = s;
 	lxr->content = s;
 	return (lxr);
