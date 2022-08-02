@@ -6,11 +6,11 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 21:29:19 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:11:44 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 22:54:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env/env.h"
+#include "env.h"
 
 char	*ft_make_env_line(char *var_name, char *value)
 {
