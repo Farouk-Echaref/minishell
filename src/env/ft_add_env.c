@@ -6,13 +6,14 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 21:49:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/02 23:08:38 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 23:12:19 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static char	*ft_new_line(char *var_name, char *old_value, char *current_value, int concat)
+static char	*ft_new_line(char *var_name,
+	char *old_value, char *current_value, int concat)
 {
 	char	*new_value;
 
