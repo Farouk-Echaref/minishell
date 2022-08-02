@@ -3,6 +3,10 @@
 ls > > f1
 ```
 ```bash
+# remove current folder
+cd
+```
+```bash
 e'c'"h"o $HOME---"here we go" '$PATH'
 ```
 ```bash
@@ -29,6 +33,9 @@ cd
 << end cat
 > 'klsklf--$HOME---'
 > asdlfkjadklsfj----$PATH----
+```
+```bash
+<< end | ls
 ```
 ```bash
 << 'end' cat
@@ -84,6 +91,14 @@ ctrl+\
 export key="value"
 ./minishell
 echo $key
+```
+```bash
+export a a a aaa
+export aaa
+```
+```bash
+export a="value"
+export a+="lksjdfklj"
 ```
 ```bash
 export tt="m s"

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:04:42 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 00:22:34 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 23:59:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,4 @@ void	ft_evaluate_redirection(t_tree *tree, t_evaluator_data *evaluator_data)
 		ft_redir_right(tree, evaluator_data);
 	else if (token->type == REDIR_LEFT)
 		ft_redir_left(tree, evaluator_data);
-	else if (token->type == SHIFT_LEFT)
-		ft_shift_left(tree, evaluator_data);
 }
