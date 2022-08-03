@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 19:58:36 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 01:14:11 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:00:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 static void	ft_print(t_token *token, int with_newline)
 {
-	char	*str;
-
-	str = ft_str(token->value, token->length);
-	printf("%s", str);
+	printf("%s", token->value);
 	if (with_newline)
 		printf("\n");
-	str = ft_free(str);
 }
 
 void	ft_print_token_value(t_token *token)

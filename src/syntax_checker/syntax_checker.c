@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 02:38:58 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:16:40 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_check_matching(t_token *t)
 {
-	if (t->length == 1 && (
+	if (ft_strlen(t->value) == 0 && (
 			t->type == SING_QUOT
 			|| t->type == DOUB_QUOT
 		)
 	)
 		return (0);
-	if (t->type == SUB_CMD && t->length <= 2)
+	if (t->type == SUB_CMD && ft_strlen(t->value) <= 2)
 		return (0);
 	return (1);
 }
@@ -31,14 +31,12 @@ int	ft_check_subcommand(t_list *node)
 	t_data	data;
 	char	*command_str;
 	int		result;
-	t_token	*t;
 
 	data.tokens = NULL;
 	data.tree = NULL;
 	if (! node || ft_has(LEFT, node->prev) == 1)
 		return (0);
-	t = ft_get_token(node);
-	command_str = ft_str(t->value + 1, t->length - 2);
+	command_str = ft_get_token(node)->value;
 	lxr = ft_init_lexer(command_str);
 	data.tokens = ft_lexer(lxr);
 	result = ft_check_syntax(data.tokens);
@@ -71,17 +69,6 @@ int	ft_check_redirection(t_list *node)
 	return (1);
 }
 
-static int	ft_check_expression_syntx(t_token *t)
-{
-	char	*str;
-
-	str = ft_str(t->value, t->length);
-	if (ft_strchr(str, '\\'))
-		return (ft_free(str), 0);
-	str = ft_free(str);
-	return (1);
-}
-
 int	ft_check_syntax(t_list *tokens)
 {
 	t_token	*t;
@@ -91,7 +78,7 @@ int	ft_check_syntax(t_list *tokens)
 		t = ft_get_token(tokens);
 		if (ft_check_matching(t) == 0)
 			return (0);
-		if (t->type == EXPRESSION && ft_check_expression_syntx(t) == 0)
+		if (t->type == EXPRESSION && ft_strchr(t->value, '\\'))
 			return (0);
 		if ((t->type == PIPE || t->type == AND_OPR || t->type == OR_OPR) && (
 				ft_has(LEFT, tokens->prev) == 0

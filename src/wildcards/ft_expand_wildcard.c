@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 13:45:58 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 22:34:31 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:04:04 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	ft_expand_wildcard(t_token *token, int is_redirection)
 		is_ambiguous_redirection = 1;
 	token->value = ft_free(token->value);
 	token->value = ft_lstjoin_matches(matches);
-	token->length = ft_strlen(token->value);
 	token->type = STAR;
 	ft_lstclear(&matches, free);
 	return (! is_ambiguous_redirection);

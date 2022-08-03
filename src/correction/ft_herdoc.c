@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 00:05:12 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 02:48:57 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:31:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_expand_line(char *line, t_list *fname_node)
 		|| fname_token->type == DOUB_QUOT
 	)
 		return (ft_strdup(line));
-	token = ft_new_token(ft_strdup(line), EXPRESSION, ft_strlen(line));
+	token = ft_new_token(ft_strdup(line), EXPRESSION);
 	ft_expand_double_qoutes(token);
 	str = ft_strdup(token->value);
 	ft_free_token(token);
@@ -43,24 +43,24 @@ void	ft_write_ln(int fd, char *line)
 char	*ft_get_stop_message(t_list *node)
 {
 	t_token	*t;
-	char	*token_value;
 	char	*stop_message;
-	int		i, j;
+	int		i;
+	int		j;
 
 	t = ft_get_token(node);
-	token_value = ft_str(t->value, t->length);
-	stop_message = (char *)malloc(t->length + 1);
-	i = j = 0;
-	while (token_value && token_value[i])
+	stop_message = (char *)malloc(ft_strlen(t->value) + 1);
+	i = 0;
+	j = 0;
+	while (t->value && ((char *)t->value)[i])
 	{
 		if (
-			token_value[i] != '\''
-			&& token_value[i] != '"'
+			((char *)t->value)[i] != '\''
+			&& ((char *)t->value)[i] != '"'
 		)
-			stop_message[j++] = token_value[i];
+			stop_message[j++] = ((char *)t->value)[i];
 		i++;
 	}
-	token_value = ft_free(token_value);
+	stop_message[j] = 0;
 	return (stop_message);
 }
 
