@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 06:45:34 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 00:14:06 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 02:49:10 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ t_list	*ft_move_redirections(t_list *current);
 void	ft_merge_expressions_wrapper(t_list **tokens_ptr);
 void	ft_rm_redirection_space(t_list *tokens);
 void	ft_correct_tokens(t_list **tokens_ptr);
-void	ft_herdoc(t_list *node, const char *file_name);
+char	*ft_herdoc(t_list *node, int file_count);
 
 #endif

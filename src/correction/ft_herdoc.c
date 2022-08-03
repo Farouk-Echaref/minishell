@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 00:05:12 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 00:24:15 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 02:48:57 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,45 @@ void	ft_write_ln(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-void	ft_herdoc(t_list *node, const char *file_name)
+char	*ft_get_stop_message(t_list *node)
 {
-	int		fd;
+	t_token	*t;
+	char	*token_value;
 	char	*stop_message;
-	char	*line;
+	int		i, j;
 
+	t = ft_get_token(node);
+	token_value = ft_str(t->value, t->length);
+	stop_message = (char *)malloc(t->length + 1);
+	i = j = 0;
+	while (token_value && token_value[i])
+	{
+		if (
+			token_value[i] != '\''
+			&& token_value[i] != '"'
+		)
+			stop_message[j++] = token_value[i];
+		i++;
+	}
+	token_value = ft_free(token_value);
+	return (stop_message);
+}
+
+char	*ft_herdoc(t_list *node, int file_count)
+{
+	int			fd;
+	char		*stop_message;
+	char		*line;
+	char		*file_name;
+
+	file_name = ft_strdup("/tmp/.herdoc ");
 	if (! node || ! node->next)
-		return ;
+		return (file_name);
+	file_name[ft_strlen(file_name) - 1] = file_count + '0';
 	fd = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	stop_message = ft_str(
-		ft_get_token(node->next)->value,
-		ft_get_token(node->next)->length
-	);
+	stop_message = ft_get_stop_message(node->next);
 	if (fd < 0 || ! stop_message)
-		return free(stop_message);
+		return (free(stop_message), file_name);
 	while (1)
 	{
 		line = readline("> ");
@@ -64,6 +88,5 @@ void	ft_herdoc(t_list *node, const char *file_name)
 		ft_write_ln(fd, line);
 		line = ft_free(line);
 	}
-	close(fd);
-	stop_message = ft_free(stop_message);
+	return (close(fd), ft_free(stop_message), file_name);
 }
