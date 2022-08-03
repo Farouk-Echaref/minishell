@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/03 04:00:19 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 05:33:28 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_type	ft_get_token_type(t_list	*lst);
 t_token	*ft_get_token(t_list *lst);
 int		ft_is_redirection(t_type token_type);
 void	ft_free_token(void *tree_content);
-void	ft_free_token_no_value(void *tree_content);
 t_token	*ft_get_token_tree(t_tree *tree);
 int		ft_contains_token(t_list *lst, t_type token_type);
 t_list	*ft_lstflatten_tokens(t_list *tokens);
