@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 15:48:20 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/25 15:25:44 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:01:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_print_tokens_list(t_token *token)
 {
-	char	*str;
 	t_list	*list;
 
 	if (! token)
@@ -23,9 +22,9 @@ void	ft_print_tokens_list(t_token *token)
 	printf("list(%s): ", ft_get_type_name(token->type));
 	while (list)
 	{
-		str = ft_str(ft_get_token(list)->value, ft_get_token(list)->length);
-		printf(" |%s(%s)| ", str, ft_get_type_name(ft_get_token(list)->type));
-		free(str);
+		printf(" |%s(%s)| ",
+			ft_get_token(list)->value,
+			ft_get_type_name(ft_get_token(list)->type));
 		list = list->next;
 	}
 	printf("\n");

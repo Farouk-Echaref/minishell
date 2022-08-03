@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 12:43:45 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/26 23:00:21 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 03:36:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_rm_redirection_space(t_list *tokens)
 		{
 			next = next->next;
 			temp = ft_lstdetach(tokens->next);
-			ft_free_token_no_value(temp->content);
+			ft_free_token(temp->content);
 			ft_free(temp);
 		}
 		tokens = next;

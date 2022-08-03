@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 18:36:17 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 22:34:28 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:03:56 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	ft_expand_star_list(t_token *token,
 	token->value = ft_lstjoin_matches(matches);
 	token->type = STAR;
 	token->is_list = 0;
-	token->length = ft_strlen(token->value);
 	if (ft_lstsize(matches) > 1 && is_redirection)
 		*is_ambiguous_redirection_status = 1;
 	ft_lstclear(&matches, free);
