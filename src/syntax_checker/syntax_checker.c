@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 04:16:40 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 05:33:13 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_check_subcommand(t_list *node)
 	data.tokens = ft_lexer(lxr);
 	result = ft_check_syntax(data.tokens);
 	ft_destroy_lexer(lxr);
-	ft_lstclear(&data.tokens, &ft_free_token_no_value);
+	ft_lstclear(&data.tokens, &ft_free_token);
 	command_str = ft_free(command_str);
 	return (result);
 }
