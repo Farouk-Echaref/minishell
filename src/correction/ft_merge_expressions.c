@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 10:12:52 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:04:55 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 03:35:14 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,6 @@ static int	ft_check_expression(t_list *tokens)
 	)
 		return (1);
 	return (0);
-}
-
-static int	ft_calc_length(t_list *tokens)
-{
-	int	len;
-
-	len = 0;
-	while (tokens)
-	{
-		if (ft_get_token(tokens))
-			len += ft_get_token(tokens)->length;
-		tokens = tokens->next;
-	}
-	return (len);
 }
 
 static t_list	*ft_next_token(t_list *tokens)
@@ -73,7 +59,7 @@ static t_list	*ft_merge_expressions(t_list *tokens)
 		ft_lstadd_back(&value, detached_el);
 		tokens = next;
 	}
-	new_token = ft_new_token(value, EXPRESSION, ft_calc_length(value));
+	new_token = ft_new_token(value, EXPRESSION);
 	new_token->is_list = 1;
 	return (ft_lstnew(new_token));
 }

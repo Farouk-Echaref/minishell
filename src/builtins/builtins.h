@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:56:35 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 22:12:41 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 22:54:27 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ void			ft_env_command(char **command);
 void			ft_unset_command(char **command);
 int				ft_should_run_on_main_process(char *command_name);
 void			ft_export_command(char **argv);
-void			ft_sort(char **args, int size);
 
 #endif

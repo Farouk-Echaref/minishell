@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 19:18:25 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/23 21:38:25 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 21:39:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	ft_pwd_command(char **command)
 {
-	char	cwd[256];
+	static char	cwd[256];
 
 	(void)command;
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		perror("getcwd() error");
-	else
-		printf("%s\n", cwd);
+	getcwd(cwd, sizeof(cwd));
+	printf("%s\n", cwd);
 }

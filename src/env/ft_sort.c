@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_search_env.c                                    :+:      :+:    :+:   */
+/*   ft_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 21:20:08 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/02 22:53:20 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/07/31 06:04:00 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/02 22:54:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-static int	ft_compare_var_name(char *var_name, char *line)
+void	ft_sort(char **args, int size)
 {
-	char	*old_var_name;
-	int		result;
+	int		i;
+	int		j;
+	char	*temp;
 
-	old_var_name = ft_get_var_name(line, NULL);
-	result = ft_strcmp(var_name, old_var_name) == 0;
-	return (ft_free(old_var_name), result);
-}
-
-t_list	*ft_search_env(char *var_name)
-{
-	t_list	*lst;
-
-	lst = g_.env;
-	while (lst)
+	i = 0;
+	while (i < size)
 	{
-		if (ft_compare_var_name(var_name, lst->content))
-			return (lst);
-		lst = lst->next;
+		j = i + 1;
+		while (j < size)
+		{
+			if (ft_strcmp(args[i], args[j]) > 0)
+			{
+				temp = args[i];
+				args[i] = args[j];
+				args[j] = temp;
+			}
+			j++;
+		}
+		i++;
 	}
-	return (NULL);
 }

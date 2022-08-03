@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shift_left.c                                    :+:      :+:    :+:   */
+/*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 19:21:50 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 22:21:53 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/03 00:05:12 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/03 04:31:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "redirections.h"
-#include <readline/readline.h>
+#include "correction.h"
 
-char	*ft_expand_line(char *line, t_tree *fname_node)
+char	*ft_expand_line(char *line, t_list *fname_node)
 {
 	t_token	*token;
 	char	*str;
@@ -21,14 +20,14 @@ char	*ft_expand_line(char *line, t_tree *fname_node)
 
 	if (! fname_node)
 		return (ft_strdup(line));
-	fname_token = ft_get_token_tree(fname_node);
+	fname_token = ft_get_token(fname_node);
 	if (
 		fname_token->is_herdoc_expr_list
 		|| fname_token->type == SING_QUOT
 		|| fname_token->type == DOUB_QUOT
 	)
 		return (ft_strdup(line));
-	token = ft_new_token(ft_strdup(line), EXPRESSION, ft_strlen(line));
+	token = ft_new_token(ft_strdup(line), EXPRESSION);
 	ft_expand_double_qoutes(token);
 	str = ft_strdup(token->value);
 	ft_free_token(token);
@@ -41,31 +40,53 @@ void	ft_write_ln(int fd, char *line)
 	write(fd, "\n", 1);
 }
 
-void	ft_shift_left(t_tree *tree, t_evaluator_data *evaluator_data)
+char	*ft_get_stop_message(t_list *node)
 {
-	int		fd;
+	t_token	*t;
 	char	*stop_message;
-	char	*line;
-	char	*file_name;
+	int		i;
+	int		j;
 
-	if (! tree || ! tree->right)
-		return ;
-	file_name = "/tmp/.heredocument";
+	t = ft_get_token(node);
+	stop_message = (char *)malloc(ft_strlen(t->value) + 1);
+	i = 0;
+	j = 0;
+	while (t->value && ((char *)t->value)[i])
+	{
+		if (
+			((char *)t->value)[i] != '\''
+			&& ((char *)t->value)[i] != '"'
+		)
+			stop_message[j++] = ((char *)t->value)[i];
+		i++;
+	}
+	stop_message[j] = 0;
+	return (stop_message);
+}
+
+char	*ft_herdoc(t_list *node, int file_count)
+{
+	int			fd;
+	char		*stop_message;
+	char		*line;
+	char		*file_name;
+
+	file_name = ft_strdup("/tmp/.herdoc ");
+	if (! node || ! node->next)
+		return (file_name);
+	file_name[ft_strlen(file_name) - 1] = file_count + '0';
 	fd = open(file_name, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	stop_message = ft_get_token_tree(tree->right)->value;
+	stop_message = ft_get_stop_message(node->next);
 	if (fd < 0 || ! stop_message)
-		return ;
+		return (free(stop_message), file_name);
 	while (1)
 	{
 		line = readline("> ");
 		if ((! line || ft_strcmp(line, stop_message) == 0) && ! ft_free(line))
 			break ;
-		line = ft_assign_free(&line, ft_expand_line(line, tree->right));
+		line = ft_assign_free(&line, ft_expand_line(line, node->next));
 		ft_write_ln(fd, line);
 		line = ft_free(line);
 	}
-	close(fd);
-	fd = open(file_name, O_RDONLY, 0644);
-	if (fd > 0)
-		evaluator_data->redirect_left = fd;
+	return (close(fd), ft_free(stop_message), file_name);
 }

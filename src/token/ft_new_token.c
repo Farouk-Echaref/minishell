@@ -6,18 +6,19 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 05:27:18 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/01 21:37:29 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 03:24:11 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-t_token	*ft_new_token(void *value, t_type type, int length)
+t_token	*ft_new_token(void *value, t_type type)
 {
 	t_token	*t;
 
 	t = malloc(sizeof(t_token));
-	t->length = length;
+	if (! t)
+		exit(1);
 	t->type = type;
 	t->value = value;
 	t->is_list = 0;

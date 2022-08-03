@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 23:59:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:45:22 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 #include "list/list.h"
 #include "token/token.h"
 #include <stdlib.h>
+#include "utils/utils.h"
 
 t_lexer	*ft_init_lexer(const char *s)
 {
 	t_lexer	*lxr;
 
 	lxr = (t_lexer *)malloc(sizeof(t_lexer));
+	if (! lxr)
+		exit(1);
 	lxr->start = s;
 	lxr->content = s;
 	return (lxr);
@@ -31,6 +34,21 @@ void	ft_destroy_lexer(t_lexer *lxr)
 	if (! lxr)
 		return ;
 	free(lxr);
+}
+
+static t_token	*ft_make_token(char *value, t_type token_type, int len)
+{
+	t_token	*t;
+
+	if (token_type == SING_QUOT || token_type == DOUB_QUOT)
+	{
+		len -= 2;
+		value++;
+	}
+	if (len < 0)
+		len = 0;
+	t = ft_new_token(ft_str(value, len), token_type);
+	return (t);
 }
 
 t_list	*ft_lexer(t_lexer *lxr)
@@ -47,7 +65,7 @@ t_list	*ft_lexer(t_lexer *lxr)
 		type = ft_get_type(lxr);
 		len = lxr->content - (char *)value;
 		ft_lstadd_back(&tokens, ft_lstnew(
-				ft_new_token(value, type, len)
+				ft_make_token(value, type, len)
 				));
 	}
 	return (tokens);

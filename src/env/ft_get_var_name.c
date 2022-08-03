@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort.c                                          :+:      :+:    :+:   */
+/*   ft_get_var_name.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 06:04:00 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/31 06:09:55 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/02 21:55:36 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/02 22:54:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "env.h"
 
-void	ft_sort(char **args, int size)
+char	*ft_get_var_name(char *arg, int *concat)
 {
-	int		i;
-	int		j;
-	char	*temp;
+	char	*var_name;
 
-	i = 0;
-	while (i < size)
+	if (concat)
+		*concat = 0;
+	if (ft_strchr(arg, '='))
+		var_name = ft_str(arg, ft_strchr(arg, '=') - arg);
+	else
+		var_name = ft_strdup(arg);
+	if (var_name[ft_strlen(var_name) - 1] == '+')
 	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (ft_strcmp(args[i], args[j]) > 0)
-			{
-				temp = args[i];
-				args[i] = args[j];
-				args[j] = temp;
-			}
-			j++;
-		}
-		i++;
+		if (concat)
+			*concat = 1;
+		var_name[ft_strlen(var_name) - 1] = 0;
 	}
+	return (var_name);
 }

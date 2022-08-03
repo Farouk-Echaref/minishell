@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:37:33 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 05:09:48 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 04:33:26 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static t_list	*ft_split_var(char *var_value)
 		t = ft_get_token(tokens);
 		if (t->type != VAR && t->type != STAR && t->type != WHITE_SPACE)
 			t->type = EXPRESSION;
-		t->value = ft_str(t->value, t->length);
 		tokens = tokens->next;
 	}
 	ft_destroy_lexer(lxr);
@@ -86,8 +85,6 @@ void	ft_expand_lst(t_token *token,
 void	ft_expand_expression(t_token *token,
 	t_evaluator_data *ev_data, int from_tree, int is_redirection)
 {
-	char	*str;
-
 	if (! ev_data->ok)
 		return ;
 	if (token->is_list)
@@ -96,9 +93,8 @@ void	ft_expand_expression(t_token *token,
 		ft_expand_double_qoutes(token);
 	else if (token->type == VAR)
 	{
-		str = ft_str(token->value, token->length);
-		token->value = ft_assign_free(&str, ft_evaluate_var(str));
-		token->length = ft_strlen(token->value);
+		token->value = ft_assign_free(
+				(char **)&token->value, ft_evaluate_var(token->value));
 		if (ft_strcmp(token->value, "") == 0)
 			return ;
 		token->is_list = 1;

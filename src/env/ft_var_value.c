@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cleanup_token.c                                 :+:      :+:    :+:   */
+/*   ft_var_value.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/24 20:45:21 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 21:12:35 by mzarhou          ###   ########.fr       */
+/*   Created: 2022/08/02 21:56:36 by mzarhou           #+#    #+#             */
+/*   Updated: 2022/08/02 22:54:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser/parser.h"
+#include "env.h"
 
-void	ft_cleanup_token(t_token *token)
+char	*ft_var_value(char *line)
 {
-	if (
-		token->type == SING_QUOT
-		|| token->type == DOUB_QUOT
-		|| token->type == SUB_CMD
-	)
-	{
-		token->value++;
-		token->length -= 2;
-	}
-	token->value = ft_str(token->value, token->length);
+	char	*value;
+
+	value = NULL;
+	if (line && ft_strchr(line, '='))
+		value = ft_strdup(ft_strchr(line, '=') + 1);
+	return (value);
 }

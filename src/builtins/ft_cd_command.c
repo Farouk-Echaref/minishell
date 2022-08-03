@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 19:10:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/07/24 21:41:33 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/02 21:43:39 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ void	ft_cd_command(char **command)
 		path = ft_evaluate_var("HOME");
 	if (ft_strcmp(path, "-") == 0)
 		path = ft_evaluate_var("OLDPWD");
-	if (getcwd(wd, sizeof(wd)) == NULL)
-		return (perror("getcwd() error"));
+	getcwd(wd, sizeof(wd));
 	ft_set_env("OLDPWD", wd);
 	if (chdir(path) != 0)
 		return (perror("minishell: cd"));
-	if (getcwd(wd, sizeof(wd)) == NULL)
-		return (perror("getcwd() error"));
+	getcwd(wd, sizeof(wd));
 	ft_set_env("PWD", wd);
 }

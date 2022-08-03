@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/01 22:26:59 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 00:15:01 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,7 @@ static void	ft_evaluate(t_tree *tree,
 	if (evaluator_data->command
 		&& ft_strcmp(evaluator_data->command[0], "export") == 0)
 		evaluator_data->expand_star = 0;
-	if (ft_is_herdoc_tree(tree) && ft_get_token_tree(tree->right)->is_list)
-	{
-		ft_merge_tokens(tree->right->content);
-		ft_get_token_tree(tree->right)->is_herdoc_expr_list = 1;
-	}
-	else if (ft_is_redirection(ft_get_token_tree(tree)->type))
+	if (ft_is_redirection(ft_get_token_tree(tree)->type))
 		ft_expand_expression(tree->right->content, evaluator_data, 1, 1);
 	ft_expand_expression(tree->content, evaluator_data, 1, 0);
 	if (! evaluator_data->ok)
