@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 05:33:13 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 05:43:44 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int	ft_check_matching(t_token *t)
 	if (ft_strlen(t->value) == 0 && (
 			t->type == SING_QUOT
 			|| t->type == DOUB_QUOT
+			|| t->type == SUB_CMD
 		)
 	)
-		return (0);
-	if (t->type == SUB_CMD && ft_strlen(t->value) <= 2)
 		return (0);
 	return (1);
 }
@@ -29,20 +28,19 @@ int	ft_check_subcommand(t_list *node)
 {
 	t_lexer	*lxr;
 	t_data	data;
-	char	*command_str;
 	int		result;
 
 	data.tokens = NULL;
 	data.tree = NULL;
 	if (! node || ft_has(LEFT, node->prev) == 1)
 		return (0);
-	command_str = ft_get_token(node)->value;
-	lxr = ft_init_lexer(command_str);
+	lxr = ft_init_lexer(
+			ft_get_token(node)->value
+			);
 	data.tokens = ft_lexer(lxr);
 	result = ft_check_syntax(data.tokens);
 	ft_destroy_lexer(lxr);
 	ft_lstclear(&data.tokens, &ft_free_token);
-	command_str = ft_free(command_str);
 	return (result);
 }
 

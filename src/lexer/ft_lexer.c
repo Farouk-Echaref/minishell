@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 04:45:22 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/03 05:39:50 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ static t_token	*ft_make_token(char *value, t_type token_type, int len)
 {
 	t_token	*t;
 
-	if (token_type == SING_QUOT || token_type == DOUB_QUOT)
+	if (
+		token_type == SING_QUOT
+		|| token_type == DOUB_QUOT
+		|| token_type == SUB_CMD
+	)
 	{
 		len -= 2;
 		value++;
