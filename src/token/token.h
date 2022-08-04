@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:42 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/03 05:33:28 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 01:29:55 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ struct s_token
 	int		is_list;
 	int		is_filename;
 	int		is_herdoc_expr_list;
+	int		is_valid;
 };
 
 t_token	*ft_new_token(void *value, t_type type);

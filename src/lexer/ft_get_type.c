@@ -6,22 +6,22 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 04:18:46 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/08/01 03:48:08 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 02:47:41 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_lexer.h"
 
-int	check_whitespace(t_lexer *lxr)
+static int	ft_check_whitespace(t_lexer *lxr)
 {
 	int		move;
 	char	*org;
 
 	move = 0;
 	org = (char *)lxr->content;
-	if (*lxr->content == ' ')
+	if (ft_is_whitespace(*lxr->content))
 	{
-		while (*lxr->content == ' ')
+		while (ft_is_whitespace(*lxr->content))
 		{
 			lxr->content++;
 			move++;
@@ -55,8 +55,8 @@ t_type	ft_get_type(t_lexer *lxr)
 {
 	if (*lxr->content == '$')
 		return (ft_var_type(lxr));
-	if (*lxr->content == ' ')
-		return (ft_move_content(lxr, check_whitespace(lxr)), WHITE_SPACE);
+	if (ft_is_whitespace(*lxr->content))
+		return (ft_move_content(lxr, ft_check_whitespace(lxr)), WHITE_SPACE);
 	if (ft_strncmp(lxr->content, "<<", 2) == 0)
 		return (ft_move_content(lxr, 2), SHIFT_LEFT);
 	if (ft_strncmp(lxr->content, ">>", 2) == 0)

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 04:37:24 by fech-cha          #+#    #+#             */
-/*   Updated: 2022/07/04 10:31:12 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 02:48:12 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_type	ft_get_type_of_char(char c)
 {
-	if (c == ' ')
+	if (ft_is_whitespace(c))
 		return (WHITE_SPACE);
 	if (c == '>')
 		return (REDIR_RIGHT);
