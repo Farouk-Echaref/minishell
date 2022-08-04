@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 07:06:02 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 00:15:01 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 02:32:23 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_evaluator_no_fork(t_tree	*tree)
 	ft_init_evaluator_data(&evaluator_data);
 	ft_evaluator_rec(tree, &evaluator_data);
 	command_name = evaluator_data.command[0];
-	if (command_name)
+	if (command_name && evaluator_data.ok)
 		ft_execute(&evaluator_data);
 	else
 		exit(EXIT_SUCCESS);
