@@ -44,6 +44,8 @@
         "errors.h": "c",
         "signal.h": "c",
         "syntax_checker.h": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "cstdlib": "c",
+        "locale": "c"
     }
 }
