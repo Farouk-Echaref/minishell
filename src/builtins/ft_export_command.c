@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 03:19:25 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/04 02:02:32 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 02:56:00 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_sort_print(void)
 	}
 	arr = ft_arr_free(arr);
 }
-
 
 static int	ft_export(char *arg)
 {
