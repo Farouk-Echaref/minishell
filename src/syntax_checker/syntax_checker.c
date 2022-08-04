@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 23:25:09 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 05:43:44 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 01:31:35 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_check_matching(t_token *t)
 {
-	if (ft_strlen(t->value) == 0 && (
+	if (ft_strlen(t->value) < 0 && (
 			t->type == SING_QUOT
 			|| t->type == DOUB_QUOT
 			|| t->type == SUB_CMD
@@ -74,6 +74,8 @@ int	ft_check_syntax(t_list *tokens)
 	while (tokens)
 	{
 		t = ft_get_token(tokens);
+		if (! t->is_valid)
+			return (0);
 		if (ft_check_matching(t) == 0)
 			return (0);
 		if (t->type == EXPRESSION && ft_strchr(t->value, '\\'))

@@ -6,7 +6,7 @@
 /*   By: mzarhou <mzarhou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 21:49:41 by mzarhou           #+#    #+#             */
-/*   Updated: 2022/08/03 05:39:50 by mzarhou          ###   ########.fr       */
+/*   Updated: 2022/08/04 01:30:43 by mzarhou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ static t_token	*ft_make_token(char *value, t_type token_type, int len)
 		value++;
 	}
 	if (len < 0)
-		len = 0;
-	t = ft_new_token(ft_str(value, len), token_type);
+	{
+		t = ft_new_token(ft_str(value, 0), token_type);
+		t->is_valid = 0;
+	}
+	else
+		t = ft_new_token(ft_str(value, len), token_type);
 	return (t);
 }
 
