@@ -1,4 +1,4 @@
-# tests
+# test cases
 ```bash
 ls > > f1
 ```
