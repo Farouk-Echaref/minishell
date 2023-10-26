@@ -1,3 +1,11 @@
+#Minishell
+
+Minishell is a minimalistic Unix shell implementation that offers a fundamental command-line interface to users. What sets this project apart is that it is a ground-up reimagining of the widely-used Bash shell, crafted entirely using the C programming language.
+
+By delving into this project, you can acquire a profound comprehension of shell mechanisms and how they facilitate the execution of intricate commands and the automation of diverse tasks. Additionally, you can explore various shell functionalities, including pipelines and environment variables, and observe how they are implemented within the codebase.
+
+This project serves as a valuable resource for developers seeking to deepen their understanding of shell internals and fortify their grasp of the C programming language. Whether you are a novice or an experienced developer, this project offers opportunities to enrich your knowledge and gain fresh insights into the inner workings of shells.
+
 # test cases
 ```bash
 ls > > f1
