@@ -1,4 +1,4 @@
-#Minishell
+# Minishell
 
 Minishell is a minimalistic Unix shell implementation that offers a fundamental command-line interface to users. What sets this project apart is that it is a ground-up reimagining of the widely-used Bash shell, crafted entirely using the C programming language.
 
